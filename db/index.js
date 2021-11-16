@@ -10,6 +10,10 @@ const {
   getAllProducts,
   deleteProduct,
   getProductByTagName,
+  createTags,
+  getAllTags,
+  createProductTag,
+  addTagsToProduct,
 } = require("/products");
 
 // database methods
