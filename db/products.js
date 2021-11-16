@@ -102,10 +102,21 @@ async function deleteProduct(id){
 
 async function getProductByTagName(tagName){
     try {
-        
-    } catch (error) {
-        
-    }
+        const { rows: productIds } = await client.query(
+          `
+          SELECT products.id
+          FROM products
+          JOIN product_tags ON products.id=product_tags."productId"
+          JOIN tags ON tags.id=product_tags."tagId"
+          WHERE tags.name=$1;
+        `,
+          [tagName]
+        );
+    
+        return await Promise.all(productIds.map((product) => getProductById(product.id)));
+      } catch (error) {
+        throw error;
+      }
 }
 
 module.exports = {
