@@ -65,7 +65,43 @@ async function populateInitialData() {
   try {
     // create useful starting data
 
+    async function createInitialUsers() {
+      try {
+        console.log("Starting to create users...");
+    
+        await createUser({
+          username: "albert",
+          password: "bertie99",
+          userEmail: "joegmail.com",
+          isSeller: "false",
+          isAdmin:"false"
+        });
+        await createUser({
+          username: "sandra",
+          password: "2sandy4me",
+          userEmail: "sandragmail.com",
+          isSeller: "true",
+          isAdmin:"false"
+        });
+        await createUser({
+          username: "glamgal",
+          password: "soglam",
+          userEmail: "glamgmail.com",
+          isSeller: "true",
+          isAdmin:"true"
+        });
+    
+        console.log("Finished creating users!");
+      } catch (error) {
+        console.error("Error creating users!");
+        throw error;
+      }
+    }
+    createInitialUsers()
+
+
     createInitialProducts() 
+
   } catch (error) {
     throw error;
   }
