@@ -21,5 +21,6 @@ const {
 // export
 module.exports = {
   client,
+  ...require("./users"),
   // db methods
 };
