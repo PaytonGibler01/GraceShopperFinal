@@ -35,7 +35,12 @@ module.exports = {
   CreateUser,
   client,
 
+  ...require("./users"),
+  // db methods
+
+
 }
+
 
 };
 
