@@ -15,7 +15,7 @@ const {
   getAllTags,
   createProductTag,
   addTagsToProduct,
-} = require("/products");
+} = require("./products");
 
 // line 13, might need for later, might need quotes around username and password
 async function CreateUser({username, password, userEmail, isSeller, isAdmin }){
@@ -31,11 +31,23 @@ try {
   throw error;
 }}
 
+
+
 module.exports = {
   CreateUser,
   client,
+  createProduct,
+  getProductByName,
+  updateProduct,
+  getAllProducts,
+  deleteProduct,
+  getProductByTagName,
+  createTags,
+  getAllTags,
+  createProductTag,
+  addTagsToProduct,
 
 }
 
-};
+
 
