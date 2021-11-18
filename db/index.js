@@ -1,12 +1,16 @@
 // Connect to DB
 const { Client } = require("pg");
-// const DB_NAME = "grace-shopper-db";
-// const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgres://localhost:5432/grace-shopper-db'
-const client = new Client({CONNECTION_STRING});
+const DB_NAME = "grace-shopper-db";
+const DB_URL = process.env.DATABASE_URL || `postgres://postgres@localhost:5432/${DB_NAME}`;
 
-// const client = new Client(DB_URL);
+const client = new Client({
+  connectionString: DB_URL,
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : undefined,
+});
 
 const {
   createProduct,
@@ -66,8 +70,8 @@ async function createInitialUsers() {
 
 async function createInitialProducts() {
   try {
-    console.log("Starting to create users...");
-    // name, description, price, image, sellerName
+    console.log("Starting to create products...");
+
     await createProduct({
       name: "Event Horizon",
       description:
@@ -95,16 +99,12 @@ async function createInitialProducts() {
       sellerName: "Weyland-Yutani Corporation",
     });
 
-
-
-
-     console.log("Finished creating products!");
+    console.log("Finished creating products!");
   } catch (error) {
     console.error("Error creating products!");
     throw error;
   }
 }
-
 
 module.exports = {
   createInitialUsers,

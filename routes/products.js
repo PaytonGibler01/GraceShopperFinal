@@ -11,6 +11,7 @@ productsRouter.use("/", async (req, res, next) => {
   });
 
 
+
 productsRouter.get("/", async (req, res, next) => {
     console.log("Get Request was made to /products")
     const products = await getAllProducts()
@@ -20,27 +21,26 @@ productsRouter.get("/", async (req, res, next) => {
   next()
 });
 
+
 productsRouter.get("/reviews", async (req, res, next) => {
     console.log("Request was made to /products/reviews")
+
     const productsReviews = await getAllProductReviews()
   res.send({
      productsReviews
   });
   next()
 });
+
 productsRouter.get("/tags", async (req, res, next) => {
     console.log("Request was made to /products/tags")
+
     const productsTags = await getAllProductTags()
   res.send({
      productsTags
   });
   next()
 });
-//  product_reviews;
-//  reviews;
-//  product_tags;
-//  tags;
-//  products;
-//  users;
+
 
 module.exports = productsRouter;
