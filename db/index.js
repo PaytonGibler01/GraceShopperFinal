@@ -16,20 +16,10 @@ const {
   createProductTag,
   addTagsToProduct,
 } = require("./products");
+const {getAllUsers} = require('./users')
 
 // line 13, might need for later, might need quotes around username and password
-async function CreateUser({username, password, userEmail, isSeller, isAdmin }){
-try {
-  const { rows:[user], } = await client.query(`
-      INSERT INTO users(username, password, "userEmail", "isSeller", "isAdmin") 
-      VALUES($1, $2, $3, $4, $5) 
-      ON CONFLICT (username) DO NOTHING 
-      RETURNING *;
-  `,[username, password, userEmail, isSeller, isAdmin])
-  return user
-} catch (error) {
-  throw error;
-}}
+
 
 
 
@@ -46,6 +36,7 @@ module.exports = {
   getAllTags,
   createProductTag,
   addTagsToProduct,
+  getAllUsers,
 
 }
 
