@@ -10,20 +10,20 @@ productsRouter.use("/products", (req, res, next) => {
   });
 
 
-productsRouter.get("/products", (req, res, next) => {
+productsRouter.get("/products", async (req, res, next) => {
     const products = await getAllProducts()
   res.send({
      products
   });
 });
 
-productsRouter.get("/products/reviews", (req, res, next) => {
+productsRouter.get("/products/reviews", async (req, res, next) => {
     const productsReviews = await getAllProductReviews()
   res.send({
      productsReviews
   });
 });
-productsRouter.get("/products/tags", (req, res, next) => {
+productsRouter.get("/products/tags", async (req, res, next) => {
     const productsTags = await getAllProductTags()
   res.send({
      productsTags
