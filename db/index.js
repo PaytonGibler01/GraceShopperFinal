@@ -38,7 +38,12 @@ module.exports = {
   addTagsToProduct,
   getAllUsers,
 
+  ...require("./users"),
+  // db methods
+
+
 }
+
 
 
 
