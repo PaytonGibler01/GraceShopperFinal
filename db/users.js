@@ -1,23 +1,29 @@
-const client = require("./client");
+const client = require("./index");
 
 async function createUser({
   username,
   password,
-  name,
-  location
+  userEmail,
+  isSeller,
+  isAdmin,
 }) {
   try {
-    const { rows: [ user ] } = await client.query(`
-      INSERT INTO users(username, password, name, location)
-      VALUES($1, $2, $3, $4)
-      ON CONFLICT (username) DO NOTHING
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      INSERT INTO users(username, password, "userEmail", "isSeller", "isAdmin") 
+      VALUES($1, $2, $3, $4, $5) 
+      ON CONFLICT (username) DO NOTHING 
       RETURNING *;
-    `, [username, password, name, location]);
+  `,
+      [username, password, userEmail, isSeller, isAdmin]
+    );
     return user;
   } catch (error) {
     throw error;
   }
-};
+}
 
 async function getUser({ username, password }) {
   if (!username || !password) {
