@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require("./index");
 
 async function createTags(tagList) {
   if (tagList.length === 0 || !tagList) {
