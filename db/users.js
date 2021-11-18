@@ -1,5 +1,6 @@
 const client = require("./index");
 
+
 async function createUser({
   username,
   password,
@@ -97,3 +98,4 @@ module.exports = {
     getUserById,
     getUserByUsername
 }
+

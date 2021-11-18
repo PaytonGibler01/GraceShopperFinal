@@ -91,12 +91,16 @@ async function createInitialProducts() {
       sellerName: "Weyland-Yutani Corporation",
     });
 
-    console.log("Finished creating products!");
+
+
+
+     console.log("Finished creating products!");
   } catch (error) {
     console.error("Error creating products!");
     throw error;
   }
 }
+
 
 module.exports = {
   createInitialUsers,
