@@ -1,6 +1,7 @@
 const apiRouter = require('express').Router();
 
 apiRouter.get("/", (req, res, next) => {
+  console.log("Request was made to /")
   res.send({
     message: "API is under construction!"
   });

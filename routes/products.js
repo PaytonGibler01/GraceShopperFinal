@@ -1,7 +1,8 @@
 const productsRouter = require('express').Router();
 const { getAllProducts, getAllProductReviews, getAllProductTags } = require ('../db')
 
-productsRouter.use("/products", (req, res, next) => {
+productsRouter.use("/", async (req, res, next) => {
+    console.log("Request was made to /products")
     res.send({
         message: "Products is under construction"
     });
@@ -10,30 +11,36 @@ productsRouter.use("/products", (req, res, next) => {
   });
 
 
-productsRouter.get("/products", async (req, res, next) => {
+
+productsRouter.get("/", async (req, res, next) => {
+    console.log("Get Request was made to /products")
     const products = await getAllProducts()
   res.send({
      products
   });
+  next()
 });
 
-productsRouter.get("/products/reviews", async (req, res, next) => {
+
+productsRouter.get("/reviews", async (req, res, next) => {
+    console.log("Request was made to /products/reviews")
+
     const productsReviews = await getAllProductReviews()
   res.send({
      productsReviews
   });
+  next()
 });
-productsRouter.get("/products/tags", async (req, res, next) => {
+
+productsRouter.get("/tags", async (req, res, next) => {
+    console.log("Request was made to /products/tags")
+
     const productsTags = await getAllProductTags()
   res.send({
      productsTags
   });
+  next()
 });
-//  product_reviews;
-//  reviews;
-//  product_tags;
-//  tags;
-//  products;
-//  users;
+
 
 module.exports = productsRouter;
