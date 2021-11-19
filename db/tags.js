@@ -51,7 +51,7 @@ async function createProductTag(productId, tagId) {
   try {
     await client.query(
       `
-    INSERT INTO post_tags("postId", "tagId")
+    INSERT INTO product_tags("productId", "tagId")
     VALUES ($1, $2)
     ON CONFLICT ("productId", "tagId") DO NOTHING;
     `,

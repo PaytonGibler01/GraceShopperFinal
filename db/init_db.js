@@ -1,8 +1,12 @@
 // code to build and initialize DB goes here
 const {
-  client
-  // other db methods 
-} = require('./index');
+  client,
+  createInitialProducts,
+  createInitialReviews,
+  createInitialUsers,
+  createInitialTags,
+  // other db methods
+} = require("./index");
 
 async function buildTables() {
   try {
@@ -15,7 +19,7 @@ async function buildTables() {
     DROP TABLE IF EXISTS tags;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
-    `)
+    `);
     // drop tables in correct order
 
     // build tables in correct order
@@ -46,16 +50,16 @@ async function buildTables() {
         UNIQUE("productId", "tagId")
       );
       CREATE TABLE reviews (
-        id SERIAL PRIMARY KEY
+        id SERIAL PRIMARY KEY,
         title VARCHAR(255) UNIQUE NOT NULL,
-        comment VARCHAR(255) UNIQUE NOT NULL
+        content VARCHAR(255) UNIQUE NOT NULL
       );
       CREATE TABLE product_reviews (
-        "productId" INTEGER REFERENCES products(id)
-        "reviewId" INTEGER REFERENCES reviews(id)
+        "productId" INTEGER REFERENCES products(id),
+        "reviewId" INTEGER REFERENCES reviews(id),
         UNIQUE("productId", "reviewId")
       )
-    `)
+    `);
   } catch (error) {
     throw error;
   }
@@ -63,10 +67,14 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
+    
+    
     // create useful starting data
-    createInitialUsers()
-    createInitialProducts() 
-
+    buildTables()
+    createInitialUsers();
+    createInitialProducts();
+    createInitialTags();
+    createInitialReviews();
   } catch (error) {
     throw error;
   }
