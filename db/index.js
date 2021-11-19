@@ -2,14 +2,15 @@
 const { Client } = require("pg");
 
 const DB_NAME = "grace-shopper-db";
-const DB_URL = process.env.DATABASE_URL || `postgres://postgres@localhost:5432/${DB_NAME}`;
+const DB_URL =
+  process.env.DATABASE_URL || `postgres://postgres@localhost:5432/${DB_NAME}`;
 
 const client = new Client({
   connectionString: DB_URL,
   ssl:
     process.env.NODE_ENV === "production"
       ? { rejectUnauthorized: false }
-      : undefined,
+      : undefined
 });
 
 const {
@@ -34,6 +35,8 @@ const {
   getUserById,
   getUserByUsername,
 } = require("./users");
+
+const { createReview } = require("./reviews");
 
 async function createInitialUsers() {
   try {
@@ -106,8 +109,61 @@ async function createInitialProducts() {
   }
 }
 
+async function createInitialReviews() {
+  try {
+    console.log("Starting to create reviews...");
+
+    const reviewOne = await createReview({
+      title: "Test",
+      content: "This is only a test"
+    });
+    const reviewTwo = await createReview({
+      title: "",
+      content: ""
+    });
+    const reviewThree = await createReview({
+      title: "",
+      content: ""
+    });
+    
+    const [postOne, postTwo, postThree] = await getAllProducts();
+
+      await addReviewsToProduct(postOne.id, reviewOne);
+      await addReviewsToProduct(postThree.id, reviewThree);
+      await addReviewsToProduct(postTwo.id, reviewTwo);
+
+    console.log("Finished creating reviews!")
+  } catch(error){
+    console.error("Error creating reviews!", error)
+  }}
+
+  async function createInitialTags() {
+    try {
+      console.log("Starting to create tags...");
+  
+      const [happy, sad, inspo, catman] = await createTags([
+              "#happy",
+              "#worst-day-ever",
+              "#youcandoanything",
+              "#catmandoeverything",
+            ]);
+
+
+            const [postOne, postTwo, postThree] = await getAllProducts();
+
+                await addTagsToProduct(postOne.id, [happy, inspo]);
+                await addTagsToProduct(postTwo.id, [sad, inspo]);
+                await addTagsToProduct(postThree.id, [happy, catman, inspo]);
+      console.log("Finished creating tags!")
+    } catch(error){
+      console.error("Error creating tags!", error)
+    }}
+
+
 module.exports = {
+  client,
   createInitialUsers,
   createInitialProducts,
-  client,
+  createInitialReviews,
+  createInitialTags,
 };
