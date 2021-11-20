@@ -1,5 +1,7 @@
 const client = require("./client")
 
+const {getProductById} = require("./products")
+
 async function createTags(tagList) {
   if (tagList.length === 0 || !tagList) {
     return;
