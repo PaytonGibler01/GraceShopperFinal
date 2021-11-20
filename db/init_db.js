@@ -1,13 +1,17 @@
 // code to build and initialize DB goes here
+const client = require("./client");
+
 const {
-  client
-  // other db methods 
-} = require('./index');
+  createInitialProducts,
+  createInitialReviews,
+  createInitialUsers,
+  createInitialTags,
+  // other db methods
+} = require("./index");
 
 async function buildTables() {
   try {
     client.connect();
-
     await client.query(`
     DROP TABLE IF EXISTS product_reviews;
     DROP TABLE IF EXISTS reviews;
@@ -15,7 +19,7 @@ async function buildTables() {
     DROP TABLE IF EXISTS tags;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
-    `)
+    `);
     // drop tables in correct order
 
     // build tables in correct order
@@ -34,7 +38,7 @@ async function buildTables() {
         description VARCHAR(255) UNIQUE NOT NULL,
         image VARCHAR(255) UNIQUE NOT NULL,
         "sellerName" VARCHAR(255) NOT NULL,
-        price INTEGER NOT NULL
+        price BIGINT NOT NULL
       );
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
@@ -46,16 +50,16 @@ async function buildTables() {
         UNIQUE("productId", "tagId")
       );
       CREATE TABLE reviews (
-        id SERIAL PRIMARY KEY
+        id SERIAL PRIMARY KEY,
         title VARCHAR(255) UNIQUE NOT NULL,
-        comment VARCHAR(255) UNIQUE NOT NULL
+        content VARCHAR(255) UNIQUE NOT NULL
       );
       CREATE TABLE product_reviews (
-        "productId" INTEGER REFERENCES products(id)
-        "reviewId" INTEGER REFERENCES reviews(id)
+        "productId" INTEGER REFERENCES products(id),
+        "reviewId" INTEGER REFERENCES reviews(id),
         UNIQUE("productId", "reviewId")
       )
-    `)
+    `);
   } catch (error) {
     throw error;
   }
@@ -64,15 +68,16 @@ async function buildTables() {
 async function populateInitialData() {
   try {
     // create useful starting data
-    createInitialUsers()
-    createInitialProducts() 
-
+    await buildTables();
+    await createInitialUsers();
+    await createInitialProducts();
+    await createInitialTags();
+    await createInitialReviews();
   } catch (error) {
     throw error;
   }
 }
 
-buildTables()
-  .then(populateInitialData)
+populateInitialData()
   .catch(console.error)
   .finally(() => client.end());

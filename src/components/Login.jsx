@@ -1,6 +1,6 @@
 // import React, { useState, useEffect } from "react";
 // import { NavLink } from "react-router-dom";
-// import { loginUser } from "../db";
+// import { loginUser } from "../api";
 // import { storeToken, storeUser } from "../auth";
 
 // const Login = ({ setIsLoading, setLoggedIn, username, setUsername }) => {

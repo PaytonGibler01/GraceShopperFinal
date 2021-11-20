@@ -1,5 +1,4 @@
-const { client } = require('../db');
-console.log(client,"users !!!!!!!!!!!!!!!!!!!!!!")
+const client = require("./client")
 
 async function createUser({
   username,

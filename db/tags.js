@@ -1,4 +1,6 @@
-const client = require("./index");
+const client = require("./client")
+
+const {getProductById} = require("./products")
 
 async function createTags(tagList) {
   if (tagList.length === 0 || !tagList) {
@@ -51,7 +53,7 @@ async function createProductTag(productId, tagId) {
   try {
     await client.query(
       `
-    INSERT INTO post_tags("postId", "tagId")
+    INSERT INTO product_tags("productId", "tagId")
     VALUES ($1, $2)
     ON CONFLICT ("productId", "tagId") DO NOTHING;
     `,

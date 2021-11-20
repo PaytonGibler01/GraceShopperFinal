@@ -1,4 +1,4 @@
-const client = require("./index");
+const client = require("./client")
 
 async function createProduct({ name, description, price, image, sellerName }) {
   try {
@@ -125,5 +125,6 @@ module.exports = {
   updateProduct,
   getAllProducts,
   deleteProduct,
-  getProductByTagName
+  getProductByTagName,
+  getProductById
 };

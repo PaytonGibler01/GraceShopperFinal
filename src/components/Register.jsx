@@ -1,6 +1,6 @@
 // import React, { useState, useEffect } from "react";
 // import { NavLink } from "react-router-dom";
-// import { registerUser } from "../db";
+// import { registerUser } from "../api";
 // import { storeToken, storeUser } from "../auth";
 
 // const Register = ({ setIsLoading, setLoggedIn }) => {
