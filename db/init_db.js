@@ -1,6 +1,7 @@
 // code to build and initialize DB goes here
+const client = require("./client")
+
 const {
-  client,
   createInitialProducts,
   createInitialReviews,
   createInitialUsers,
@@ -8,9 +9,9 @@ const {
   // other db methods
 } = require("./index");
 
+client.connect();
 async function buildTables() {
   try {
-    client.connect();
 
     await client.query(`
     DROP TABLE IF EXISTS product_reviews;
@@ -38,7 +39,7 @@ async function buildTables() {
         description VARCHAR(255) UNIQUE NOT NULL,
         image VARCHAR(255) UNIQUE NOT NULL,
         "sellerName" VARCHAR(255) NOT NULL,
-        price INTEGER NOT NULL
+        price BIGINT NOT NULL
       );
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
@@ -67,8 +68,6 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
-    
-    
     // create useful starting data
     buildTables()
     createInitialUsers();
@@ -80,7 +79,6 @@ async function populateInitialData() {
   }
 }
 
-buildTables()
-  .then(populateInitialData)
+populateInitialData()
   .catch(console.error)
   .finally(() => client.end());
