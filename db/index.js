@@ -11,7 +11,8 @@ const client = new Client({
       ? { rejectUnauthorized: false }
       : undefined,
 });
-
+client.connect()
+// console.log(client)
 const {
   createProduct,
   getProductByName,
@@ -33,6 +34,7 @@ const {
   getUser,
   getUserById,
   getUserByUsername,
+  getAllUsers
 } = require("./users");
 
 async function createInitialUsers() {
@@ -110,4 +112,5 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   client,
+  getAllUsers
 };

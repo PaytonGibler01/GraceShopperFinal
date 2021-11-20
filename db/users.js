@@ -1,5 +1,5 @@
-const client = require("./index");
-
+const { client } = require('../db');
+console.log(client,"users !!!!!!!!!!!!!!!!!!!!!!")
 
 async function createUser({
   username,
@@ -25,7 +25,18 @@ async function createUser({
     throw error;
   }
 }
+async function getAllUsers() {
+  try {
+    const { rows } = await client.query(`
+      SELECT id, username, password, "userEmail", "isSeller", "isAdmin"
+      FROM users;
+    `);
 
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 async function getUser({ username, password }) {
   if (!username || !password) {
     return;
@@ -96,6 +107,7 @@ module.exports = {
     createUser,
     getUser,
     getUserById,
-    getUserByUsername
+    getUserByUsername,
+    getAllUsers
 }
 

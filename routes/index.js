@@ -1,5 +1,6 @@
 const apiRouter = require('express').Router();
 
+
 apiRouter.get("/", (req, res, next) => {
   console.log("Request was made to /")
   res.send({
@@ -8,8 +9,10 @@ apiRouter.get("/", (req, res, next) => {
   next()
 });
 
+
 const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
+
 
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);

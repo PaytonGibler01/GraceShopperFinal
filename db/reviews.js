@@ -1,4 +1,4 @@
-const { Client } = require('pg');
+const { client } = require('./index');
 const { products } = require('./products');
 const { tags, addTagsToProduct } = require('./tags');
 

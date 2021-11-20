@@ -10,7 +10,7 @@ usersRouter.use("/", (req, res, next) => {
     next()
   });
 
-
+//users
   usersRouter.get("/", async (req, res, next) => {
     console.log("Request was made to /users")
     const users = await getAllUsers()
@@ -20,7 +20,7 @@ usersRouter.use("/", (req, res, next) => {
   next()
 });
 
-//login
+//api/users/login
 usersRouter.post('/login', async (req, res, next)=>{
     console.log("Request was made to /login")
     const { username, password } = req.body;
@@ -52,7 +52,7 @@ usersRouter.post('/login', async (req, res, next)=>{
         next(error);
       }
     });
-// Register
+//api/users/register
 usersRouter.post('/register', async (req, res, next)=>{
     console.log("Request was made to /register")
     const { username, password } = req.body;
