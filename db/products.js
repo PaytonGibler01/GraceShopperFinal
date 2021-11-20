@@ -125,5 +125,6 @@ module.exports = {
   updateProduct,
   getAllProducts,
   deleteProduct,
-  getProductByTagName
+  getProductByTagName,
+  getProductById
 };

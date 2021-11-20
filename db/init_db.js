@@ -1,5 +1,5 @@
 // code to build and initialize DB goes here
-const client = require("./client")
+const client = require("./client");
 
 const {
   createInitialProducts,
@@ -9,10 +9,9 @@ const {
   // other db methods
 } = require("./index");
 
-client.connect();
 async function buildTables() {
   try {
-
+    client.connect();
     await client.query(`
     DROP TABLE IF EXISTS product_reviews;
     DROP TABLE IF EXISTS reviews;
@@ -69,11 +68,11 @@ async function buildTables() {
 async function populateInitialData() {
   try {
     // create useful starting data
-    buildTables()
-    createInitialUsers();
-    createInitialProducts();
-    createInitialTags();
-    createInitialReviews();
+    await buildTables();
+    await createInitialUsers();
+    await createInitialProducts();
+    await createInitialTags();
+    await createInitialReviews();
   } catch (error) {
     throw error;
   }
