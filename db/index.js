@@ -1,17 +1,5 @@
 // Connect to DB
-const { Client } = require("pg");
-
-const DB_NAME = "grace-shopper-db";
-const DB_URL =
-  process.env.DATABASE_URL || `postgres://postgres@localhost:5432/${DB_NAME}`;
-
-const client = new Client({
-  connectionString: DB_URL,
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : undefined
-});
+const client = require("./client")
 
 const {
   createProduct,
@@ -118,12 +106,12 @@ async function createInitialReviews() {
       content: "This is only a test"
     });
     const reviewTwo = await createReview({
-      title: "",
-      content: ""
+      title: "Second Test",
+      content: "Another test"
     });
     const reviewThree = await createReview({
-      title: "",
-      content: ""
+      title: "Third Test",
+      content: "Final Test"
     });
     
     const [postOne, postTwo, postThree] = await getAllProducts();
