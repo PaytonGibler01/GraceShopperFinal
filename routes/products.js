@@ -1,5 +1,5 @@
 const productsRouter = require('express').Router();
-const { getAllProducts, getAllProductReviews, getAllProductTags } = require ('../db')
+const { getAllProducts, getAllProductReviews, getAllProductTags } = require('../db/products')
 
 productsRouter.use("/", async (req, res, next) => {
     console.log("Request was made to /products")

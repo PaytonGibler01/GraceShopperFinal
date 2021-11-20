@@ -1,5 +1,5 @@
 const usersRouter = require('express').Router();
-const { getAllUsers, getUserByUsername } = require('../db') //MAKE THESE FUNCTIONS
+const { getAllUsers, getUserByUsername } = require('../db/users') //MAKE THESE FUNCTIONS
 const jwt = require("jsonwebtoken");
 
 usersRouter.use("/", (req, res, next) => {

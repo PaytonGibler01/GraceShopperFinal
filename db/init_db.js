@@ -13,7 +13,6 @@ async function buildTables() {
   try {
     client.connect();
     await client.query(`
-    DROP TABLE IF EXISTS product_reviews;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;
@@ -45,20 +44,17 @@ async function buildTables() {
         name VARCHAR(255) UNIQUE NOT NULL
       );
       CREATE TABLE product_tags(
-        "productId" INTEGER REFERENCEs products(id),
+        "productId" INTEGER REFERENCES products(id),
         "tagId" INTEGER REFERENCES tags(id),
         UNIQUE("productId", "tagId")
       );
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
         title VARCHAR(255) UNIQUE NOT NULL,
         content VARCHAR(255) UNIQUE NOT NULL
       );
-      CREATE TABLE product_reviews (
-        "productId" INTEGER REFERENCES products(id),
-        "reviewId" INTEGER REFERENCES reviews(id),
-        UNIQUE("productId", "reviewId")
-      )
+    
     `);
   } catch (error) {
     throw error;

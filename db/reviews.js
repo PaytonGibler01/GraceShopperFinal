@@ -81,15 +81,38 @@ async function createProductReview(productId, reviewId) {
   }
 }
 
-async function addReviewsToProduct(productId, reviewList) {
-  try {
-    console.log(reviewList)
-    await Promise.all(createProductReviewPromises);
-    return await getProductById(productId);
-  } catch (error) {
-    throw error;
-  }
-}
+// async function addReviewsToProduct(products) {
+//     const productsToReturn = [...products];
+//     const binds = products.map((_, index) => `$${index + 1}`).join(", ");
+//     const productIds = products.map((product) => product.id);
+//     if (!productIds?.length) return;
+//   try {
+//     const { rows: reviews } = await client.query(
+//                 `
+//                   SELECT reviews.*, product_reviews."productId", product_reviews."reviewId"
+//                   FROM 
+//                   JOIN routine_activities ON routine_activities."activityId" = activities.id
+//                   WHERE routine_activities."routineId" IN (${binds});
+//                 `,
+//                 productIds
+//               );
+//               // loop over the routines
+//               for (const product of productsToReturn) {
+//                 // filter the activities to only include those that have this routineId
+//                 const reviewsToAdd = reviews.filter(
+//                   (review) => review.productId === product.id
+//                 );
+//                 // attach the activities to each single routine
+//                //product.reviews = reviewsToAdd;
+//               }
+//               return productsToReturn;
+//     // console.log(reviewList)
+//     // await Promise.all(createProductReviewPromises);
+//     // return await getProductById(productId);
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 async function deleteReview(id) {
   try {
