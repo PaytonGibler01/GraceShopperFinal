@@ -106,6 +106,7 @@ async function deleteReview(id) {
 
 module.exports = {
   createReview,
+  createProductReview,
   getReviewByProductId,
   getAllReviewsByProductId,
   addReviewsToProduct,
