@@ -115,24 +115,27 @@ async function createInitialReviews() {
   try {
     console.log("Starting to create reviews...");
 
-    const reviewOne = await createReview({
+    await createReview({
       title: "Test",
-      content: "This is only a test"
+      content: "This is only a test",
+      productId: 1
     });
-    const reviewTwo = await createReview({
+    await createReview({
       title: "Second Test",
-      content: "Another test"
+      content: "Another test",
+      productId: 2
     });
-    const reviewThree = await createReview({
+    await createReview({
       title: "Third Test",
-      content: "Final Test"
+      content: "Final Test",
+      productId: 3
     });
     
-    const [postOne, postTwo, postThree] = await getAllProducts();
+    // const [postOne, postTwo, postThree] = await getAllProducts();
 
-      await addReviewsToProduct(postOne.id, reviewOne);
-      await addReviewsToProduct(postThree.id, reviewThree);
-      await addReviewsToProduct(postTwo.id, reviewTwo);
+    //   await addReviewsToProduct(postOne.id, reviewOne);
+    //   await addReviewsToProduct(postThree.id, reviewThree);
+    //   await addReviewsToProduct(postTwo.id, reviewTwo);
 
     console.log("Finished creating reviews!")
   } catch(error){
