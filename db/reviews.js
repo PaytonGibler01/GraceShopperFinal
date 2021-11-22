@@ -131,6 +131,6 @@ module.exports = {
   createReview,
   getReviewByProductId,
   getAllReviewsByProductId,
-  addReviewsToProduct,
+  createProductReview,
   deleteReview,
 };
