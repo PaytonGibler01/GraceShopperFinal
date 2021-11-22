@@ -1,4 +1,4 @@
-const client = require("./client")
+const client = require("./client");
 
 const {
   createProduct,
@@ -7,21 +7,23 @@ const {
   getAllProducts,
   deleteProduct,
   getProductByTagName,
+  getProductById,
 } = require("./products");
 const { createTags, addTagsToProduct } = require("./tags");
 
-async function createReview({ title, content}) {
+async function createReview({ title, content, productId }) {
   try {
+
     const {
       rows: [review],
     } = await client.query(
-      ` INSERT INTO reviews(title, content)
-            VALUES($1, $2)
+      ` INSERT INTO reviews(title, content, "productId")
+            VALUES($1, $2, $3)
             RETURNING *;
             `,
-      [title, content]
+      [title, content, productId]
     );
-        return review
+    return review;
   } catch (error) {
     console.log(error);
   }
@@ -66,54 +68,6 @@ async function getAllReviewsByProductId(productId) {
   }
 }
 
-async function createProductReview(productId, reviewId) {
-  try {
-    await client.query(
-      `
-      INSERT INTO product_reviews("productId", "reviewId")
-      VALUES ($1, $2)
-      ON CONFLICT ("productId", "reviewId") DO NOTHING;
-      `,
-      [productId, reviewId]
-    );
-  } catch (error) {
-    throw error;
-  }
-}
-
-// async function addReviewsToProduct(products) {
-//     const productsToReturn = [...products];
-//     const binds = products.map((_, index) => `$${index + 1}`).join(", ");
-//     const productIds = products.map((product) => product.id);
-//     if (!productIds?.length) return;
-//   try {
-//     const { rows: reviews } = await client.query(
-//                 `
-//                   SELECT reviews.*, product_reviews."productId", product_reviews."reviewId"
-//                   FROM 
-//                   JOIN routine_activities ON routine_activities."activityId" = activities.id
-//                   WHERE routine_activities."routineId" IN (${binds});
-//                 `,
-//                 productIds
-//               );
-//               // loop over the routines
-//               for (const product of productsToReturn) {
-//                 // filter the activities to only include those that have this routineId
-//                 const reviewsToAdd = reviews.filter(
-//                   (review) => review.productId === product.id
-//                 );
-//                 // attach the activities to each single routine
-//                //product.reviews = reviewsToAdd;
-//               }
-//               return productsToReturn;
-//     // console.log(reviewList)
-//     // await Promise.all(createProductReviewPromises);
-//     // return await getProductById(productId);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
 async function deleteReview(id) {
   try {
     await client.query(
@@ -131,6 +85,6 @@ module.exports = {
   createReview,
   getReviewByProductId,
   getAllReviewsByProductId,
-  createProductReview,
+  addReviewsToProduct,
   deleteReview,
 };
