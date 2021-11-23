@@ -25,6 +25,7 @@ async function buildTables() {
     // drop tables in correct order
     console.log("Finished dropped tables!");
 
+
     console.log("Building tables.");
     // build tables in correct order
     await client.query(`

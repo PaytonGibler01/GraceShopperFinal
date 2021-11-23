@@ -6,19 +6,29 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { Header } from '.';
-import { getAllProducts } from '../../db/products';
-import {NavBar, Header, Login, Products,Register,Users} from './components'
+
+import { getProducts } from '../api';
+import {NavBar, Header, Login, Products,Register,Users} from './'
 const App = async () => {
   const [products, setProducts] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  useEffect(() => {
-    const data = await getAllProducts()
+  useEffect( async () => {
+    const data = await getProducts()
     setProducts(data)
-    console.log(data,"useEffect getAllProducts")
-  });
+    console.log(products,"useEffect getAllProducts")
+  }, []);
 
+  // const getDbProducts = async () => {
+  //   const data = await getProducts();
+  //   setProducts(data);
+  //   console.log(products,"useEffect getAllProducts")
+  // };
+
+  // useEffect(() => {
+  //   getDbProducts()
+  //   // isUserLoggedIn();
+  // }, []);
   return (
     
     <div className="App">
