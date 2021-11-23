@@ -12,9 +12,10 @@ const {
 async function buildTables() {
   try {
     client.connect();
-    console.log("Dropping tables!")
+    console.log("Dropping tables!");
     await client.query(`
-    DROP TABLE IF EXISTS product_reviews;
+    DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;
@@ -22,10 +23,11 @@ async function buildTables() {
     DROP TABLE IF EXISTS users;
     `);
     // drop tables in correct order
-console.log("Finished dropped tables!")
+    console.log("Finished dropped tables!");
 
-console.log("Building tables.")
-    // build tables in correct order/// 
+
+    console.log("Building tables.");
+    // build tables in correct order
     await client.query(`
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
@@ -58,11 +60,20 @@ console.log("Building tables.")
         title VARCHAR(255) NOT NULL,
         content VARCHAR(255) NOT NULL
       );
-    
+    CREATE TABLE cart (
+      id SERIAL PRIMARY KEY,
+      "cartOwner" VARCHAR(255) REFERENCES users(username),
+      "itemId" INTEGER REFERENCES products(id)
+    );
+    CREATE TABLE orders (
+      id SERIAL PRIMARY KEY,
+      "orderStatus" BOOLEAN DEFAULT 'false',
+      owner VARCHAR(255) REFERENCES users(username),
+      "cartId" INTEGER REFERENCES cart(id)
+    );
     `);
 
-    console.log("Finished building tables!")
-
+    console.log("Finished building tables!");
   } catch (error) {
     throw error;
   }
