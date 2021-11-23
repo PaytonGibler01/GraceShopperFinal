@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 
 usersRouter.use("/", (req, res, next) => {
     console.log("Request was made to /users")
-    res.send({
-        message: "Users is under construction"
-    });
+    // res.send({
+    //     message: "Users is under construction"
+    // });
     next()
   });
 

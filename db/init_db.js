@@ -14,6 +14,7 @@ async function buildTables() {
     client.connect();
     console.log("Dropping tables!")
     await client.query(`
+    DROP TABLE IF EXISTS product_reviews;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;
@@ -24,7 +25,7 @@ async function buildTables() {
 console.log("Finished dropped tables!")
 
 console.log("Building tables.")
-    // build tables in correct order
+    // build tables in correct order/// 
     await client.query(`
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
