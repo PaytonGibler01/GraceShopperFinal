@@ -14,6 +14,7 @@ async function buildTables() {
     client.connect();
     console.log("Dropping tables!")
     await client.query(`
+    DROP TABLE IF EXISTS product_reviews;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;

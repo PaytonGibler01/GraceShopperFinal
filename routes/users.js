@@ -52,6 +52,8 @@ usersRouter.post('/login', async (req, res, next)=>{
         next(error);
       }
     });
+
+  
 //api/users/register
 usersRouter.post('/register', async (req, res, next)=>{
     console.log("Request was made to /register")
