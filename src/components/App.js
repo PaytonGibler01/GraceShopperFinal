@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { getProducts } from '../api';
+import { getProducts } from '../api/products';
 import {NavBar, Header, Login, Products,Register,Users} from './'
 const App = async () => {
   const [products, setProducts] = useState([])
