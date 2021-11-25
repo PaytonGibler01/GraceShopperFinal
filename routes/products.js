@@ -1,11 +1,11 @@
 const productsRouter = require('express').Router();
-const { getAllProducts, getAllProductReviews, getAllProductTags } = require('../db/products')
+const {getAllProductReviews, getAllProductTags, getAllProducts } = require('../db/products')
 
 productsRouter.use("/", async (req, res, next) => {
     console.log("Request was made to /products")
-    res.send({
-        message: "Products is under construction"
-    });
+    // res.send({
+    //     message: "Products is under construction"
+    // });
     console.log("A request is being made to /posts");
     next()
   });

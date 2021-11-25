@@ -2,7 +2,7 @@
 // import { SingleProducts } from ".";
 // import { Link } from "react-router-dom";
 
-// // Daniel destructured allPosts
+// 
 // const Products = ({ allProducts }) => {
 //   return (
 //     <div className="products-main-container">
