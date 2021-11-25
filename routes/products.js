@@ -6,7 +6,6 @@ productsRouter.use("/", async (req, res, next) => {
     // res.send({
     //     message: "Products is under construction"
     // });
-    console.log("A request is being made to /posts");
     next()
   });
 

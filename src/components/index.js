@@ -1,6 +1,6 @@
 export { default as App } from './App';
 export {default as Header } from './Header';
-export {default as Users } from './Users';
+export {default as Users } from './Profile';
 export {default as Products } from './Products';
 export {default as SingleProducts } from './SingleProducts';
 export {default as NavBar } from './NavBar';
@@ -8,3 +8,5 @@ export {default as Register } from './Register';
 export {default as Login } from './Login';
 export {default as SingleProductsPage } from './SingleProductsPage';
 export {default as SearchBar } from './SearchBar';
+export {default as Profile } from './Profile';
+export {default as Home } from './Home';

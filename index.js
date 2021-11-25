@@ -1,7 +1,8 @@
 // This is the Web Server
+const cors = require('cors')
 const express = require('express');
 const server = express();
-
+server.use(cors())
 // create logs for everything
 const morgan = require('morgan');
 server.use(morgan('dev'));
