@@ -7,16 +7,16 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { getProducts } from '../api/products';
+// import { getProducts } from '../api/products';
 import {NavBar, Header, Login, Products,Register,Users} from './'
 const App = async () => {
   const [products, setProducts] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect( async () => {
-    const data = await getProducts()
-    setProducts(data)
-    console.log(products,"useEffect getAllProducts")
+    // const data = await getProducts()
+    // setProducts(data)
+    // console.log(products,"useEffect getAllProducts")
   }, []);
 
   // const getDbProducts = async () => {
