@@ -11,6 +11,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
       <Link className="navbar-link" to="/____">
         ____
       </Link>
+      <h1>Hello world</h1>
     </div>)}
 
 export default NavBar;
