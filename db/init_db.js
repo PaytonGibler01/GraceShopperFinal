@@ -64,13 +64,8 @@ async function buildTables() {
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
       "cartOwner" VARCHAR(255) REFERENCES users(username),
-      "itemId" INTEGER REFERENCES products(id)
-    );
-    CREATE TABLE orders (
-      id SERIAL PRIMARY KEY,
-      "orderStatus" BOOLEAN DEFAULT 'false',
-      owner VARCHAR(255) REFERENCES users(username),
-      "cartId" INTEGER REFERENCES cart(id)
+      "itemId" INTEGER REFERENCES products(id),
+      "isOrdered" BOOLEAN DEFAULT 'false'
     );
     `);
 
