@@ -7,6 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
+
 import { getProducts } from '../api/products';
 import {NavBar, Header, Login, Products,Register,Users, Profile, Home} from './'
 const App = () => {
@@ -18,8 +19,6 @@ const App = () => {
     setProducts(data)
     console.log(products,"useEffect getAllProducts")
   }
-
-
 
   useEffect(() => {
     // const data = await getProducts()

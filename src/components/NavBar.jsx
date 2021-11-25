@@ -60,4 +60,5 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
       </>
     );
   };
+
 export default NavBar;
