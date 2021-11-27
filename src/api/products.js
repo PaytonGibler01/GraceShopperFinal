@@ -3,7 +3,7 @@ import { storeToken, getToken,storeUser } from "../auth";
 
 async function getProducts() {
     try {
-      const { data } = await axios.get(`/api/products`, {
+      const { data } = await axios.get(`http://localhost:5000/api/products`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -14,6 +14,3 @@ async function getProducts() {
     }
   }
 
-  module.exports = {
-    getProducts,
-  }
