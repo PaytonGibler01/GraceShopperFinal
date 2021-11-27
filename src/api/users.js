@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { storeToken, getToken,storeUser } from "../auth";
 
-async function getUsers() {
+export async function getUsers() {
     try {
       const { data } = await axios.get(`/api/users`, {
         headers: {
@@ -12,8 +12,4 @@ async function getUsers() {
     } catch (error) {
       throw error;
     }
-  }
-
-  module.exports = {
-    getUsers,
   }
