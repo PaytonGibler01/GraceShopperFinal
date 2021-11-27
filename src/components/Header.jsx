@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { getUser } from "../auth";
+import "./Header.css"
 
 const Header = ({isLoggedIn, setIsLoggedIn}) =>{
   // const myUser = getUser()
@@ -12,8 +13,8 @@ const Header = ({isLoggedIn, setIsLoggedIn}) =>{
   // );
   return (
     <>
-      <header>
-        <h1>Welcome to Header Component</h1>
+      <header className="header">
+        <h1>Starvana</h1>
       </header>
     </>
   );

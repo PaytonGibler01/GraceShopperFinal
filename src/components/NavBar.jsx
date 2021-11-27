@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
 import {Navbar, Nav, Container} from 'react-bootstrap'
+import "./NavBar.css"
 
 const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
     const myUser = getUser()
@@ -16,7 +17,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
         <Navbar.Brand type="submit"
           onClick={()=>{
             history.push("/home")
-          }}>Starvanna</Navbar.Brand>
+          }}>Home</Navbar.Brand>
         <Nav className="me-auto">
   
           <Nav.Link 
