@@ -1,0 +1,12 @@
+.nav-links {
+  background-color: royalblue;
+  padding: 10px;
+  grid-row:2;
+  grid-column: 1/5;
+  font-size: 150%;
+  text-align: center;
+}
+
+a.navbar-link {
+  padding: 10px;
+}
