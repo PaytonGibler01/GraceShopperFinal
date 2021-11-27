@@ -35,10 +35,12 @@ const {
   getUser,
   getUserById,
   getUserByUsername,
-  getAllUsers
+  getAllUsers,
 } = require("./users");
 
+const { createCart, createCart_Item, addItemToCart } = require("./cart");
 const { createReview, addReviewsToProduct } = require("./reviews");
+const client = require("./client");
 
 async function createInitialUsers() {
   try {
@@ -118,56 +120,63 @@ async function createInitialReviews() {
     await createReview({
       title: "Test",
       content: "This is only a test",
-      productId: 1
+      productId: 1,
     });
     await createReview({
       title: "Second Test",
       content: "Another test",
-      productId: 2
+      productId: 2,
     });
     await createReview({
       title: "Third Test",
       content: "Final Test",
-      productId: 3
+      productId: 3,
     });
-    
-    // const [postOne, postTwo, postThree] = await getAllProducts();
 
-    //   await addReviewsToProduct(postOne.id, reviewOne);
-    //   await addReviewsToProduct(postThree.id, reviewThree);
-    //   await addReviewsToProduct(postTwo.id, reviewTwo);
+    console.log("Finished creating reviews!");
+  } catch (error) {
+    console.error("Error creating reviews!", error);
+  }
+}
 
-    console.log("Finished creating reviews!")
-  } catch(error){
-    console.error("Error creating reviews!", error)
-  }}
+async function createInitialTags() {
+  try {
+    console.log("Starting to create tags...");
 
-  async function createInitialTags() {
-    try {
-      console.log("Starting to create tags...");
-  
-      const [happy, sad, inspo, catman] = await createTags([
-              "#happy",
-              "#worst-day-ever",
-              "#youcandoanything",
-              "#catmandoeverything",
-            ]);
+    const [happy, sad, inspo, catman] = await createTags([
+      "#happy",
+      "#worst-day-ever",
+      "#youcandoanything",
+      "#catmandoeverything",
+    ]);
 
+    const [postOne, postTwo, postThree] = await getAllProducts();
 
-            const [postOne, postTwo, postThree] = await getAllProducts();
+    await addTagsToProduct(postOne.id, [happy, inspo]);
+    await addTagsToProduct(postTwo.id, [sad, inspo]);
+    await addTagsToProduct(postThree.id, [happy, catman, inspo]);
+    console.log("Finished creating tags!");
+  } catch (error) {
+    console.error("Error creating tags!", error);
+  }
+}
 
-                await addTagsToProduct(postOne.id, [happy, inspo]);
-                await addTagsToProduct(postTwo.id, [sad, inspo]);
-                await addTagsToProduct(postThree.id, [happy, catman, inspo]);
-      console.log("Finished creating tags!")
-    } catch(error){
-      console.error("Error creating tags!", error)
-    }}
-
+async function createInitialCart() {
+  try {
+    console.log("Creating cart");
+    await createCart(1);
+    await createCart_Item({ productId: 1, cartId: 1 });
+    await addItemToCart({productId: 1, cartId: 1});
+    console.log("Finished creating cart!");
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialReviews,
   createInitialTags,
+  createInitialCart,
 };

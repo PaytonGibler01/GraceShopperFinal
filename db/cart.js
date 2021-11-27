@@ -1,36 +1,77 @@
-const { client } = require("./client");
+const client = require("./client");
 
-async function addToCart({ cartOwner, itemId }) {
+async function createCart(userId) {
   try {
+    console.log("Creating your cart");
     const { rows: cart } = await client.query(
       `
-        INSERT INTO cart("cartOwner", "itemId")
-        VALUES ($1, $2)
-        ON CONFLICT "itemId" DO NOTHING
+        INSERT INTO cart("userId") 
+        VALUES ($1);
         `,
-      [cartOwner, itemId]
+      [userId]
     );
-
-    return cart
+    console.log("Finished creating your cart");
+    return cart;
   } catch (error) {
     throw error;
   }
 }
 
+async function createCart_Item({ productId, cartId }) {
+  try {
+    console.log("Creating Your Item");
+    const { rows: cart_item } = await client.query(
+      `
+        INSERT INTO cart_items("productId", "cartId")
+        VALUES ($1, $2);
+        `,
+      [productId, cartId]
+    );
+    console.log("Finished creating your item");
+    return cart_item;
+  } catch (error) {
+    throw error;
+  }
+}
 
+async function addItemToCart({ productId, cartId }) {
+  try {
+    console.log("Adding item to cart");
+    const {
+      rows: [item],
+    } = await client.query(
+      `
+      SELECT * FROM cart_items WHERE "cartId" = ${cartId}
+      JOIN cart_items ON cart.id = cart_items."cartId"
+      RETURNING *;
+      
+    `,
+      [productId, cartId]
+    );
+    console.log("Finished adding item");
+    return item;
+  } catch (error) {
+    throw error;
+  }
+}
 
-async function deleteCart(id){
-    try {
-        await client.query(`
+async function removeItemFromCart(productId) {
+  try {
+    await client.query(
+      `
         DELETE FROM cart 
-        WHERE id=$1
-        `, [id])
-    } catch (error) {
-        throw error
-    }
+        WHERE "productId"=$1
+        `,
+      [id]
+    );
+  } catch (error) {
+    throw error;
+  }
 }
 
 module.exports = {
-  addToCart,
-  deleteCart
+  createCart,
+  createCart_Item,
+  addItemToCart,
+  removeItemFromCart,
 };
