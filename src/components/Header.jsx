@@ -11,18 +11,15 @@ const Header = ({isLoggedIn, setIsLoggedIn}) =>{
   //   </header>
   // );
   return (
-<<<<<<< HEAD
+
+
     <header className="header">
       {myUser ? <h1 className="title">Welcome to Grace Shopper, name!</h1>
       : <h1 className="title">Welcome To Grace Shopper, Guest!</h1>}
     </header>
+
 =======
-    <>
-      <header>
-        <h1>Welcome to Header Component</h1>
-      </header>
-    </>
->>>>>>> 473f1c546bb6faac201a91967044cd708303181c
+
   );
   }
 
