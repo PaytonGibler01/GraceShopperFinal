@@ -1,64 +1,65 @@
-// import React, { useState, useEffect } from "react";
-// import { NavLink } from "react-router-dom";
-// import { loginUser } from "../api";
-// import { storeToken, storeUser } from "../auth";
+import React, { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { loginUser } from "../api/users";
+import {storeToken, storeUser}  from "../auth"
 
-// const Login = ({ setIsLoading, setLoggedIn, username, setUsername }) => {
-//   const [password, setPassword] = useState("");
+const Login = ({ setIsLoggedIn }) => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
-//   return (
-//     <div className="auth-component-main-container">
-//       <form
-//         id="login"
-//         onSubmit={async (event) => {
-//           event.preventDefault();
+  return (
+    <>
+      <Form
+        id="login"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          try {
+            const token = await loginUser(userName, password);
 
-//           try {
-//             const {
-//               data: { token },
-//             } = await loginUser(username, password);
+            setIsLoggedIn(true);
 
-//             storeToken(token);
-//             storeUser(username);
-//             setLoggedIn(true);
+            setUserName("");
+            setPassword("");
+          } catch (error) {
+            console.error(error);
+          }
+        }}
+      >
+        <Form.Group className="mb-3" controlId="formBasicUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="username"
+            placeholder="Username"
+            value={userName}
+            onChange={(event) => {
+              setUserName(event.target.value);
+            }}
+          />
+        </Form.Group>
 
-//             setUsername("");
-//             setPassword("");
-//           } catch (error) {
-//             console.log(error);
-//           }
-//         }}
-//       >
-//         <fieldset className="auth-component-input">
-//           <label htmlFor="username">Username</label>
-//           <input
-//             id="username"
-//             type="text"
-//             placeholder="Enter Username"
-//             value={username}
-//             onChange={(event) => {
-//               setUsername(event.target.value);
-//             }}
-//           ></input>
-//         </fieldset>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="enter password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
+        </Form.Group>
 
-//         <fieldset className="auth-component-input">
-//           <label htmlFor="password">Password</label>
-//           <input
-//             id="password"
-//             type="password"
-//             placeholder="Enter Password"
-//             value={password}
-//             onChange={(event) => {
-//               setPassword(event.target.value);
-//             }}
-//           ></input>
-//         </fieldset>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Keep me Logged in" />
+        </Form.Group>
 
-//         <button className="auth-button">Login</button>
-//       </form>
-//     </div>
-//   );
-// };
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </>
+  );
+};
 
-// export default Login;
+export default Login;

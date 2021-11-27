@@ -48,7 +48,7 @@ const App = () => {
                 <Home/> 
                 </Route>
                 <Route path="/products">
-                  <Products/>
+                  {/* <Products/> */}
                 </Route> 
                 <Route path="/login">
                   <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>

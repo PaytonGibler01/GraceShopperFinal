@@ -1,68 +1,82 @@
-// import React, { useState, useEffect } from "react";
-// import { NavLink } from "react-router-dom";
-// import { registerUser } from "../api";
-// import { storeToken, storeUser } from "../auth";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {registerUser} from "../api/users";
+import {storeToken} from "../auth";
 
-// const Register = ({ setIsLoading, setLoggedIn }) => {
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
+const  Register = ({ setIsLoggedIn }) => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-//   return (
-//     <div className="auth-component-main-container">
-//       <form
-//         id="register"
-//         onSubmit={async (event) => {
-//           event.preventDefault();
-//           setIsLoading(true);
+  return (
+    <Form
+      id="register"
+      onSubmit={async (event) => {
+        event.preventDefault();
+        try {
+           const {
+             token,
+           } = await registerUser(userName, password);
+          
+          
+          storeToken(token);
+          setIsLoggedIn(true);
 
-//           try {
-//             const {
-//               data: { token },
-//             } = await registerUser(username, password);
+          setUserName("");
+          setPassword("");
+          setEmail("");
+        } catch (error) {
+          console.error(error);
+        }
+      }}
+    >
+      <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          type="username"
+          placeholder="Username"
+          value={userName}
+          onChange={(event) => {
+            setUserName(event.target.value);
+          }}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+        />
+        <Form.Text className="text-muted">Send info about new starship deals!</Form.Text>
+      </Form.Group>
 
-//             storeToken(token);
-//             storeUser(username);
-//             setLoggedIn(true);
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+        />
+      </Form.Group>
 
-//             setUsername("");
-//             setPassword("");
-//           } catch (error) {
-//             console.log(error);
-//           } finally {
-//             setIsLoading(false);
-//           }
-//         }}
-//       >
-//         <fieldset className="auth-component-input">
-//           <label htmlFor="username">Username</label>
-//           <input
-//             id="username"
-//             type="text"
-//             placeholder="Enter Username"
-//             value={username}
-//             onChange={(event) => {
-//               setUsername(event.target.value);
-//             }}
-//           ></input>
-//         </fieldset>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Keep me Logged in" />
+      </Form.Group>
 
-//         <fieldset className="auth-component-input">
-//           <label htmlFor="password">Password</label>
-//           <input
-//             id="password"
-//             type="password"
-//             placeholder="Enter Password"
-//             value={password}
-//             onChange={(event) => {
-//               setPassword(event.target.value);
-//             }}
-//           ></input>
-//         </fieldset>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
 
-//         <button className="auth-button">Register</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Register;
+export default Register;
