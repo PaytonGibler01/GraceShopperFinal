@@ -61,12 +61,16 @@ async function buildTables() {
         title VARCHAR(255) NOT NULL,
         content VARCHAR(255) NOT NULL
       );
-    CREATE TABLE cart (
-      id SERIAL PRIMARY KEY,
-      "cartOwner" VARCHAR(255) REFERENCES users(username),
-      "itemId" INTEGER REFERENCES products(id),
-      "isOrdered" BOOLEAN DEFAULT 'false'
-    );
+      CREATE TABLE cart (
+        id SERIAL PRIMARY KEY,
+        "userId" INTEGER REFERENCES users(id),
+        "isOrdered" BOOLEAN DEFAULT 'false'
+      );
+      CREATE TABLE cart_items(
+        id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
+        "cartId" INTEGER REFERENCES cart(id)
+      )
     `);
 
     console.log("Finished building tables!");
