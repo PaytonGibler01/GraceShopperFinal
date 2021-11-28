@@ -166,7 +166,7 @@ async function createInitialCart() {
     console.log("Creating cart");
     await createCart(1);
     await createCart_Item({ productId: 1, cartId: 1 });
-    await addItemToCart({productId: 1, cartId: 1});
+    // await addItemToCart({productId: 1, cartId: 1});
     console.log("Finished creating cart!");
   } catch (error) {
     console.error(error);
