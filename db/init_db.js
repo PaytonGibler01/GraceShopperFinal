@@ -6,8 +6,10 @@ const {
   createInitialReviews,
   createInitialUsers,
   createInitialTags,
+  createInitialCart,
   // other db methods
 } = require("./index");
+const { getAllUsers } = require("./users");
 
 async function buildTables() {
   try {
@@ -15,8 +17,8 @@ async function buildTables() {
     console.log("Dropping tables!");
     await client.query(`
 
-    DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS cart_items;
+    DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;
@@ -61,17 +63,16 @@ async function buildTables() {
         title VARCHAR(255) NOT NULL,
         content VARCHAR(255) NOT NULL
       );
-    CREATE TABLE cart (
-      id SERIAL PRIMARY KEY,
-      "cartOwner" VARCHAR(255) REFERENCES users(username),
-      "itemId" INTEGER REFERENCES products(id)
-    );
-    CREATE TABLE orders (
-      id SERIAL PRIMARY KEY,
-      "orderStatus" BOOLEAN DEFAULT 'false',
-      owner VARCHAR(255) REFERENCES users(username),
-      "cartId" INTEGER REFERENCES cart(id)
-    );
+      CREATE TABLE carts (
+        id SERIAL PRIMARY KEY,
+        "userId" INTEGER REFERENCES users(id),
+        "isOrdered" BOOLEAN DEFAULT 'false'
+      );
+      CREATE TABLE cart_items(
+        id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
+        "cartId" INTEGER REFERENCES carts(id)
+      );
     `);
 
     console.log("Finished building tables!");
@@ -88,6 +89,7 @@ async function populateInitialData() {
     await createInitialProducts();
     await createInitialTags();
     await createInitialReviews();
+    await createInitialCart();
   } catch (error) {
     throw error;
   }

@@ -1,7 +1,9 @@
 // This is the Web Server
+require('dotenv').config(); 
+const cors = require('cors')
 const express = require('express');
 const server = express();
-
+server.use(cors())
 // create logs for everything
 const morgan = require('morgan');
 server.use(morgan('dev'));

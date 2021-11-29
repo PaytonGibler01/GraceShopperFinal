@@ -1,76 +1,93 @@
-const { Client } = require("pg");
-const cartRouter = express.Router();
+const client = require("./client");
 
-cartRouter.patch(''),
-async (req, res)=>{
-
+async function createCart({userId}) {
+  try {
+    console.log("Creating your cart");
+    const { rows: [cart] } = await client.query(
+      `
+        INSERT INTO carts("userId") 
+        VALUES ($1)
+        RETURNING *;
+        `,
+      [userId]
+    );
+    console.log("Finished creating your cart");
+    return cart;
+  } catch (error) {
+    throw error;
+  }
 }
 
-module.exports = cartRouter;
+async function createCart_Item({ productId, cartId }) {
+  try {
+    console.log("Creating Your Item");
+    const { rows: [cart_item] } = await client.query(
+      `
+        INSERT INTO cart_items("productId", "cartId")
+        VALUES ($1, $2)
+        RETURNING *;
+        `,
+      [productId, cartId]
+    );
+    console.log(cart_item, "Cart Item Log")
+    console.log("Finished creating your item");
+    return cart_item;
+  } catch (error) {
+    throw error;
+  }
+}
 
-// const express = require("express");
-// const routineActivitiesRouter = express.Router();
 
-// const { requireUser } = require("./utils");
-// const {
-//   updateRoutineActivity,
-//   getRoutineById,
-//   destroyRoutineActivity,
-//   getRoutineActivityById,
-// } = require("../db");
-
-// routineActivitiesRouter.patch(
-//   "/:routineActivityId",
-//   requireUser,
-//   async (req, res, next) => {
-//     const { routineActivityId: id } = req.params;
-//     const { count, duration } = req.body;
-//     try {
-//       const routineActivity = await getRoutineActivityById(id);
-
-//       const routine = await getRoutineById(routineActivity.routineId);
-
-//       if (req.user.id === routine.creatorId) {
-//         const updatedActivity = await updateRoutineActivity({
-//           id,
-//           count,
-//           duration,
-//         });
-//         res.send(updatedActivity);
-//       } else {
-//         next({
-//           name: "Cannot Update Routine Activity",
-//           message: "Permission not granted",
-//         });
-//       }
-//     } catch ({ name, message }) {
-//       next({ name, message });
-//     }
+async function getAllItemsByCartId({cartId}){
+    try {
+        const {rows} = await client.query(`
+        SELECT * FROM cart_items
+        WHERE "cartId"=$1
+        `, [cartId])
+        console.log(rows, "Get All Log")
+        return rows
+    } catch (error) {
+        
+    }
+    
+}
+// async function addItemToCart({ productId, cartId }) {
+//   try {
+//     console.log("Adding item to cart");
+//     const {
+//       rows: [item],
+//     } = await client.query(
+//       `
+//       SELECT * FROM cart_items
+//       JOIN carts ON cart.id = cart_items."cartId"
+//       WHERE "cartId" = ${cartId};
+//     `,
+//       [productId, cartId]
+//     );
+//     console.log("Finished adding item");
+//     return item;
+//   } catch (error) {
+//     throw error;
 //   }
-// );
+// }
 
-// routineActivitiesRouter.delete(
-//   "/:routineActivityId",
-//   requireUser,
-//   async (req, res, next) => {
-//     const { routineActivityId: id } = req.params;
+async function removeItemFromCart(productId) {
+  try {
+    await client.query(
+      `
+        DELETE FROM carts 
+        WHERE "productId"=$1
+        `,
+      [id]
+    );
+  } catch (error) {
+    throw error;
+  }
+}
 
-//     try {
-//       const routineActivity = await getRoutineActivityById(id);
-//       const routine = await getRoutineById(routineActivity.routineId);
-//       if (req.user.id === routine.creatorId) {
-//         const deletedActivity = await destroyRoutineActivity(id);
-//         res.send(deletedActivity);
-//       } else {
-//         next({
-//           name: "Cannot Update",
-//           message: "Permission not granted",
-//         });
-//       }
-//     } catch ({ name, message }) {
-//       next({ name, message });
-//     }
-//   }
-// );
-
-// module.exports = routineActivitiesRouter;
+module.exports = {
+  createCart,
+  createCart_Item,
+  getAllItemsByCartId,
+  removeItemFromCart,
+};
