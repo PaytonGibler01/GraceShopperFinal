@@ -1,12 +1,13 @@
 const client = require("./client");
 
-async function createCart(userId) {
+async function createCart({userId}) {
   try {
     console.log("Creating your cart");
     const { rows: [cart] } = await client.query(
       `
-        INSERT INTO cart("userId") 
-        VALUES ($1);
+        INSERT INTO carts("userId") 
+        VALUES ($1)
+        RETURNING *;
         `,
       [userId]
     );
@@ -23,10 +24,12 @@ async function createCart_Item({ productId, cartId }) {
     const { rows: [cart_item] } = await client.query(
       `
         INSERT INTO cart_items("productId", "cartId")
-        VALUES ($1, $2);
+        VALUES ($1, $2)
+        RETURNING *;
         `,
       [productId, cartId]
     );
+    console.log(cart_item, "Cart Item Log")
     console.log("Finished creating your item");
     return cart_item;
   } catch (error) {
@@ -34,6 +37,20 @@ async function createCart_Item({ productId, cartId }) {
   }
 }
 
+
+async function getAllItemsByCartId({cartId}){
+    try {
+        const {rows} = await client.query(`
+        SELECT * FROM cart_items
+        WHERE "cartId"=$1
+        `, [cartId])
+        console.log(rows, "Get All Log")
+        return rows
+    } catch (error) {
+        
+    }
+    
+}
 // async function addItemToCart({ productId, cartId }) {
 //   try {
 //     console.log("Adding item to cart");
@@ -42,7 +59,7 @@ async function createCart_Item({ productId, cartId }) {
 //     } = await client.query(
 //       `
 //       SELECT * FROM cart_items
-//       JOIN cart ON cart.id = cart_items."cartId"
+//       JOIN carts ON cart.id = cart_items."cartId"
 //       WHERE "cartId" = ${cartId};
 //     `,
 //       [productId, cartId]
@@ -58,7 +75,7 @@ async function removeItemFromCart(productId) {
   try {
     await client.query(
       `
-        DELETE FROM cart 
+        DELETE FROM carts 
         WHERE "productId"=$1
         `,
       [id]
@@ -71,6 +88,6 @@ async function removeItemFromCart(productId) {
 module.exports = {
   createCart,
   createCart_Item,
-//   addItemToCart,
+  getAllItemsByCartId,
   removeItemFromCart,
 };

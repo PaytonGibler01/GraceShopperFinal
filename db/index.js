@@ -38,7 +38,7 @@ const {
   getAllUsers,
 } = require("./users");
 
-const { createCart, createCart_Item, addItemToCart } = require("./cart");
+const { createCart, createCart_Item, getAllItemsByCartId } = require("./cart");
 const { createReview, addReviewsToProduct } = require("./reviews");
 const client = require("./client");
 
@@ -164,9 +164,10 @@ async function createInitialTags() {
 async function createInitialCart() {
   try {
     console.log("Creating cart");
-    await createCart(1);
+    const cart = await createCart({userId: 1});
+    console.log(cart, "Cart Log")
     await createCart_Item({ productId: 1, cartId: 1 });
-    // await addItemToCart({productId: 1, cartId: 1});
+    await getAllItemsByCartId({cartId: 1})
     console.log("Finished creating cart!");
   } catch (error) {
     console.error(error);
