@@ -9,6 +9,7 @@ const {
   createInitialCart,
   // other db methods
 } = require("./index");
+const { getAllUsers } = require("./users");
 
 async function buildTables() {
   try {
@@ -17,7 +18,7 @@ async function buildTables() {
     await client.query(`
 
     DROP TABLE IF EXISTS cart_items;
-    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;
@@ -62,7 +63,7 @@ async function buildTables() {
         title VARCHAR(255) NOT NULL,
         content VARCHAR(255) NOT NULL
       );
-      CREATE TABLE cart (
+      CREATE TABLE carts (
         id SERIAL PRIMARY KEY,
         "userId" INTEGER REFERENCES users(id),
         "isOrdered" BOOLEAN DEFAULT 'false'
@@ -70,7 +71,7 @@ async function buildTables() {
       CREATE TABLE cart_items(
         id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
-        "cartId" INTEGER REFERENCES cart(id)
+        "cartId" INTEGER REFERENCES carts(id)
       );
     `);
 
@@ -88,7 +89,7 @@ async function populateInitialData() {
     await createInitialProducts();
     await createInitialTags();
     await createInitialReviews();
-    await createInitialCart()
+    await createInitialCart();
   } catch (error) {
     throw error;
   }
