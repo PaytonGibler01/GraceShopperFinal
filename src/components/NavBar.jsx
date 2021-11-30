@@ -11,33 +11,46 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
     const history = useHistory()
     return (
       <>
-      <br />
-      <Navbar bg="primary" variant="light">
+
+      <br></br>
+      <Navbar variant="dark" className="navbar">
+
         <Container>
-        <Navbar.Brand type="submit"
+        {/* <Navbar.Brand type="submit"
           onClick={()=>{
             history.push("/home")
-          }}>Home</Navbar.Brand>
+          }}>Home</Navbar.Brand> */}
         <Nav className="me-auto">
+          <Nav.Link 
+            type="submit"
+            onClick={()=>{
+              history.push("/Home")
+            }}
+            >Home</Nav.Link>
   
           <Nav.Link 
-          type="submit"
-          onClick={()=>{
-            history.push("/products")
-          }}
-          >Products</Nav.Link>
+            type="submit"
+            onClick={()=>{
+              history.push("/products")
+            }}
+            >Products</Nav.Link>
   
-          <Nav.Link type="submit"
-          onClick={()=>{
-            history.push("/my-cart")
-          }}>My Cart</Nav.Link>
+          <Nav.Link
+            type="submit"
+            onClick={()=>{
+              history.push("/my-cart")
+            }}
+            >My Cart</Nav.Link>
   
-          <Nav.Link type="submit"
-          onClick={()=>{
-            history.push("/profile")
-          }}>Profile</Nav.Link>
+          <Nav.Link
+            type="submit"
+            onClick={()=>{
+              history.push("/profile")
+            }}
+            >Profile</Nav.Link>
         </Nav>
-         
+
+        <align-right>
         <Nav className="me-auto">
            { isLoggedIn ? (
               <Nav.Link href="login" onClick = {()=>{
@@ -55,7 +68,8 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
            ):(null)}
   
         </Nav>
-        
+        </align-right>
+
         </Container>
       </Navbar>
       </>

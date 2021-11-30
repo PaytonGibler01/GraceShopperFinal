@@ -44,7 +44,10 @@ const App = () => {
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           <Switch>
-                <Route path="/home">
+                <Route exact path="/">
+                <Home/> 
+                </Route>
+                <Route exact path="/home">
                 <Home/> 
                 </Route>
                 <Route path="/products">
