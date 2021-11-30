@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') //MAKE THESE FUNCTIONS
 const jwt = require("jsonwebtoken");
-
+const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
     console.log("Request was made to /users")
     // res.send({
@@ -59,49 +59,58 @@ usersRouter.post('/login', async (req, res, next)=>{
 
   
 //api/users/register
-usersRouter.post('/register', async (req, res, next)=>{
-    console.log("Request was made to /register")
-    const { username, password } = req.body;
+usersRouter.post('/register', async (req, res, next) => {
+  const { username, password, userEmail, isAdmin,isSeller } = req.body;
+  console.log(username, password, userEmail,isAdmin,isSeller,"req.body")
+  try {
+    const queriedUser = await getUserByUsername(username);
+console.log(queriedUser,"queriedUser")
+    if (queriedUser) {
+      res.status(401)
+      
+      next({
+        name: 'UserExistsError',
+        message: 'A user by that username already exists'
+      });
+    } else if (password.length<8){
+      res.status(401)
 
-    try {
-        const _user = await getUserByUsername(username);
-    
-        if (_user) {
-          next({
-            name: 'UserExistsError',
-            message: 'That username has already been taken'
-          });
-        }
-    
-        const user = await createUser({
-          username,
-          password
-        });
-        
-        // Password Requirements
-        if (user.password.length < 8){
-            next({
-                name: 'PasswordExistsError',
-                message: 'Password is too short, must be at least 8 characters'
-              });
-        }
-
+      next({
+        name: 'PasswordLengthError',
+        message: 'Password Too Short!'
+      })
+    } else {
+      const user = await createUser({
+        username,
+        password,
+        userEmail,
+        isAdmin,
+        isSeller
+      })
+      console.log(user,"user")
+      if(!user){
+        next({
+          name: 'UserCreationError',
+          message: 'There was a problem registering you. Please try again.'
+        })
+      } else {
         const token = jwt.sign({ 
           id: user.id, 
-          username
-        }, process.env.JWT_SECRET, {
+          username: user.username
+        }, JWT_SECRET, {
           expiresIn: '1w'
         });
-    
+        console.log(token,"Token")
         res.send({ 
-          message: "Thank you for signing up",
+          user,
+          message: "you're signed up!",
           token 
         });
       }
-
-    catch ({ name, message }) {
-        next({ name, message })
-      } 
+    }
+  } catch (error) {
+    next (error)
+  } 
 });
 
 

@@ -12,7 +12,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
     return (
       <>
       <br />
-      <Navbar bg="primary" variant="dark">
+      <Navbar bg="primary" variant="light">
         <Container>
         <Navbar.Brand type="submit"
           onClick={()=>{

@@ -16,10 +16,8 @@ const  Register = ({ setIsLoggedIn }) => {
       onSubmit={async (event) => {
         event.preventDefault();
         try {
-           const {
-             token,
-           } = await registerUser(userName, password);
-          
+           const { token } = await registerUser(userName, password, email);
+          console.log(token, userName)
           
           storeToken(token);
           setIsLoggedIn(true);
@@ -53,7 +51,9 @@ const  Register = ({ setIsLoggedIn }) => {
             setEmail(event.target.value);
           }}
         />
-        <Form.Text className="text-muted">Send info about new starship deals!</Form.Text>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Send Info about new Starvanna deals!" />
+      </Form.Group>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
