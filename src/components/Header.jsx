@@ -12,11 +12,11 @@ const Header = ({isLoggedIn, setIsLoggedIn}) =>{
   //   </header>
   // );
   return (
-    <>
+    
       <header className="header">
-        <h1>Starvana</h1>
+        <img className='logo' src={require('./starvana-logo.png')}/>
       </header>
-    </>
+    
   );
   }
 

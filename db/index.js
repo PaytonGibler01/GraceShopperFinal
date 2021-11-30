@@ -153,6 +153,7 @@ async function createInitialTags() {
     const [postOne, postTwo, postThree] = await getAllProducts();
 
     await addTagsToProduct(postOne.id, [happy, inspo]);
+    console.log(postOne, "Hear ye hear ye. Avast ye planet lubbers")
     await addTagsToProduct(postTwo.id, [sad, inspo]);
     await addTagsToProduct(postThree.id, [happy, catman, inspo]);
     console.log("Finished creating tags!");

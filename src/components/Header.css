@@ -1,6 +1,5 @@
 .header {
     margin: 0;
     padding: 10px;
-    font-size: 300%;
-    display: grid;
+    background-color: navy;
   }

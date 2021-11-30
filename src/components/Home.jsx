@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { getUser } from "../auth";
-import "./Home.css"
 
 const Home = () => {
     return (
