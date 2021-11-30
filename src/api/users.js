@@ -15,7 +15,7 @@ export async function getUsers() {
   }
   export async function loginUser(userName, password) {
     try {
-      const { data } = await axios.post(`/login`, {
+      const { data } = await axios.post(`http://localhost:5000/api/users/login`, {
        
           username: userName,
           password: password,
@@ -29,15 +29,17 @@ export async function getUsers() {
       throw error;
     }
   }
-  export async function registerUser(userName, password) {
+  export async function registerUser(userName, password, email) {
     try {
-      const { data } = await axios.post(`/register`, {
+      const { data } = await axios.post(`http://localhost:5000/api/users/register`, {
        
           username: userName,
-          password: password
-        
+          password: password,
+          userEmail: email,
+          isSeller: false,
+          isAdmin: false
       });
-  
+      console.log(data,"!!!!!!!!!!!!!!!!!")
       // try to add email element?
       // console.log(data)
       return data;

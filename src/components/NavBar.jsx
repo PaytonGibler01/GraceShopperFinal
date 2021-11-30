@@ -11,8 +11,10 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
     const history = useHistory()
     return (
       <>
+
       <br></br>
       <Navbar variant="dark" className="navbar">
+
         <Container>
         {/* <Navbar.Brand type="submit"
           onClick={()=>{
