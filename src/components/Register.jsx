@@ -4,12 +4,13 @@ import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {registerUser} from "../api/users";
 import {storeToken} from "../auth";
+import { useHistory } from "react-router-dom";
 
 const  Register = ({ setIsLoggedIn }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
+  const history = useHistory()
   return (
     <Form
       id="register"
@@ -18,13 +19,12 @@ const  Register = ({ setIsLoggedIn }) => {
         try {
            const { token } = await registerUser(userName, password, email);
           console.log(token, userName)
-          
           storeToken(token);
           setIsLoggedIn(true);
-
           setUserName("");
           setPassword("");
           setEmail("");
+          history.push("/home")
         } catch (error) {
           console.error(error);
         }

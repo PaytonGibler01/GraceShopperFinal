@@ -2,25 +2,26 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { loginUser } from "../api/users";
+import { useHistory } from "react-router-dom";
 import {storeToken, storeUser}  from "../auth"
 
 const Login = ({ setIsLoggedIn }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
+  const history = useHistory()
   return (
     <>
       <Form
         id="login"
         onSubmit={async (event) => {
           event.preventDefault();
+          
           try {
             const token = await loginUser(userName, password);
-
             setIsLoggedIn(true);
-
             setUserName("");
             setPassword("");
+            history.push("/home")
           } catch (error) {
             console.error(error);
           }
