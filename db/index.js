@@ -20,14 +20,14 @@ const {
   updateProduct,
   getAllProducts,
   deleteProduct,
-  getProductByTagName,
+  // getProductByCategoriesName,
 } = require("./products");
 
 const {
-  createTags,
-  getAllTags,
-  createProductTag,
-  addTagsToProduct,
+  createCategories,
+  getAllCategories,
+  // createProductCategories,
+  // addCategoriesToProduct,
 } = require("./tags");
 
 const {
@@ -86,6 +86,7 @@ async function createInitialProducts() {
       price: 1000000000000,
       image: "https://screengoblin.files.wordpress.com/2014/11/event.jpg",
       sellerName: "Dr, William Weir",
+      tag: "Preowned"
     });
     await createProduct({
       name: "USG Ishimura",
@@ -95,6 +96,7 @@ async function createInitialProducts() {
       image:
         "https://i.pinimg.com/originals/5b/5d/1f/5b5d1fb77feb19d5c5f0525ae5d99aa8.jpg",
       sellerName: "Concordance Extraction Corporation",
+      tag: "New"
     });
     await createProduct({
       name: "Nostromo",
@@ -104,6 +106,7 @@ async function createInitialProducts() {
       image:
         "https://www.grafxwork.com/projets/sta/img/vaisseaux/nostromo/nostromo-01.jpg",
       sellerName: "Weyland-Yutani Corporation",
+      tag: "Preowned"
     });
 
     console.log("Finished creating products!");
@@ -139,23 +142,18 @@ async function createInitialReviews() {
   }
 }
 
-async function createInitialTags() {
+async function createInitialCategories() {
   try {
-    console.log("Starting to create tags...");
+    console.log("Starting to create categories...");
 
-    const [happy, sad, inspo, catman] = await createTags([
-      "#happy",
-      "#worst-day-ever",
-      "#youcandoanything",
-      "#catmandoeverything",
+    await createCategories([
+      "Preowned",
+      "New"
+
     ]);
 
-    const [postOne, postTwo, postThree] = await getAllProducts();
-
-    await addTagsToProduct(postOne.id, [happy, inspo]);
-    console.log(postOne, "Hear ye hear ye. Avast ye planet lubbers")
-    await addTagsToProduct(postTwo.id, [sad, inspo]);
-    await addTagsToProduct(postThree.id, [happy, catman, inspo]);
+    
+    
     console.log("Finished creating tags!");
   } catch (error) {
     console.error("Error creating tags!", error);
@@ -179,6 +177,6 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialReviews,
-  createInitialTags,
+  createInitialCategories,
   createInitialCart,
 };
