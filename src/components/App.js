@@ -9,34 +9,31 @@ import {
 
 
 import { getProducts } from '../api/products';
-import {NavBar, Header, Login, Products,Register,Users, Profile, Home} from './'
+import { getCart } from '../api/users';
+import {NavBar, Header, Login, Products,Register,Users, Profile, Home, Cart} from './'
 const App = () => {
   const [products, setProducts] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [cartItems, setCartItems] = useState([])
 
   const fetchAllProducts = async()=>{
     const data = await getProducts()
     setProducts(data)
     console.log(products,"useEffect getAllProducts")
   }
-
+  const fetchAllCartItems = async()=>{
+    const data = await getCart()
+    setCartItems(data)
+    console.log(cartItems,"useEffect getCart")
+  }
+   
   useEffect(() => {
-    // const data = await getProducts()
-    // setProducts(data)
-    // console.log(products,"useEffect getAllProducts")
+    
+    fetchAllCartItems()
     fetchAllProducts()
   }, []);
 
-  // const getDbProducts = async () => {
-  //   const {data} = await getProducts();
-  //  setProducts(data);
-  //   console.log(products,"useEffect getAllProducts")
-  // };
-
-  // useEffect(async () => {
-  //   await getDbProducts()
-  //   // isUserLoggedIn();
-  // }, []);
+ 
   return (
     
     <div className="app-main-container">
@@ -61,6 +58,9 @@ const App = () => {
                 </Route>
                 <Route path="/profile">
                   <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                </Route>
+                <Route path="/my-cart">
+                  <Cart cartItems={cartItems} setCartItems={setCartItems}/>
                 </Route>
           </Switch>
   

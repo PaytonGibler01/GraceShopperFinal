@@ -1,5 +1,6 @@
 const usersRouter = require('express').Router();
-const { getAllUsers, getUserByUsername,createUser } = require('../db/users') //MAKE THESE FUNCTIONS
+const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
+const {getAllItemsByCartId} = require('../db/cart')
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
@@ -10,6 +11,7 @@ usersRouter.use("/", (req, res, next) => {
     next()
   });
 
+
 //users
   usersRouter.get("/", async (req, res, next) => {
     console.log("Request was made to /users")
@@ -19,6 +21,20 @@ usersRouter.use("/", (req, res, next) => {
   });
   next()
 });
+
+
+//api/users/cart
+usersRouter.get("/cart", async (req, res, next) => {
+  console.log("Get Request was made to /cart")
+  // const { cartId } = req.body;
+  console.log(req)
+    const cart = await getAllItemsByCartId(req)
+  res.send(
+    cart
+  );
+  next()
+});
+
 
 //api/users/login
 usersRouter.post('/login', async (req, res, next)=>{
@@ -58,6 +74,7 @@ usersRouter.post('/login', async (req, res, next)=>{
     });
 
   
+
 //api/users/register
 usersRouter.post('/register', async (req, res, next) => {
   const { username, password, userEmail, isAdmin,isSeller } = req.body;
