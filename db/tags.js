@@ -2,32 +2,32 @@ const client = require("./client")
 
 const {getProductById} = require("./products")
 
-async function createTags(tagList) {
-  if (tagList.length === 0 || !tagList) {
+async function createCategories(categoryList) {
+  if (categoryList.length === 0 || !categoryList) {
     return;
   }
 
-  const insertValues = tagList.map((_, index) => `$${index + 1}`).join(`), (`);
+  const insertValues = categoryList.map((_, index) => `$${index + 1}`).join(`), (`);
 
-  const selectValues = tagList.map((_, index) => `$${index + 1}`).join(`, `);
+  const selectValues = categoryList.map((_, index) => `$${index + 1}`).join(`, `);
 
   try {
     await client.query(
       `
-      INSERT INTO tags(name)
+      INSERT INTO categories(name)
       VALUES (${insertValues})
       ON CONFLICT (name) DO NOTHING;
       `,
-      tagList
+      categoryList
     );
 
     const { rows } = await client.query(
       `
-      SELECT * FROM tags
+      SELECT * FROM categories
       WHERE name
       IN (${selectValues});
       `,
-      tagList
+      categoryList
     );
 
     return rows;
@@ -49,36 +49,36 @@ async function getAllTags() {
   }
 }
 
-async function createProductTag(productId, tagId) {
-  try {
-    await client.query(
-      `
-    INSERT INTO product_tags("productId", "tagId")
-    VALUES ($1, $2)
-    ON CONFLICT ("productId", "tagId") DO NOTHING;
-    `,
-      [productId, tagId]
-    );
-  } catch (error) {
-    throw error;
-  }
-}
+// async function createProductTag(productId, tagId) {
+//   try {
+//     await client.query(
+//       `
+//     INSERT INTO product_tags("productId", "tagId")
+//     VALUES ($1, $2)
+//     ON CONFLICT ("productId", "tagId") DO NOTHING;
+//     `,
+//       [productId, tagId]
+//     );
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
-async function addTagsToProduct(productId, tagList) {
-  try {
-    const createProductTagPromises = tagList.map((tag) =>
-      createProductTag(productId, tag.id)
-    );
-    await Promise.all(createProductTagPromises);
-    return await getProductById(productId);
-  } catch (error) {
-    throw error;
-  }
-}
+// async function addTagsToProduct(productId, tagList) {
+//   try {
+//     const createProductTagPromises = tagList.map((tag) =>
+//       createProductTag(productId, tag.id)
+//     );
+//     await Promise.all(createProductTagPromises);
+//     return await getProductById(productId);
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 module.exports = {
-  createTags,
+  createCategories,
   getAllTags,
-  createProductTag,
-  addTagsToProduct,
+  // createProductTag,
+  // addTagsToProduct,
 };
