@@ -52,7 +52,7 @@ async function buildTables() {
         name VARCHAR(255) UNIQUE NOT NULL,
         description VARCHAR(255) UNIQUE NOT NULL,
         image VARCHAR(255) UNIQUE NOT NULL,
-        "sellerName" VARCHAR(255) NOT NULL,
+        "sellerName" VARCHAR(255) REFERENCES users(username) NOT NULL,
         price BIGINT NOT NULL,
         tag VARCHAR(255) REFERENCES categories(name) NOT NULL
       );
