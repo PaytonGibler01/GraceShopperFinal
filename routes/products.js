@@ -22,8 +22,8 @@ productsRouter.get("/", async (req, res, next) => {
 });
 
 productsRouter.get("/:productId", async (req, res, next) => {
+  console.log("A request is being made to /:productId");
   try {
-    console.log("A request is being made to /:productId");
 
     const productId = req.params.productId;
   
