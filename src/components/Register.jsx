@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {registerUser} from "../api/users";
 import {storeToken} from "../auth";
 import { useHistory } from "react-router-dom";
+import "./RegLog.css"
 
 const  Register = ({ setIsLoggedIn }) => {
   const [userName, setUserName] = useState("");
@@ -51,9 +52,9 @@ const  Register = ({ setIsLoggedIn }) => {
             setEmail(event.target.value);
           }}
         />
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Send Info about new Starvanna deals!" />
-      </Form.Group>
+        <Form.Group className="mb-4" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Send Info about new Starvana deals!" />
+        </Form.Group>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -68,11 +69,11 @@ const  Register = ({ setIsLoggedIn }) => {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+      <Form.Group className="mb-4" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Keep me Logged in" />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className="button">
         Submit
       </Button>
     </Form>

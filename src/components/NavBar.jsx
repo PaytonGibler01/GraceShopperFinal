@@ -13,41 +13,63 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
       <>
 
       <br></br>
-      <Navbar className="navbar">
+      <Navbar  variant="dark" className="navbar">
 
         <Container>
-        {/* <Navbar.Brand type="submit"
-          onClick={()=>{
-            history.push("/home")
-          }}>Home</Navbar.Brand> */}
+
         <Nav className="me-auto">
-          <Nav.Link 
+          {/* <Nav.Link 
             type="submit"
             onClick={()=>{
               history.push("/Home")
             }}
-            >Home</Nav.Link>
+            >Home</Nav.Link> */}
+
+        <Navbar.Brand type="submit"
+            onClick={()=>{
+            history.push("/home")
+            }}
+            >Home</Navbar.Brand>
+          
   
-          <Nav.Link 
+          {/* <Nav.Link 
             type="submit"
             onClick={()=>{
               history.push("/products")
             }}
-            >Products</Nav.Link>
+            >Products</Nav.Link> */}
+
+          <Navbar.Brand type="submit"
+            onClick={()=>{
+            history.push("/products")
+            }}
+            >Products</Navbar.Brand>
   
-          <Nav.Link
+          {/* <Nav.Link
             type="submit"
             onClick={()=>{
               history.push("/my-cart")
             }}
-            >My Cart</Nav.Link>
+            >My Cart</Nav.Link> */}
+
+          <Navbar.Brand type="submit"
+            onClick={()=>{
+            history.push("/my-cart")
+            }}
+            >My Cart</Navbar.Brand>
   
-          <Nav.Link
+          {/* <Nav.Link
             type="submit"
             onClick={()=>{
               history.push("/profile")
             }}
-            >Profile</Nav.Link>
+            >Profile</Nav.Link> */}
+
+          <Navbar.Brand type="submit"
+            onClick={()=>{
+            history.push("/profile")
+            }}
+            >Profile</Navbar.Brand>
         </Nav>
 
         <align-right>

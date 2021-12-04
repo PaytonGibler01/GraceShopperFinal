@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { loginUser } from "../api/users";
 import { useHistory } from "react-router-dom";
 import {storeToken, storeUser}  from "../auth"
+import "./RegLog.css"
 
 const Login = ({ setIsLoggedIn }) => {
   const [userName, setUserName] = useState("");
@@ -51,11 +52,11 @@ const Login = ({ setIsLoggedIn }) => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Group className="mb-4" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Keep me Logged in" />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className="button">
           Submit
         </Button>
       </Form>
