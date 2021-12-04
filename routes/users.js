@@ -27,7 +27,7 @@ usersRouter.use("/", (req, res, next) => {
 usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
   // const { cartId } = req.body;
-  console.log(req)
+  // console.log(req)
     const cart = await getAllItemsByCartId(req)
   res.send(
     cart

@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { getProducts } from "../api/products";
+import { getProducts, getReviews } from "../api/products";
 import { getCart } from "../api/users";
 import {
   NavBar,
@@ -20,11 +20,20 @@ import {
   Profile,
   Home,
   Cart,
+  Reviews
 } from "./";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [allReviews, setAllReviews] = useState([])
+
+  const fetchAllReviews = async () => {
+    const data = await getReviews()
+    console.log(data, "fetchAllReviews")
+    setAllReviews(data)
+  }
+
   const fetchAllProducts = async () => {
     const data = await getProducts();
     setProducts(data);
@@ -39,6 +48,7 @@ const App = () => {
   useEffect(() => {
     fetchAllCartItems();
     fetchAllProducts();
+    fetchAllReviews()
   }, []);
 
   return (
@@ -56,7 +66,7 @@ const App = () => {
           <Products products={products} />
         </Route>
         <Route path="/products/:productId">
-          <SingleProductsPage products={products} />
+          <SingleProductsPage products={products} allReviews={allReviews}/>
         </Route>
         <Route exact path="/login">
           <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

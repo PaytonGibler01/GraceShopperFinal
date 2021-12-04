@@ -11,3 +11,4 @@ export {default as SearchBar } from './SearchBar';
 export {default as Profile } from './Profile';
 export {default as Home } from './Home';
 export {default as Cart } from './Cart';
+export {default as Reviews} from './Reviews'
