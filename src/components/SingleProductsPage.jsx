@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+
 import { Reviews, SingleProducts } from ".";
+
 import { getProductById } from "../api/products";
 import { AddProductToCart } from "../api/users";
 import { userId } from "./"
@@ -12,6 +14,7 @@ const SingleProductsPage = ({ products, allReviews }) => {
     console.log(review, "Inner Log")  
     return review.productId == productId})
   console.log(compReview, "compreview Log")
+
   if (!compProduct) {
     return (
       <div className="product-card">
