@@ -1,14 +1,20 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { SingleProducts } from ".";
-import { getProductById } from "../api/products";
 
-const SingleProductsPage = ({ products }) => {
-  const { productId } = useParams();
-  console.log(productId, "Product ID Single Products Page")
-    console.log(products, "Single Products Page Log")
+import { Reviews, SingleProducts } from ".";
+
+import { getProductById } from "../api/products";
+import { AddProductToCart } from "../api/users";
+import { userId } from "./"
+
+const SingleProductsPage = ({ products, allReviews }) => {
+  const {productId} = useParams();
   const compProduct = products.find((product) => product.id == productId)
-    console.log(compProduct, "compProduct Log")
+  const compReview = allReviews.find((review) => {
+    console.log(review, "Inner Log")  
+    return review.productId == productId})
+  console.log(compReview, "compreview Log")
+
   if (!compProduct) {
     return (
       <div className="product-card">
@@ -16,11 +22,24 @@ const SingleProductsPage = ({ products }) => {
       </div>
     );
   }
-
   return (
     <div className="products-main-container">
-      <SingleProducts product={compProduct} />
+      <SingleProducts product={compProduct} 
+      /><button
+            type="submit"
+            onClick={()=>{
+              console.log(myUser.id)
+              AddProductToCart(productId, userId)
+            }}
+            >Add to Cart
+            </button>
+
+      
+      <Reviews review={compReview} />
+
     </div>
+
+
   );
 };
 

@@ -1,6 +1,6 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
-const {getAllItemsByCartId} = require('../db/cart')
+const {getAllItemsByCartId , createCart_Item } = require('../db/cart')
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
@@ -27,8 +27,16 @@ usersRouter.use("/", (req, res, next) => {
 usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
   // const { cartId } = req.body;
-  console.log(req)
     const cart = await getAllItemsByCartId(req)
+  res.send(
+    cart
+  );
+  next()
+});
+usersRouter.get("/cart/add", async (req, res, next) => {
+  console.log("Get Request was made to /cart/add")
+  const { productId, cartId } = req.body;
+    const cart = await createCart_Item({ productId, cartId })
   res.send(
     cart
   );

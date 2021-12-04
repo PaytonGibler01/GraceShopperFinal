@@ -5,6 +5,7 @@ const {
   getAllProducts,
   getProductById,
 } = require("../db/products");
+const { getAllReviews } = require("../db/reviews");
 
 // productsRouter.use("/", async (req, res, next) => {
 //   console.log("Request was made to /products");
@@ -21,17 +22,21 @@ productsRouter.get("/", async (req, res, next) => {
   next();
 });
 
+productsRouter.get("/reviews", async (req, res, next) => {
+  console.log("A request was made to products/reviews")
+  const reviews = await getAllReviews();
+  console.log(reviews, "route reviews")
+  res.send(reviews)
+  next()
+})
+
 productsRouter.get("/:productId", async (req, res, next) => {
+  console.log("A request is being made to /:productId");
   try {
-    console.log("A request is being made to /:productId");
 
     const productId = req.params.productId;
   
-    console.log(productId, "Route Log");
-  
     const product = await getProductById(productId);
-  
-    console.log(product, "Single Product Route Check");
   
     res.send(product);
   } catch (error) {
@@ -39,15 +44,15 @@ productsRouter.get("/:productId", async (req, res, next) => {
   }
 });
 
-productsRouter.get("/reviews", async (req, res, next) => {
-  console.log("Request was made to /products/reviews");
+// productsRouter.get("/reviews", async (req, res, next) => {
+//   console.log("Request was made to /products/reviews");
 
-  const productsReviews = await getAllProductReviews();
-  res.send({
-    productsReviews,
-  });
-  next();
-});
+//   const productsReviews = await getAllProductReviews();
+//   res.send({
+//     productsReviews,
+//   });
+//   next();
+// });
 
 productsRouter.get("/tags", async (req, res, next) => {
   console.log("Request was made to /products/tags");

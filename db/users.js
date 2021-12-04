@@ -38,28 +38,6 @@ async function getAllUsers() {
     throw error;
   }
 }
-async function getUser({ username, password }) {
-  if (!username || !password) {
-    return;
-  }
-
-  try {
-    const user = await getUserByUsername(username);
-    if (!user) {
-      return;
-    }
-
-    if (user.password !== password) {
-      return;
-    }
-
-    delete user.password;
-
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
 
 async function getUserById(id) {
 
@@ -106,7 +84,6 @@ async function getUserByUsername(username) {
 
 module.exports = {
     createUser,
-    getUser,
     getUserById,
     getUserByUsername,
     getAllUsers
