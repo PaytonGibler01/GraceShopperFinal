@@ -32,7 +32,6 @@ const {
 
 const {
   createUser,
-  getUser,
   getUserById,
   getUserByUsername,
   getAllUsers,
@@ -54,16 +53,30 @@ async function createInitialUsers() {
       isAdmin: "false",
     });
     await createUser({
-      username: "sandra",
-      password: "2sandy4me",
-      userEmail: "sandragmail.com",
+      username: "Dr. William Weir",
+      password: "LiveDeliciously",
+      userEmail: "DrWeir@gmail.com",
       isSeller: "true",
       isAdmin: "false",
     });
     await createUser({
-      username: "glamgal",
-      password: "soglam",
-      userEmail: "glamgmail.com",
+      username: "Weyland-Yutani",
+      password: "Xenomorph",
+      userEmail: "Weyland@gmail.com",
+      isSeller: "true",
+      isAdmin: "false",
+    });
+    await createUser({
+      username: "Concordance Extraction Corporation",
+      password: "Necromorph",
+      userEmail: "Concordance@gmail.com",
+      isSeller: "true",
+      isAdmin: "false",
+    });
+    await createUser({
+      username: "HeadBoss",
+      password: "AssumingDirectControl",
+      userEmail: "harbinger@gmail.com",
       isSeller: "true",
       isAdmin: "true",
     });
@@ -85,7 +98,7 @@ async function createInitialProducts() {
         "The Event Horizon is a research class vessel equipped with an experimental hyperspace drive. Disclaimer: Passengers may experience disturbing visions.",
       price: 1000000000000,
       image: "https://screengoblin.files.wordpress.com/2014/11/event.jpg",
-      sellerName: "Dr, William Weir",
+      sellerName: "Dr. William Weir",
       tag: "Preowned"
     });
     await createProduct({
@@ -105,7 +118,7 @@ async function createInitialProducts() {
       price: 150000000,
       image:
         "https://www.grafxwork.com/projets/sta/img/vaisseaux/nostromo/nostromo-01.jpg",
-      sellerName: "Weyland-Yutani Corporation",
+      sellerName: "Weyland-Yutani",
       tag: "Preowned"
     });
 
@@ -121,18 +134,18 @@ async function createInitialReviews() {
     console.log("Starting to create reviews...");
 
     await createReview({
-      title: "Test",
-      content: "This is only a test",
+      title: "Evil",
+      content: "Do not buy this ship! It is alive and it is evil! 1 Star!",
       productId: 1,
     });
     await createReview({
-      title: "Second Test",
-      content: "Another test",
+      title: "Beware Pillars",
+      content: "The ship is huge! Practically a floating city. But there's this strange pillar and you should avoid that at all costs.",
       productId: 2,
     });
     await createReview({
-      title: "Third Test",
-      content: "Final Test",
+      title: "Follow Quarantine",
+      content: "You're going to want to break protocol. Don't do it.",
       productId: 3,
     });
 
