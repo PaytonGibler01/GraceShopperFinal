@@ -39,7 +39,7 @@ export async function getUsers() {
           isSeller: false,
           isAdmin: false
       });
-      console.log(data,"!!!!!!!!!!!!!!!!!")
+      // console.log(data,"!!!!!!!!!!!!!!!!!")
       // try to add email element?
       // console.log(data)
       return data;
@@ -54,7 +54,7 @@ export async function getUsers() {
           "Content-Type": "application/json",
         },
       });
-      console.log(data,"THIS IS CART STUFF")
+      // console.log(data,"THIS IS CART STUFF")
       return data;
     } catch (error) {
       throw error;
