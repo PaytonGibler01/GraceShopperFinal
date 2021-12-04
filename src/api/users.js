@@ -60,3 +60,18 @@ export async function getUsers() {
       throw error;
     }
   }
+  export async function AddProductToCart( productId, cartId ) {
+    try {
+      const { data } = await axios.post(`http://localhost:5000/api/users/cart/add`, {
+       
+        productId: productId,
+        cartId : cartId ,
+      });
+      console.log(data,"!!!!!!!!!!!!!!!!!")
+      // try to add email element?
+      // console.log(data)
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
