@@ -1,26 +1,26 @@
-// import React from "react";
-// import { SingleProducts } from ".";
-// import { Link } from "react-router-dom";
+import React from "react";
+import { SingleProducts } from ".";
+import { Link } from "react-router-dom";
 
-// 
-// const Products = ({ allProducts }) => {
-//   return (
-//     <div className="products-main-container">
-//       {allProducts.length
-//         ? allProducts.map((product) => {
-//             return post.active ? (
-//               <Link
-//                 to={`/posts/${post._id}`}
-//                 key={post._id}
-//                 className="link-tag"
-//               >
-//                 <SingleProducts product={product} />
-//               </Link>
-//             ) : null;
-//           })
-//         : null}
-//     </div>
-//   );
-// };
 
-// export default Products;
+const Products = ({ products }) => {
+  return (
+    <div className="products-main-container">
+      {products.length
+        ? products.map((product) => {
+            return product.id ? (
+              <Link
+                to={`/products/${product.id}`}
+                key={product.id}
+                className="link-tag"
+              >
+                <SingleProducts product={product} />
+              </Link>
+            ) : null;
+          })
+        : null}
+    </div>
+  );
+};
+
+export default Products;

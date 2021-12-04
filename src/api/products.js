@@ -13,3 +13,15 @@ export async function getProducts() {
       throw error;
     }
   }
+
+  export async function getProductById(productId) {
+    try {
+      
+      const {data} = await axios.get(`http://localhost:5000/api/products/${productId}`, {
+        headers: {"Content-Type": "application/json"}
+      })
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
