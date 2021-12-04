@@ -5,7 +5,9 @@ import { Reviews, SingleProducts } from ".";
 
 import { getProductById } from "../api/products";
 import { AddProductToCart } from "../api/users";
-import { userId } from "./"
+// import { userId } from "./"
+let userId = 1
+// ^ THIS IS A HACK
 
 const SingleProductsPage = ({ products, allReviews }) => {
   const {productId} = useParams();
