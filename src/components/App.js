@@ -23,25 +23,23 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const fetchAllProducts = async () => {
-    const data = await getProducts();
-    setProducts(data);
-  };
-
+  const fetchAllProducts = async()=>{
+    const data = await getProducts()
+    setProducts(data)
+    console.log(products,"useEffect getAllProducts")
+  }
+  const fetchAllCartItems = async()=>{
+    const data = await getCart()
+    setCartItems(data)
+    console.log(cartItems,"useEffect getCart")
+  }
+   
   useEffect(() => {
-    fetchAllProducts();
+    
+    fetchAllCartItems()
+    fetchAllProducts()
   }, []);
-
-  // const getDbProducts = async () => {
-  //   const {data} = await getProducts();
-  //  setProducts(data);
-  //   console.log(products,"useEffect getAllProducts")
-  // };
-
-  // useEffect(async () => {
-  //   await getDbProducts()
-  //   // isUserLoggedIn();
-  // }, []);
+ 
   return (
     <div className="app-main-container">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -67,6 +65,9 @@ const App = () => {
         </Route>
         <Route exact path="/profile">
           <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        </Route>
+         <Route path="/my-cart">
+          <Cart cartItems={cartItems} setCartItems={setCartItems}/>
         </Route>
       </Switch>
     </div>

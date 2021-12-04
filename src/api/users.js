@@ -47,3 +47,16 @@ export async function getUsers() {
       throw error;
     }
   }
+  export async function getCart() {
+    try {
+      const { data } = await axios.get(`/api/users/cart`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(data,"THIS IS CART STUFF")
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }

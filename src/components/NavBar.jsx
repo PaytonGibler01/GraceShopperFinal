@@ -13,7 +13,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
       <>
 
       <br></br>
-      <Navbar variant="dark" className="navbar">
+      <Navbar className="navbar">
 
         <Container>
         {/* <Navbar.Brand type="submit"

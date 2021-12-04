@@ -1,17 +1,16 @@
 const client = require("./client")
 
-async function createProduct({ name, description, price, image, sellerName }) {
+async function createProduct({ name, description, price, image, sellerName, tag }) {
   try {
     const { rows: product } = await client.query(
       `
-        INSERT INTO products(name, description, price, image, "sellerName")
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO products(name, description, price, image, "sellerName", tag)
+        VALUES($1, $2, $3, $4, $5, $6)
         ON CONFLICT (name) DO NOTHING
         RETURNING *;
         `,
-      [name, description, price, image, sellerName]
+      [name, description, price, image, sellerName, tag]
     );
-
     return product;
   } catch (error) {
     throw error;
@@ -100,24 +99,26 @@ async function deleteProduct(id){
     }
 }
 
-async function getProductByTagName(tagName){
-    try {
-        const { rows: productIds } = await client.query(
-          `
-          SELECT products.id
-          FROM products
-          JOIN product_tags ON products.id=product_tags."productId"
-          JOIN tags ON tags.id=product_tags."tagId"
-          WHERE tags.name=$1;
-        `,
-          [tagName]
-        );
+// async function getProductByTagName(tagName){
+//     try {
+//         const { rows: productIds } = await client.query(
+//           `
+//           SELECT products.id
+//           FROM products
+//           JOIN product_tags ON products.id=product_tags."productId"
+//           JOIN tags ON tags.id=product_tags."tagId"
+//           WHERE tags.name=$1;
+//         `,
+//           [tagName]
+//         );
     
-        return await Promise.all(productIds.map((product) => getProductById(product.id)));
-      } catch (error) {
-        throw error;
-      }
-}
+//         return await Promise.all(productIds.map((product) => getProductById(product.id)));
+//       } catch (error) {
+//         throw error;
+//       }
+// }
+
+
 
 module.exports = {
   createProduct,
@@ -125,6 +126,6 @@ module.exports = {
   updateProduct,
   getAllProducts,
   deleteProduct,
-  getProductByTagName,
+  // getProductByTagName,
   getProductById
 };

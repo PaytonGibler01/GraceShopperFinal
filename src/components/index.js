@@ -10,3 +10,4 @@ export {default as SingleProductsPage } from './SingleProductsPage';
 export {default as SearchBar } from './SearchBar';
 export {default as Profile } from './Profile';
 export {default as Home } from './Home';
+export {default as Cart } from './Cart';

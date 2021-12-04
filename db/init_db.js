@@ -5,7 +5,7 @@ const {
   createInitialProducts,
   createInitialReviews,
   createInitialUsers,
-  createInitialTags,
+  createInitialCategories,
   createInitialCart,
   // other db methods
 } = require("./index");
@@ -23,6 +23,7 @@ async function buildTables() {
     DROP TABLE IF EXISTS product_tags;
     DROP TABLE IF EXISTS tags;
     DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS categories;
     DROP TABLE IF EXISTS users;
     `);
     // drop tables in correct order
@@ -40,23 +41,22 @@ async function buildTables() {
         "isSeller" BOOLEAN DEFAULT 'false',
         "isAdmin" BOOLEAN DEFAULT 'false'
       );
+
+      CREATE TABLE categories (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL
+      );
+
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) UNIQUE NOT NULL,
         description VARCHAR(255) UNIQUE NOT NULL,
         image VARCHAR(255) UNIQUE NOT NULL,
         "sellerName" VARCHAR(255) NOT NULL,
-        price BIGINT NOT NULL
+        price BIGINT NOT NULL,
+        tag VARCHAR(255) REFERENCES categories(name) NOT NULL
       );
-      CREATE TABLE tags (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) UNIQUE NOT NULL
-      );
-      CREATE TABLE product_tags(
-        "productId" INTEGER REFERENCES products(id),
-        "tagId" INTEGER REFERENCES tags(id),
-        UNIQUE("productId", "tagId")
-      );
+      
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
@@ -86,8 +86,8 @@ async function populateInitialData() {
     // create useful starting data
     await buildTables();
     await createInitialUsers();
+    await createInitialCategories();
     await createInitialProducts();
-    await createInitialTags();
     await createInitialReviews();
     await createInitialCart();
   } catch (error) {

@@ -48,8 +48,7 @@ async function getAllItemsByCartId({cartId}){
         return rows
     } catch (error) {
         
-    }
-    
+    }  
 }
 // async function addItemToCart({ productId, cartId }) {
 //   try {
