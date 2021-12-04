@@ -1,13 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { SingleProducts } from ".";
+import { Reviews, SingleProducts } from ".";
 import { getProductById } from "../api/products";
 import { AddProductToCart } from "../api/users";
 import { userId } from "./"
 
-const SingleProductsPage = ({ products }) => {
+const SingleProductsPage = ({ products, allReviews }) => {
   const {productId} = useParams();
   const compProduct = products.find((product) => product.id == productId)
+  const compReview = allReviews.find((review) => {
+    console.log(review, "Inner Log")  
+    return review.productId == productId})
+  console.log(compReview, "compreview Log")
   if (!compProduct) {
     return (
       <div className="product-card">
@@ -26,6 +30,10 @@ const SingleProductsPage = ({ products }) => {
             }}
             >Add to Cart
             </button>
+
+      
+      <Reviews review={compReview} />
+
     </div>
 
 

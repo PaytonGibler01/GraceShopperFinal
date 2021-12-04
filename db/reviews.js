@@ -9,11 +9,10 @@ const {
   getProductByTagName,
   getProductById,
 } = require("./products");
-const { createTags, /*addTagsToProduct*/ } = require("./tags");
+const { createTags /*addTagsToProduct*/ } = require("./tags");
 
 async function createReview({ title, content, productId }) {
   try {
-
     const {
       rows: [review],
     } = await client.query(
@@ -29,38 +28,13 @@ async function createReview({ title, content, productId }) {
   }
 }
 
-async function getReviewByProductId(productId) {
+async function getAllReviews() {
   try {
     const {
-      rows: [reviews],
+      rows: reviews,
     } = await client.query(`
-        SELECT id, title, content
-        FROM product_reviews
-        WHERE "productId"=${productId}
+        SELECT * FROM reviews;
         `);
-
-    if (!reviews) {
-      return null;
-    }
-
-    return reviews;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function getAllReviewsByProductId(productId) {
-  try {
-    const { rows: reviews } = await client.query(
-      `SELECT * FROM product_reviews
-      WHERE "productId"=$1
-            `,
-      [productId]
-    );
-
-    if (!reviews) {
-      return null;
-    }
 
     return reviews;
   } catch (error) {
@@ -83,8 +57,6 @@ async function deleteReview(id) {
 
 module.exports = {
   createReview,
-  getReviewByProductId,
-  getAllReviewsByProductId,
-  // addReviewsToProduct,
+  getAllReviews,
   deleteReview,
 };
