@@ -14,7 +14,7 @@ const Header = ({isLoggedIn, setIsLoggedIn}) =>{
   return (
     
       <header className="header">
-        <img className='logo' src={require('./starvana-logo.png')}/>
+        <img className='logo' src="https://res.cloudinary.com/dlncppfdr/image/upload/v1638633097/starvana-logo_tbjpmd.png"/>
       </header>
     
   );

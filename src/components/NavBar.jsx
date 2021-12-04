@@ -12,14 +12,13 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
     return (
       <>
 
-      <br></br>
-      <Navbar className="navbar">
-
+      <br />
+      <Navbar className="navbar" bg="primary" variant="dark">
         <Container>
-        {/* <Navbar.Brand type="submit"
+        <Navbar.Brand type="submit"
           onClick={()=>{
             history.push("/home")
-          }}>Home</Navbar.Brand> */}
+          }}>Starvanna</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link 
             type="submit"
