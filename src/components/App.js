@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import { getProducts } from "../api/products";
+import { getCart } from "../api/users";
 import {
   NavBar,
   Header,
@@ -18,28 +19,28 @@ import {
   Users,
   Profile,
   Home,
+  Cart,
 } from "./";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const fetchAllProducts = async () => {
+    const data = await getProducts();
+    setProducts(data);
+    console.log(products, "useEffect getAllProducts");
+  };
+  const fetchAllCartItems = async () => {
+    const data = await getCart();
+    setCartItems(data);
+    console.log(cartItems, "useEffect getCart");
+  };
 
-  const fetchAllProducts = async()=>{
-    const data = await getProducts()
-    setProducts(data)
-    console.log(products,"useEffect getAllProducts")
-  }
-  const fetchAllCartItems = async()=>{
-    const data = await getCart()
-    setCartItems(data)
-    console.log(cartItems,"useEffect getCart")
-  }
-   
   useEffect(() => {
-    
-    fetchAllCartItems()
-    fetchAllProducts()
+    fetchAllCartItems();
+    fetchAllProducts();
   }, []);
- 
+
   return (
     <div className="app-main-container">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -54,7 +55,7 @@ const App = () => {
         <Route exact path="/products">
           <Products products={products} />
         </Route>
-        <Route exact path="/products/:productId">
+        <Route path="/products/:productId">
           <SingleProductsPage products={products} />
         </Route>
         <Route exact path="/login">
@@ -66,8 +67,8 @@ const App = () => {
         <Route exact path="/profile">
           <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </Route>
-         <Route path="/my-cart">
-          <Cart cartItems={cartItems} setCartItems={setCartItems}/>
+        <Route path="/my-cart">
+          <Cart cartItems={cartItems} setCartItems={setCartItems} />
         </Route>
       </Switch>
     </div>
