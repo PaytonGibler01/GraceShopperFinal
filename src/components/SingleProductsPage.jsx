@@ -2,6 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Reviews, SingleProducts } from ".";
 import { getProductById } from "../api/products";
+import { AddProductToCart } from "../api/users";
+import { userId } from "./"
 
 const SingleProductsPage = ({ products, allReviews }) => {
   const {productId} = useParams();
@@ -17,12 +19,24 @@ const SingleProductsPage = ({ products, allReviews }) => {
       </div>
     );
   }
-
   return (
     <div className="products-main-container">
-      <SingleProducts product={compProduct} />
+      <SingleProducts product={compProduct} 
+      /><button
+            type="submit"
+            onClick={()=>{
+              console.log(myUser.id)
+              AddProductToCart(productId, userId)
+            }}
+            >Add to Cart
+            </button>
+
+      
       <Reviews review={compReview} />
+
     </div>
+
+
   );
 };
 
