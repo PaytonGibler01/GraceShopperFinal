@@ -16,23 +16,22 @@ import {
   Products,
   SingleProductsPage,
   Register,
-  Users,
   Profile,
   Home,
   Cart,
-  Reviews
 } from "./";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [allReviews, setAllReviews] = useState([])
+  const [allReviews, setAllReviews] = useState([]);
+  const [isSeller, setIsSeller] = useState(false);
 
   const fetchAllReviews = async () => {
-    const data = await getReviews()
-    console.log(data, "fetchAllReviews")
-    setAllReviews(data)
-  }
+    const data = await getReviews();
+    console.log(data, "fetchAllReviews");
+    setAllReviews(data);
+  };
 
   const fetchAllProducts = async () => {
     const data = await getProducts();
@@ -48,7 +47,7 @@ const App = () => {
   useEffect(() => {
     fetchAllCartItems();
     fetchAllProducts();
-    fetchAllReviews()
+    fetchAllReviews();
   }, []);
 
   return (
@@ -66,7 +65,12 @@ const App = () => {
           <Products products={products} />
         </Route>
         <Route path="/products/:productId">
-          <SingleProductsPage products={products} allReviews={allReviews}/>
+          <SingleProductsPage
+            products={products}
+            allReviews={allReviews}
+            isSeller={isSeller}
+            setIsSeller={setIsSeller}
+          />
         </Route>
         <Route exact path="/login">
           <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { getUser } from "../auth";
 import { Reviews, SingleProducts } from ".";
 
 import { getProductById } from "../api/products";
 import { AddProductToCart } from "../api/users";
-import { userId } from "./"
+import { deleteThisProduct } from "../api/products";
+// import { userId } from "./"
 
-const SingleProductsPage = ({ products, allReviews }) => {
-  const {productId} = useParams();
-  const compProduct = products.find((product) => product.id == productId)
-  const compReview = allReviews.find((review) => {
-    console.log(review, "Inner Log")  
-    return review.productId == productId})
-  console.log(compReview, "compreview Log")
+const SingleProductsPage = ({
+  products,
+  allReviews,
+  isSeller,
+  setIsSeller,
+}) => {
+  const user = getUser();
+  console.log(user, "user log");
+  const { productId } = useParams();
+  console.log(productId, products, "Product Id and Products Log");
+  const compProduct = products.find((product) => {
+    console.log(product, "product log");
+    return product.id == productId;
+  });
+  const compReview = allReviews.find((review) => review.productId == productId);
+  console.log(compProduct, "Comp Product Log");
+  if (user === compProduct.sellerName) setIsSeller(true);
 
   if (!compProduct) {
     return (
@@ -24,22 +35,25 @@ const SingleProductsPage = ({ products, allReviews }) => {
   }
   return (
     <div className="products-main-container">
-      <SingleProducts product={compProduct} 
-      /><button
-            type="submit"
-            onClick={()=>{
-              console.log(myUser.id)
-              AddProductToCart(productId, userId)
-            }}
-            >Add to Cart
-            </button>
+      <SingleProducts product={compProduct} />
 
-      
+      {isSeller ? (
+        <button type="submit" onClick={() => deleteThisProduct(productId)}>
+          Delete
+        </button>
+      ) : (
+        <button
+          type="submit"
+          onClick={() => {
+            console.log(myUser.id);
+            AddProductToCart(productId, userId);
+          }}
+        >
+          Add to Cart
+        </button>
+      )}
       <Reviews review={compReview} />
-
     </div>
-
-
   );
 };
 
