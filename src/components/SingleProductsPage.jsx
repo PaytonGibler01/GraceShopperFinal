@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { getUser } from "../auth";
 import { Reviews, SingleProducts } from ".";
-
 import { getProductById } from "../api/products";
 import { AddProductToCart } from "../api/users";
 import { deleteThisProduct } from "../api/products";
@@ -24,7 +23,9 @@ const SingleProductsPage = ({
   });
   const compReview = allReviews.find((review) => review.productId == productId);
   console.log(compProduct, "Comp Product Log");
-  if (user === compProduct.sellerName) setIsSeller(true);
+// import { userId } from "./"
+let userId = 1
+// ^ THIS IS A HACK
 
   if (!compProduct) {
     return (
