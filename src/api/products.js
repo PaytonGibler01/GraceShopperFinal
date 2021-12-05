@@ -27,3 +27,20 @@ export async function getReviews() {
     throw error;
   }
 }
+
+export async function deleteThisProduct(id) {
+  const myToken = getToken();
+
+  try {
+    const { data } = await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${myToken}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  } 
+}
