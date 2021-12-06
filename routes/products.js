@@ -8,7 +8,7 @@ const {
 const { getAllReviews } = require("../db/reviews");
 
 
-productsRouter.use("/", async (req, res, next) => {
+productsRouter.get("/", async (req, res, next) => {
   console.log("Use Request was made to /products");
   const products = await getAllProducts();
   res.send(products);
