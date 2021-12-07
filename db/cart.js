@@ -42,7 +42,7 @@ async function getAllItemsByCartId({cartId}){
     try {
         const {rows} = await client.query(`
         SELECT * FROM cart_items
-        WHERE "cartId"=$1
+        WHERE "cartId"=$1;
         `, [cartId])
         console.log(rows, "Get All Log")
         return rows
