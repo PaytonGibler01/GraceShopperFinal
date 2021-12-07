@@ -17,7 +17,7 @@ const [price, setPrice] = useState('')
                         const token = getToken();
                         const user = getUser();
                         const createNewProduct = await getProducts(title, description, price, token);
-                        setAllPosts([createNewProduct, ...allProducts]);
+                        setAllProducts([createNewProduct, ...allProducts]);
 
                     } catch (error) {
                         console.log(error)

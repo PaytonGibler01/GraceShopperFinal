@@ -46,7 +46,7 @@ let userId = 1
         <button
           type="submit"
           onClick={() => {
-            console.log(myUser.id);
+            console.log(user.id);
             AddProductToCart(productId, userId);
           }}
         >

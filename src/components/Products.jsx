@@ -1,7 +1,7 @@
 import React from "react";
 import { SingleProducts } from ".";
 import { Link } from "react-router-dom";
-
+import "./Products.css"
 
 const Products = ({ products }) => {
   return (
