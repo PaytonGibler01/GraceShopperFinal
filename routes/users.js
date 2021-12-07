@@ -5,9 +5,6 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
     console.log("Request was made to /users")
-    // res.send({
-    //     message: "Users is under construction"
-    // });
     next()
   });
 
@@ -28,11 +25,22 @@ usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
   // const { cartId } = req.body;
     const cart = await getAllItemsByCartId(req)
-  res.send(
-    cart
-  );
+  if(cart){
+    console.log(cart,"cart stuff from routes")
+    res.send(
+      cart
+    );
+  }
+    if(!cart){
+    res.status(401)
+    next({
+      name: 'No Cart Items',
+      message: 'No Cart Items'
+  });
+  }
   next()
 });
+
 usersRouter.get("/cart/add", async (req, res, next) => {
   console.log("Get Request was made to /cart/add")
   const { productId, cartId } = req.body;
@@ -43,6 +51,27 @@ usersRouter.get("/cart/add", async (req, res, next) => {
   next()
 });
 
+//api/users/me
+usersRouter.get("/me",  async (req, res, next) => {
+  const token = req.headers.authorization;
+  console.log(req.users,"req users")
+  try {
+    if(token){
+      console.log(req.user,"req.user")
+      res.send(req.user);
+    }
+      if(!token){
+      res.status(401)
+      next({
+        name: 'Invalid token',
+        message: 'Unauthorized'
+    });
+    }
+
+  } catch (error) {
+    next(error);
+  }
+})
 
 //api/users/login
 usersRouter.post('/login', async (req, res, next)=>{

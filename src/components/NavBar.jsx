@@ -79,6 +79,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
         <Nav className="me-auto">
            { isLoggedIn ? (
               <Nav.Link href="login" onClick = {()=>{
+                history.push("/login")
                  localStorage.clear()
                  setIsLoggedIn(false)
               }}

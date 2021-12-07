@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import {storeToken, storeUser}  from "../auth"
 import "./RegLog.css"
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn,currentUser, setCurrentUser }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory()
@@ -22,6 +22,7 @@ const Login = ({ setIsLoggedIn }) => {
             setIsLoggedIn(true);
             setUserName("");
             setPassword("");
+            // setCurrentUser(token)
             history.push("/home")
           } catch (error) {
             console.error(error);

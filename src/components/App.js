@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { getProducts, getReviews } from "../api/products";
-import { getCart } from "../api/users";
+import { getCart, getCurrentUser } from "../api/users";
 import {
   NavBar,
   Header,
@@ -26,6 +26,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
   const [isSeller, setIsSeller] = useState(false);
+  const [currentUser, setCurrentUser] = useState([])
 
   const fetchAllReviews = async () => {
     const data = await getReviews();
@@ -43,11 +44,17 @@ const App = () => {
     setCartItems(data);
     console.log(cartItems, "useEffect getCart");
   };
+  const fetchCurrentUser = async () => {
+    const data = await getCurrentUser();
+    setCurrentUser(data);
+    console.log(currentUser, "useEffect currentUser");
+  };
 
   useEffect(() => {
     fetchAllCartItems();
     fetchAllProducts();
     fetchAllReviews();
+    fetchCurrentUser();
   }, []);
 
   return (
@@ -70,19 +77,21 @@ const App = () => {
             allReviews={allReviews}
             isSeller={isSeller}
             setIsSeller={setIsSeller}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
           />
         </Route>
         <Route exact path="/login">
-          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route exact path="/register">
-          <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
         <Route exact path="/profile">
           <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route path="/my-cart">
-          <Cart cartItems={cartItems} setCartItems={setCartItems} />
+          <Cart cartItems={cartItems} setCartItems={setCartItems} currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
       </Switch>
     </div>

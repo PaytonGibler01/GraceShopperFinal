@@ -67,9 +67,21 @@ export async function getUsers() {
         productId: productId,
         cartId : cartId ,
       });
-      console.log(data,"!!!!!!!!!!!!!!!!!")
       // try to add email element?
       // console.log(data)
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  export async function getCurrentUser() {
+    try {
+      const { data } = await axios.get(`http://localhost:5000/api/users/me`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(data,"THIS IS CURRENT USER STUFF")
       return data;
     } catch (error) {
       throw error;

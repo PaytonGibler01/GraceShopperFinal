@@ -7,20 +7,20 @@ const Home = () => {
       <>
         <header className="home">
           <h2><center>Welcome to Starvana!</center></h2>
-          <p></p>
-          <p>
+          {/* <p></p> */}
+          <div>
           <center>
-            <h5>
-              <p>Our one and only goal, is for you to be able to find the starship that compliments you and your needs.</p>
-              <p>So you can sail to the stars!</p>
-            </h5>
+            <div>
+              <h5>Our one and only goal, is for you to be able to find the starship that compliments you and your needs.</h5>
+              <h5>So you can sail to the stars!</h5>
+            </div>
           </center>
-        </p>
-        <p>
+        </div>
+        <div>
           <center>
           With a varied inventory of new and previously owned ships, customer satisfaction is not simply our guarantee. It is our way of Life.
           </center>
-        </p>
+        </div>
         </header>
       </>
     );
