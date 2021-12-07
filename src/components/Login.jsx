@@ -5,6 +5,7 @@ import { loginUser } from "../api/users";
 import { useHistory } from "react-router-dom";
 import {storeToken, storeUser}  from "../auth"
 import "./RegLog.css"
+import { user } from "pg/lib/defaults";
 
 const Login = ({ setIsLoggedIn }) => {
   const [userName, setUserName] = useState("");
@@ -23,6 +24,10 @@ const Login = ({ setIsLoggedIn }) => {
             setUserName("");
             setPassword("");
             history.push("/home")
+
+            if (user.isAdmin == true) {
+              setIsAdmin(true)
+            }
           } catch (error) {
             console.error(error);
           }

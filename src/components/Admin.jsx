@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 
-const Profile = () => {
+const Admin = () => {
     return (
       <>
         <header>
@@ -12,4 +12,4 @@ const Profile = () => {
     );
   };
   
-  export default Profile;
+  export default Admin;

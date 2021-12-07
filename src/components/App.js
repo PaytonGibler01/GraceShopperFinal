@@ -19,6 +19,7 @@ import {
   Profile,
   Home,
   Cart,
+  Admin,
 } from "./";
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -26,6 +27,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
   const [isSeller, setIsSeller] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const fetchAllReviews = async () => {
     const data = await getReviews();
@@ -83,6 +85,9 @@ const App = () => {
         </Route>
         <Route path="/my-cart">
           <Cart cartItems={cartItems} setCartItems={setCartItems} />
+        </Route>
+        <Route exact path="/admin">
+          <Admin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         </Route>
       </Switch>
     </div>

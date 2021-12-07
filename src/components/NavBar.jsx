@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {Navbar, Nav, Container} from 'react-bootstrap'
 import "./NavBar.css"
 
-const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
+const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
     const myUser = getUser()
     const history = useHistory()
     return (
@@ -63,7 +63,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
             }}
             >Profile</Navbar.Brand>
 
-          { isLoggedIn && isAdmin ? (
+          { isAdmin ? (
             <Navbar.Brand href="admin" onClick = {()=>{
                 history.push("/admin")
               }}
