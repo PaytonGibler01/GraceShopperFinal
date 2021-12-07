@@ -38,7 +38,7 @@ async function getProductById(id) {
     const { rows: product } = await client.query(
       `
         SELECT * FROM products
-        WHERE id=$1
+        WHERE id=$1;
         `,
       [id]
     );
@@ -78,7 +78,7 @@ async function updateProduct(productId, fields = {}) {
 async function getAllProducts() {
   try {
     const { rows } = await client.query(`
-    SELECT * FROM products
+    SELECT * FROM products;
     `);
 
     return rows;
@@ -92,7 +92,7 @@ async function deleteProduct(id){
         await client.query(`
     DELETE FROM products
     WHERE id=$1
-    RETURNING *
+    RETURNING *;
     `, [id])
     } catch (error) {
         throw error
