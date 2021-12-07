@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { getUser } from "../auth";
 import { Reviews, SingleProducts } from ".";
-import { getProductById } from "../api/products";
 import { AddProductToCart } from "../api/users";
 import { deleteThisProduct } from "../api/products";
 // import { userId } from "./"
@@ -14,18 +13,16 @@ const SingleProductsPage = ({
   setIsSeller,
 }) => {
   const user = getUser();
-  console.log(user, "user log");
   const { productId } = useParams();
-  console.log(productId, products, "Product Id and Products Log");
   const compProduct = products.find((product) => {
-    console.log(product, "product log");
+    if (user === product.sellerName) setIsSeller(true);
     return product.id == productId;
   });
   const compReview = allReviews.find((review) => review.productId == productId);
   console.log(compProduct, "Comp Product Log");
-// import { userId } from "./"
-let userId = 1
-// ^ THIS IS A HACK
+  // import { userId } from "./"
+  let userId = 1;
+  // ^ THIS IS A HACK
 
   if (!compProduct) {
     return (
@@ -39,7 +36,18 @@ let userId = 1
       <SingleProducts product={compProduct} />
 
       {isSeller ? (
-        <button type="submit" onClick={() => deleteThisProduct(productId)}>
+        <button
+          type="submit"
+          onClick={() => {
+            event.preventDefault();
+            try {
+              deleteThisProduct(productId);
+              history.push("/products")
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        >
           Delete
         </button>
       ) : (

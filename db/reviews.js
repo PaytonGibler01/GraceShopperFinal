@@ -30,9 +30,7 @@ async function createReview({ title, content, productId }) {
 
 async function getAllReviews() {
   try {
-    const {
-      rows: reviews,
-    } = await client.query(`
+    const { rows: reviews } = await client.query(`
         SELECT * FROM reviews;
         `);
 
