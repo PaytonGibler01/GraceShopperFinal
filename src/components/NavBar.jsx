@@ -15,24 +15,13 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
 <br />
       <Navbar className="navbar" bg="primary" variant="dark">
         <Container>
+
+        <Nav className="me-auto">
+
         <Navbar.Brand type="submit"
           onClick={()=>{
             history.push("/home")
-          }}>Starvanna</Navbar.Brand>
-
-        <Nav className="me-auto">
-          {/* <Nav.Link 
-            type="submit"
-            onClick={()=>{
-              history.push("/Home")
-            }}
-            >Home</Nav.Link> */}
-
-        <Navbar.Brand type="submit"
-            onClick={()=>{
-            history.push("/home")
-            }}
-            >Home</Navbar.Brand>
+          }}>Starvana</Navbar.Brand>
           
   
           {/* <Nav.Link 
@@ -73,12 +62,20 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
             history.push("/profile")
             }}
             >Profile</Navbar.Brand>
+
+          { isLoggedIn && isAdmin ? (
+            <Navbar.Brand href="admin" onClick = {()=>{
+                history.push("/admin")
+              }}
+              >Admin</Navbar.Brand>):(null)}
+              
         </Nav>
 
         <align-right>
         <Nav className="me-auto">
            { isLoggedIn ? (
               <Nav.Link href="login" onClick = {()=>{
+                  history.push("/logout")
                  localStorage.clear()
                  setIsLoggedIn(false)
               }}
