@@ -1,14 +1,12 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
 const {getAllItemsByCartId , createCart_Item } = require('../db/cart')
+const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
 const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = require('react-dom');
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
     console.log("Request was made to /users")
-    // res.send({
-    //     message: "Users is under construction"
-    // });
     next()
   });
 
@@ -17,9 +15,9 @@ usersRouter.use("/", (req, res, next) => {
   usersRouter.get("/", async (req, res, next) => {
     console.log("Request was made to /users")
     const users = await getAllUsers()
-  res.send({
+  res.send(
      users
-  });
+  );
   next()
 });
 
@@ -37,11 +35,22 @@ usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
   // const { cartId } = req.body;
     const cart = await getAllItemsByCartId(req)
-  res.send(
-    cart
-  );
+  if(cart){
+    console.log(cart,"cart stuff from routes")
+    res.send(
+      cart
+    );
+  }
+    if(!cart){
+    res.status(401)
+    next({
+      name: 'No Cart Items',
+      message: 'No Cart Items'
+  });
+  }
   next()
 });
+
 usersRouter.get("/cart/add", async (req, res, next) => {
   console.log("Get Request was made to /cart/add")
   const { productId, cartId } = req.body;
@@ -50,6 +59,16 @@ usersRouter.get("/cart/add", async (req, res, next) => {
     cart
   );
   next()
+});
+
+//api/users/me
+usersRouter.get("/me", requireUser, async (req, res, next) => {
+  try {
+    console.log(req.user," REQ>USER")
+    res.send(req.user);
+  } catch (error) {
+    next(error);
+  }
 });
 
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { storeToken, getToken,storeUser } from "../auth";
+import { storeToken, getToken, storeUser } from "../auth";
 
 export async function getUsers() {
     try {
@@ -67,7 +67,6 @@ export async function getUsers() {
         productId: productId,
         cartId : cartId ,
       });
-      console.log(data,"!!!!!!!!!!!!!!!!!")
       // try to add email element?
       // console.log(data)
       return data;
@@ -75,3 +74,18 @@ export async function getUsers() {
       throw error;
     }
   }
+  // export async function getAllUsers() {
+  //   const myToken = getToken();
+  //   try {
+  //     const { data } = await axios.get(`http://localhost:5000/api/users/me`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${myToken}`,
+  //       },
+  //     });
+  //     console.log(data,"THIS IS CURRENT USER STUFF")
+  //     return data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }

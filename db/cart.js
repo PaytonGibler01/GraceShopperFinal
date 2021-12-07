@@ -83,10 +83,26 @@ async function removeItemFromCart(productId) {
     throw error;
   }
 }
+async function getCartByUserId(userId) {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * 
+      FROM carts
+      WHERE "userId" = $1
+        
+        `,
+      [userId]
+    );
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   createCart,
   createCart_Item,
   getAllItemsByCartId,
   removeItemFromCart,
+  getCartByUserId,
 };

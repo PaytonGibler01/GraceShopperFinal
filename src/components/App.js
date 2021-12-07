@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { getProducts, getReviews } from "../api/products";
-import { getCart } from "../api/users";
+import { getCart, getUsers } from "../api/users";
 import {
   NavBar,
   Header,
@@ -27,7 +27,9 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
   const [isSeller, setIsSeller] = useState(false);
+  const [allUsers, setAllUsers] = useState([])
   const [isAdmin, setIsAdmin] = useState(false);
+
 
   const fetchAllReviews = async () => {
     const data = await getReviews();
@@ -45,11 +47,16 @@ const App = () => {
     setCartItems(data);
     console.log(cartItems, "useEffect getCart");
   };
-
+  const fetchAllUsers = async () => {
+    const data = await getUsers();
+    setAllUsers(data);
+    console.log(allUsers, "useEffect allUser");
+  };
   useEffect(() => {
     fetchAllCartItems();
     fetchAllProducts();
     fetchAllReviews();
+    fetchAllUsers();
   }, []);
 
   return (
@@ -72,10 +79,11 @@ const App = () => {
             allReviews={allReviews}
             isSeller={isSeller}
             setIsSeller={setIsSeller}
+            allUsers={allUsers}
           />
         </Route>
         <Route exact path="/login">
-          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}  />
         </Route>
         <Route exact path="/register">
           <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

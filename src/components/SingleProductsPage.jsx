@@ -11,13 +11,19 @@ const SingleProductsPage = ({
   allReviews,
   isSeller,
   setIsSeller,
+  allUsers,
 }) => {
-  const user = getUser();
+  const username = getUser();
+  console.log(allUsers,"getUser username")
+
+
   const { productId } = useParams();
   const compProduct = products.find((product) => {
-    if (user === product.sellerName) setIsSeller(true);
+    if (username === product.sellerName) setIsSeller(true);
     return product.id == productId;
   });
+  const compUser = allUsers.find((user) => username === user.username);
+  console.log(compUser)
   const compReview = allReviews.find((review) => review.productId == productId);
   console.log(compProduct, "Comp Product Log");
   // import { userId } from "./"

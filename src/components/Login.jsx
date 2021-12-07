@@ -7,7 +7,7 @@ import {storeToken, storeUser}  from "../auth"
 import "./RegLog.css"
 import { user } from "pg/lib/defaults";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn,currentUser, setCurrentUser }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory()
@@ -23,6 +23,7 @@ const Login = ({ setIsLoggedIn }) => {
             setIsLoggedIn(true);
             setUserName("");
             setPassword("");
+            // setCurrentUser(token)
             history.push("/home")
 
             if (user.isAdmin == true) {

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Reviews = ({ review }) => {
-  console.log(review, "Reviews Log");
   return (
     <div className="review-card">
       {review ? (

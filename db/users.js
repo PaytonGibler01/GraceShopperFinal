@@ -29,7 +29,7 @@ async function createUser({
 async function getAllUsers() {
   try {
     const { rows } = await client.query(`
-      SELECT id, username, password, "userEmail", "isSeller", "isAdmin"
+      SELECT *
       FROM users;
     `);
 
