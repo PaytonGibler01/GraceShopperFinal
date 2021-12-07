@@ -62,6 +62,13 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
             history.push("/profile")
             }}
             >Profile</Navbar.Brand>
+
+          { isLoggedIn && isAdmin ? (
+            <Navbar.Brand href="admin" onClick = {()=>{
+                history.push("/admin")
+              }}
+              >Admin</Navbar.Brand>):(null)}
+              
         </Nav>
 
         <align-right>
