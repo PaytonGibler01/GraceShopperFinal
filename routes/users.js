@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
 const {getAllItemsByCartId , createCart_Item } = require('../db/cart')
+const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
@@ -13,9 +14,9 @@ usersRouter.use("/", (req, res, next) => {
   usersRouter.get("/", async (req, res, next) => {
     console.log("Request was made to /users")
     const users = await getAllUsers()
-  res.send({
+  res.send(
      users
-  });
+  );
   next()
 });
 
@@ -52,26 +53,15 @@ usersRouter.get("/cart/add", async (req, res, next) => {
 });
 
 //api/users/me
-usersRouter.get("/me",  async (req, res, next) => {
-  const token = req.headers.authorization;
-  console.log(req.users,"req users")
+usersRouter.get("/me", requireUser, async (req, res, next) => {
   try {
-    if(token){
-      console.log(req.user,"req.user")
-      res.send(req.user);
-    }
-      if(!token){
-      res.status(401)
-      next({
-        name: 'Invalid token',
-        message: 'Unauthorized'
-    });
-    }
-
+    console.log(req.user," REQ>USER")
+    res.send(req.user);
   } catch (error) {
     next(error);
   }
-})
+});
+
 
 //api/users/login
 usersRouter.post('/login', async (req, res, next)=>{
