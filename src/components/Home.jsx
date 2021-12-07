@@ -7,8 +7,9 @@ const Home = () => {
       <>
         <header className="home">
           <h2><center>Welcome to Starvana!</center></h2>
-          {/* <p></p> */}
-          <div>
+
+
+         <div>
           <center>
             <div>
               <h5>Our one and only goal, is for you to be able to find the starship that compliments you and your needs.</h5>
@@ -16,6 +17,8 @@ const Home = () => {
             </div>
           </center>
         </div>
+
+
         <div>
           <center>
           With a varied inventory of new and previously owned ships, customer satisfaction is not simply our guarantee. It is our way of Life.

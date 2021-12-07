@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {Navbar, Nav, Container} from 'react-bootstrap'
 import "./NavBar.css"
 
-const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
+const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
     const myUser = getUser()
     const history = useHistory()
     return (
@@ -15,24 +15,13 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
 <br />
       <Navbar className="navbar" bg="primary" variant="dark">
         <Container>
+
+        <Nav className="me-auto">
+
         <Navbar.Brand type="submit"
           onClick={()=>{
             history.push("/home")
-          }}>Starvanna</Navbar.Brand>
-
-        <Nav className="me-auto">
-          {/* <Nav.Link 
-            type="submit"
-            onClick={()=>{
-              history.push("/Home")
-            }}
-            >Home</Nav.Link> */}
-
-        <Navbar.Brand type="submit"
-            onClick={()=>{
-            history.push("/home")
-            }}
-            >Home</Navbar.Brand>
+          }}>Starvana</Navbar.Brand>
           
   
           {/* <Nav.Link 
@@ -73,6 +62,13 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
             history.push("/profile")
             }}
             >Profile</Navbar.Brand>
+
+          { isAdmin ? (
+            <Navbar.Brand href="admin" onClick = {()=>{
+                history.push("/admin")
+              }}
+              >Admin</Navbar.Brand>):(null)}
+              
         </Nav>
 
         <align-right>
@@ -80,7 +76,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn}) =>{
            { isLoggedIn ? (
               <Nav.Link href="login" onClick = {()=>{
                 history.push("/login")
-                 localStorage.clear()
+                  localStorage.clear()
                  setIsLoggedIn(false)
               }}
               >Logout</Nav.Link>

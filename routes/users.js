@@ -3,6 +3,7 @@ const { getAllUsers, getUserByUsername,createUser } = require('../db/users')
 const {getAllItemsByCartId , createCart_Item } = require('../db/cart')
 const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
+const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = require('react-dom');
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
     console.log("Request was made to /users")
@@ -20,6 +21,14 @@ usersRouter.use("/", (req, res, next) => {
   next()
 });
 
+usersRouter.get("/admin", async (req, res, next) => {
+  
+  try {
+    
+  } catch (error) {
+    
+  }
+});
 
 //api/users/cart
 usersRouter.get("/cart", async (req, res, next) => {
@@ -88,7 +97,16 @@ usersRouter.post('/login', async (req, res, next)=>{
           );
           console.log("this is token",token)
           res.send({user, token, message: "you are logged in!"});
-        } else {
+        } /*else if (user && user.password == password && isAdmin) {
+          const token = jwt.sign(
+            { id: user.id, username: user.username }, JWT_SECRET, 
+            {
+              expiresIn: "1h",
+            }
+          );
+          console.log("this is token",token)
+          res.send({user, token, message: "Welcome back, Administrator!"});
+        } */ else {
           next({ 
             name: 'IncorrectCredentialsError', 
             message: 'Your username or password is incorrect'
