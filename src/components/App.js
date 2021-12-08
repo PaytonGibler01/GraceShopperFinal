@@ -27,7 +27,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
   const [isSeller, setIsSeller] = useState(false);
-  const [allUsers, setAllUsers] = useState([])
+  const [allUsers, setAllUsers] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
 
@@ -58,6 +58,7 @@ const App = () => {
     fetchAllReviews();
     fetchAllUsers();
   }, []);
+console.log("55555", isAdmin)
 
   return (
     <div className="app-main-container">
@@ -83,7 +84,7 @@ const App = () => {
           />
         </Route>
         <Route exact path="/login">
-          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}  />
+          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} allUsers={allUsers} setIsAdmin={setIsAdmin} />
         </Route>
         <Route exact path="/register">
           <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

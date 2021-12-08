@@ -3,11 +3,14 @@ import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { loginUser } from "../api/users";
 import { useHistory } from "react-router-dom";
-import {storeToken, storeUser}  from "../auth"
+import {
+  storeToken, getToken,
+  storeUser, getUser,
+}  from "../auth"
 import "./RegLog.css"
-import { user } from "pg/lib/defaults";
 
-const Login = ({ setIsLoggedIn,currentUser, setCurrentUser }) => {
+
+const Login = ({ setIsLoggedIn, setIsAdmin }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory()
@@ -19,14 +22,18 @@ const Login = ({ setIsLoggedIn,currentUser, setCurrentUser }) => {
           event.preventDefault();
           
           try {
-            const token = await loginUser(userName, password);
+            const loggedInUser = await loginUser(userName, password);
+            storeToken(loggedInUser.token);
+            console.log("2222", loggedInUser.user)
             setIsLoggedIn(true);
+            storeUser(loggedInUser.user);
+
             setUserName("");
             setPassword("");
-            // setCurrentUser(token)
+            
             history.push("/home")
 
-            if (user.isAdmin == true) {
+            if (loggedInUser.user.isAdmin == true) {
               setIsAdmin(true)
             }
           } catch (error) {

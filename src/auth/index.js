@@ -18,3 +18,4 @@ export function getUser(){
     const myUser = JSON.parse(localStorage.getItem('user'));
     return myUser;
 }
+
