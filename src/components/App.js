@@ -57,13 +57,15 @@ const App = () => {
     fetchAllProducts();
     fetchAllReviews();
     fetchAllUsers();
-  }, []);
+  }, [isAdmin]);
 console.log("55555", isAdmin)
 
   return (
     <div className="app-main-container">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin}/>
+
       <Switch>
         <Route exact path="/">
           <Home />
