@@ -63,7 +63,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
             }}
             >Profile</Navbar.Brand>
 
-          { isAdmin ? (
+          { isLoggedIn /*&& isAdmin*/ ? (
             <Navbar.Brand href="admin" onClick = {()=>{
                 history.push("/admin")
               }}
