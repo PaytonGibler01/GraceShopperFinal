@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { storeToken, getToken, storeUser } from "../auth";
+import { storeToken, getToken, storeUser, storeCart } from "../auth";
 
 export async function getUsers() {
     try {
@@ -23,7 +23,9 @@ export async function getUsers() {
       });
       storeToken(data.token);
       storeUser(data.user.username);
-  
+      storeCart(data.cart);
+
+      console.log("DATA", data.cart)
       return data;
     } catch (error) {
       throw error;
@@ -47,7 +49,8 @@ export async function getUsers() {
       throw error;
     }
   }
-  export async function getCart() {
+
+  export async function createUserCart() {
     try {
       const { data } = await axios.get(`/api/users/cart`, {
         headers: {
@@ -60,6 +63,7 @@ export async function getUsers() {
       throw error;
     }
   }
+
   export async function AddProductToCart( productId, cartId ) {
     try {
       const { data } = await axios.post(`http://localhost:5000/api/users/cart/add`, {

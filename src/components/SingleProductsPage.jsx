@@ -4,7 +4,6 @@ import { getUser } from "../auth";
 import { Reviews, SingleProducts } from ".";
 import { AddProductToCart } from "../api/users";
 import { deleteThisProduct } from "../api/products";
-// import { userId } from "./"
 
 const SingleProductsPage = ({
   products,
@@ -13,17 +12,16 @@ const SingleProductsPage = ({
   setIsSeller,
   allUsers,
 }) => {
-  const username = getUser();
-  console.log(allUsers,"getUser username")
 
+  const username = getUser();
+
+  console.log("USERNAME", username)
 
   const { productId } = useParams();
   const compProduct = products.find((product) => {
     if (username === product.sellerName) setIsSeller(true);
     return product.id == productId;
   });
-  const compUser = allUsers.find((user) => username === user.username);
-  console.log(compUser)
   const compReview = allReviews.find((review) => review.productId == productId);
   console.log(compProduct, "Comp Product Log");
   // import { userId } from "./"
@@ -60,8 +58,8 @@ const SingleProductsPage = ({
         <button
           type="submit"
           onClick={() => {
-            console.log(user.id);
-            AddProductToCart(productId, userId);
+
+            AddProductToCart(productId, username.id);
           }}
         >
           Add to Cart

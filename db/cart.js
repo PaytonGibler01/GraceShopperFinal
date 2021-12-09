@@ -1,6 +1,6 @@
 const client = require("./client");
 
-async function createCart({userId}) {
+async function createCart(userId) {
   try {
     console.log("Creating your cart");
     const { rows: [cart] } = await client.query(
@@ -50,25 +50,26 @@ async function getAllItemsByCartId({cartId}){
         
     }  
 }
-// async function addItemToCart({ productId, cartId }) {
-//   try {
-//     console.log("Adding item to cart");
-//     const {
-//       rows: [item],
-//     } = await client.query(
-//       `
-//       SELECT * FROM cart_items
-//       JOIN carts ON cart.id = cart_items."cartId"
-//       WHERE "cartId" = ${cartId};
-//     `,
-//       [productId, cartId]
-//     );
-//     console.log("Finished adding item");
-//     return item;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+
+async function addItemToCart({ productId, cartId }) {
+  try {
+    console.log("Adding item to cart");
+    const {
+      rows: [item],
+    } = await client.query(
+      `
+      SELECT * FROM cart_items
+      JOIN carts ON cart.id = cart_items."cartId"
+      WHERE "cartId" = ${cartId};
+    `,
+      [productId, cartId]
+    );
+    console.log("Finished adding item");
+    return item;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function removeItemFromCart(productId) {
   try {
@@ -103,6 +104,7 @@ module.exports = {
   createCart,
   createCart_Item,
   getAllItemsByCartId,
+  addItemToCart,
   removeItemFromCart,
   getCartByUserId,
 };
