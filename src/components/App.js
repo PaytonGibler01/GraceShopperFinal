@@ -1,3 +1,4 @@
+import { create } from "combined-stream";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -8,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import { getProducts, getReviews } from "../api/products";
-import { getCart, getUsers } from "../api/users";
+import { createUserCart, getUsers } from "../api/users";
 import {
   NavBar,
   Header,
@@ -43,7 +44,7 @@ const App = () => {
     console.log(products, "useEffect getAllProducts");
   };
   const fetchAllCartItems = async () => {
-    const data = await getCart();
+    const data = await createUserCart();
     setCartItems(data);
     console.log(cartItems, "useEffect getCart");
   };
@@ -58,7 +59,6 @@ const App = () => {
     fetchAllReviews();
     fetchAllUsers();
   }, [isAdmin]);
-console.log("55555", isAdmin)
 
   return (
     <div className="app-main-container">
