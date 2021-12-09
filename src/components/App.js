@@ -63,7 +63,9 @@ console.log("55555", isAdmin)
   return (
     <div className="app-main-container">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} />
+
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin}/>
+
       <Switch>
         <Route exact path="/">
           <Home />
@@ -96,7 +98,9 @@ console.log("55555", isAdmin)
           <Cart cartItems={cartItems} setCartItems={setCartItems} />
         </Route>
         <Route exact path="/admin">
+
           <Admin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin} products={products} allUsers={allUsers} />
+
         </Route>
       </Switch>
     </div>

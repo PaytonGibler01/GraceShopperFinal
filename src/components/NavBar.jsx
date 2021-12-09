@@ -74,6 +74,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
 
         <align-right>
         <Nav className="me-auto">
+          
            { isLoggedIn ? (
               <Nav.Link href="login" onClick = {()=>{
                 history.push("/login")
@@ -82,7 +83,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
               }}
               >Logout</Nav.Link>
            ):(null)}
-  
+            
            { ! isLoggedIn ? (
               <>
               <Nav.Link href="login">Login</Nav.Link>

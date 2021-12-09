@@ -30,12 +30,14 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
 
             setUserName("");
             setPassword("");
-            
-            history.push("/home")
-
             if (loggedInUser.user.isAdmin == true) {
               setIsAdmin(true)
             }
+            history.push("/home")
+
+            // if (loggedInUser.user.isAdmin == true) {
+            //   setIsAdmin(true)
+            // }
           } catch (error) {
             console.error(error);
           }
