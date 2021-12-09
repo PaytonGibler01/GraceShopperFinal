@@ -1,5 +1,6 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
+const { getAllProducts } = require('../db/products')
 const {getAllItemsByCartId , createCart_Item } = require('../db/cart')
 const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
@@ -23,11 +24,10 @@ usersRouter.use("/", (req, res, next) => {
 
 usersRouter.get("/admin", async (req, res, next) => {
   
-  try {
-    
-  } catch (error) {
-    
-  }
+  const users = await getAllUsers()
+  const products = await getAllProducts()
+
+  res.send(users, products)
 });
 
 //api/users/cart
