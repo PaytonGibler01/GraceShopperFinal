@@ -1,13 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
+import { deleteThisProduct } from "../api/products";
 
-
-const Admin = () => {
+const Admin = ({allUsers, products}) => {
     return (
       <>
-        <header>
-          <h1>Welcome to Admin Component</h1>
-        </header>
+        <div className="products-main-container">
+          {products.length
+          ? products.map((product) => {
+            return product.id ? (
+              <div>
+                <Link
+                  to={`/products/${product.id}`}
+                  key={product.id}
+                  className="link-tag"
+                >
+                  <h4 className="Product">{product.name} </h4>
+                </Link>
+                <button
+                  type="submit"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    try {
+                      deleteThisProduct(productId);
+                      history.push("/products")
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            ) : null;
+          })
+          : null}
+        </div>
       </>
     );
   };

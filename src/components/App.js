@@ -96,7 +96,7 @@ console.log("55555", isAdmin)
           <Cart cartItems={cartItems} setCartItems={setCartItems} />
         </Route>
         <Route exact path="/admin">
-          <Admin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+          <Admin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin} products={products} allUsers={allUsers} />
         </Route>
       </Switch>
     </div>
