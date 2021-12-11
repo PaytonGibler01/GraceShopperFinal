@@ -104,18 +104,19 @@ usersRouter.post('/login', async (req, res, next)=>{
           res.send({user, token, cart, message: "you are logged in!"});
         }
           if (cart.userId && isOrdered === false) {
-            // FINISH THIS
-          }
-        /*else if (user && user.password == password && isAdmin) {
-          const token = jwt.sign(
-            { id: user.id, username: user.username }, JWT_SECRET, 
-            {
-              expiresIn: "1h",
-            }
-          );
-          console.log("this is token",token)
-          res.send({user, token, message: "Welcome back, Administrator!"});
-        } */ else {
+            const cart = await getAllItemsByCartId(req)
+  
+            if(!cart){
+              const cart = await createCart({ userId, cartId })
+              res.send(
+                cart
+              )
+          } else if(cart){
+            console.log(cart,"cart stuff from routes")
+            res.send(
+              cart
+            );
+        } else {
           next({ 
             name: 'IncorrectCredentialsError', 
             message: 'Your username or password is incorrect'
@@ -126,6 +127,16 @@ usersRouter.post('/login', async (req, res, next)=>{
         next(error);
       }
     });
+
+            /*else if (user && user.password == password && isAdmin) {
+          const token = jwt.sign(
+            { id: user.id, username: user.username }, JWT_SECRET, 
+            {
+              expiresIn: "1h",
+            }
+          );
+          console.log("this is token",token)
+          res.send({user, token, message: "Welcome back, Administrator!"});
 
   
 
