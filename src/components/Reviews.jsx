@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Products.css"
 
 const Reviews = ({ review }) => {
   return (
@@ -15,4 +16,3 @@ const Reviews = ({ review }) => {
 };
 
 export default Reviews;
-// export default SingleProducts;

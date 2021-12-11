@@ -9,7 +9,7 @@ const {
   getProductByTagName,
   getProductById,
 } = require("./products");
-const { createTags /*addTagsToProduct*/ } = require("./tags");
+const { createTags } = require("./tags");
 
 async function createReview({ title, content, productId }) {
   try {

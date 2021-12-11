@@ -42,8 +42,6 @@ const [price, setPrice] = useState('')
             <input type='file' name='image' />
             </form>
 
-            {/* use <img src=imageURL /> in a database query to display image on the front-end*/}
-
             <fieldset className="auth-component_input">
                 <label htmlFor="description">Description: </label>
                 <input

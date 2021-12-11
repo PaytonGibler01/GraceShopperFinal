@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
-const {getAllItemsByCartId , createCart_Item, getCartItems } = require('../db/cart')
+const { getAllProducts } = require('../db/products')
+const {createCart, getAllItemsByCartId , createCart_Item,getCartItems } = require('../db/cart')
 const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
 const { getCart } = require('../db/cart');
@@ -23,11 +24,11 @@ usersRouter.use("/", (req, res, next) => {
       next(error) 
     }
 
-});
 
 //api/users/cart
 usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
+
   // const { cartId } = req.body;
   try {
   const cart = await getCart()
@@ -36,6 +37,7 @@ usersRouter.get("/cart", async (req, res, next) => {
     console.log(cart,"cart stuff exists")
     const cartItems = await getCartItems()
     console.log(cartItems,"cartItems")
+
     res.send(
       cartItems, cart
     );
@@ -57,6 +59,7 @@ usersRouter.get("/cart/add", async (req, res, next) => {
     console.log("Get Request was made to /cart/add")
   const { productId, cartId } = req.body;
     const cart = await createCart_Item({ productId, cartId })
+    console.log("cartID", cartId)
   res.send(
     cart
   );
@@ -91,6 +94,8 @@ usersRouter.post('/login', async (req, res, next)=>{
     
       try {
         const user = await getUserByUsername(username);
+        const cart = await createCart(user.id);
+        console.log("CART", cart)
     
         if (user && user.password == password) {
           
@@ -101,24 +106,28 @@ usersRouter.post('/login', async (req, res, next)=>{
             }
           );
           console.log("this is token",token)
-          res.send({user, token, message: "you are logged in!"});
-        } /*else if (user && user.password == password && isAdmin) {
-          const token = jwt.sign(
-            { id: user.id, username: user.username }, JWT_SECRET, 
-            {
-              expiresIn: "1h",
-            }
-          );
-          console.log("this is token",token)
-          res.send({user, token, message: "Welcome back, Administrator!"});
-        } */ else {
+          res.send({user, token, cart, message: "you are logged in!"});
+        }
+          if (cart.userId && isOrdered === false) {
+            const cart = await getAllItemsByCartId(req)
+  
+            if(!cart){
+              const cart = await createCart({ userId, cartId })
+              res.send(
+                cart
+              )
+          } else if(cart){
+            res.send(
+              cart
+            );
+        } else {
           next({ 
             name: 'IncorrectCredentialsError', 
             message: 'Your username or password is incorrect'
           });
         }
-      } catch(error) {
-        console.log(error);
+      }} catch (error) {
+        console.error(error);
         next(error);
       }
     });

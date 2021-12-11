@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { loginUser } from "../api/users";
+import { loginUser, createUserCart } from "../api/users";
 import { useHistory } from "react-router-dom";
 import {
   storeToken, getToken,
-  storeUser, getUser,
+  storeUser, getUser, storeCart,
 }  from "../auth"
 import "./RegLog.css"
 
@@ -14,6 +14,9 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory()
+  const currentUser = getUser();
+
+
   return (
     <>
       <Form
@@ -24,20 +27,18 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
           try {
             const loggedInUser = await loginUser(userName, password);
             storeToken(loggedInUser.token);
-            console.log("2222", loggedInUser.user)
             setIsLoggedIn(true);
             storeUser(loggedInUser.user);
+            storeCart(loggedInUser.cart);
 
             setUserName("");
             setPassword("");
             if (loggedInUser.user.isAdmin == true) {
               setIsAdmin(true)
             }
-            history.push("/home")
 
-            // if (loggedInUser.user.isAdmin == true) {
-            //   setIsAdmin(true)
-            // }
+
+            history.push("/home")
           } catch (error) {
             console.error(error);
           }

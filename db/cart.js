@@ -44,31 +44,32 @@ async function getAllItemsByCartId({cartId}){
         SELECT * FROM cart_items
         WHERE "cartId"=$1;
         `, [cartId])
-        console.log(rows, "Get All Log")
+        console.log(rows, "Get All Logs")
         return rows
     } catch (error) {
         
     }  
 }
-// async function addItemToCart({ productId, cartId }) {
-//   try {
-//     console.log("Adding item to cart");
-//     const {
-//       rows: [item],
-//     } = await client.query(
-//       `
-//       SELECT * FROM cart_items
-//       JOIN carts ON cart.id = cart_items."cartId"
-//       WHERE "cartId" = ${cartId};
-//     `,
-//       [productId, cartId]
-//     );
-//     console.log("Finished adding item");
-//     return item;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+
+async function addItemToCart({ productId, cartId }) {
+  try {
+    console.log("Adding item to cart");
+    const {
+      rows: [item],
+    } = await client.query(
+      `
+      SELECT * FROM cart_items
+      JOIN carts ON cart.id = cart_items."cartId"
+      WHERE "cartId" = ${cartId};
+    `,
+      [productId, cartId]
+    );
+    console.log("Finished adding item");
+    return item;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function removeItemFromCart(productId) {
   try {
@@ -149,6 +150,7 @@ module.exports = {
   createCart,
   createCart_Item,
   getAllItemsByCartId,
+  addItemToCart,
   removeItemFromCart,
   getCartByUserId,
   getCartItems,

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { storeToken, getToken, storeUser } from "../auth";
+import { storeToken, getToken, storeUser, storeCart } from "../auth";
 
 export async function getUsers() {
     try {
@@ -23,7 +23,9 @@ export async function getUsers() {
       });
       storeToken(data.token);
       storeUser(data.user.username);
-  
+      storeCart(data.cart);
+
+      console.log("DATA", data.cart)
       return data;
     } catch (error) {
       throw error;
@@ -39,27 +41,26 @@ export async function getUsers() {
           isSeller: false,
           isAdmin: false
       });
-      // console.log(data,"!!!!!!!!!!!!!!!!!")
-      // try to add email element?
-      // console.log(data)
       return data;
     } catch (error) {
       throw error;
     }
   }
+
   export async function getCartRoute() {
+
     try {
       const { data } = await axios.get(`/api/users/cart`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      // console.log(data,"THIS IS CART STUFF")
       return data;
     } catch (error) {
       throw error;
     }
   }
+
   export async function AddProductToCart( productId, cartId ) {
     try {
       const { data } = await axios.post(`http://localhost:5000/api/users/cart/add`, {
@@ -67,25 +68,8 @@ export async function getUsers() {
         productId: productId,
         cartId : cartId ,
       });
-      // try to add email element?
-      // console.log(data)
       return data;
     } catch (error) {
       throw error;
     }
   }
-  // export async function getAllUsers() {
-  //   const myToken = getToken();
-  //   try {
-  //     const { data } = await axios.get(`http://localhost:5000/api/users/me`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${myToken}`,
-  //       },
-  //     });
-  //     console.log(data,"THIS IS CURRENT USER STUFF")
-  //     return data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
