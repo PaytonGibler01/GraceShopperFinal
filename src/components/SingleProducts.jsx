@@ -16,4 +16,3 @@ const SingleProducts = ({product}) => {
 
 
 export default SingleProducts
-// export default SingleProducts;

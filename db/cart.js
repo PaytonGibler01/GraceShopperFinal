@@ -44,7 +44,7 @@ async function getAllItemsByCartId({cartId}){
         SELECT * FROM cart_items
         WHERE "cartId"=$1;
         `, [cartId])
-        console.log(rows, "Get All Log")
+        console.log(rows, "Get All Logs")
         return rows
     } catch (error) {
         
