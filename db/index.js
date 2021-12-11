@@ -1,33 +1,14 @@
-// Connect to DB
-// const { Client } = require("pg");
-
-// const DB_NAME = "grace-shopper-db";
-// const DB_URL =
-//   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
-
-// const client = new Client({
-//   connectionString: DB_URL,
-//   ssl:
-//     process.env.NODE_ENV === "production"
-//       ? { rejectUnauthorized: false }
-//       : undefined
-// });
-// console.log(client, "index")
-
 const {
   createProduct,
   getProductByName,
   updateProduct,
   getAllProducts,
   deleteProduct,
-  // getProductByCategoriesName,
 } = require("./products");
 
 const {
   createCategories,
   getAllCategories,
-  // createProductCategories,
-  // addCategoriesToProduct,
 } = require("./tags");
 
 const {
@@ -231,7 +212,7 @@ async function createInitialCategories() {
 async function createInitialCart() {
   try {
     console.log("Creating cart");
-    const cart = await createCart({ userId: 1 });
+    const cart = await createCart(1);
     console.log(cart, "Cart Log");
     await createCart_Item({ productId: 1, cartId: 1 });
     await getAllItemsByCartId({ cartId: 1 });

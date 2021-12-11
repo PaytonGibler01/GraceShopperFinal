@@ -1,4 +1,3 @@
-// code to build and initialize DB goes here
 const client = require("./client");
 
 const {
@@ -7,7 +6,6 @@ const {
   createInitialUsers,
   createInitialCategories,
   createInitialCart,
-  // other db methods
 } = require("./index");
 const { getAllUsers } = require("./users");
 
@@ -26,12 +24,10 @@ async function buildTables() {
     DROP TABLE IF EXISTS categories;
     DROP TABLE IF EXISTS users;
     `);
-    // drop tables in correct order
     console.log("Finished dropped tables!");
 
 
     console.log("Building tables.");
-    // build tables in correct order
     await client.query(`
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
@@ -83,7 +79,6 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
-    // create useful starting data
     await buildTables();
     await createInitialUsers();
     await createInitialCategories();
