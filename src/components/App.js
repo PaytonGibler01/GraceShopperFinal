@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import { getProducts, getReviews } from "../api/products";
-import { createUserCart, getUsers } from "../api/users";
+import { getCartRoute, getUsers } from "../api/users";
 import {
   NavBar,
   Header,
@@ -44,7 +44,7 @@ const App = () => {
     console.log(products, "useEffect getAllProducts");
   };
   const fetchAllCartItems = async () => {
-    const data = await createUserCart();
+    const data = await getCartRoute();
     setCartItems(data);
     console.log(cartItems, "useEffect getCart");
   };
@@ -92,7 +92,7 @@ const App = () => {
           <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route exact path="/profile">
-          <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} allUsers={allUsers} products={products}/>
         </Route>
         <Route path="/my-cart">
           <Cart cartItems={cartItems} setCartItems={setCartItems} />

@@ -1,10 +1,10 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
 const { getAllProducts } = require('../db/products')
-const {createCart, getAllItemsByCartId , createCart_Item } = require('../db/cart')
+const {createCart, getAllItemsByCartId , createCart_Item,getCartItems } = require('../db/cart')
 const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
-const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = require('react-dom');
+const { getCart } = require('../db/cart');
 const { JWT_SECRET="neverTell" } = process.env
 usersRouter.use("/", (req, res, next) => {
     console.log("Request was made to /users")
@@ -15,32 +15,31 @@ usersRouter.use("/", (req, res, next) => {
 //users
   usersRouter.get("/", async (req, res, next) => {
     console.log("Request was made to /users")
-    const users = await getAllUsers()
+    try {
+      const users = await getAllUsers()
   res.send(
      users
   );
-  next()
-});
+    } catch (error) {
+      next(error) 
+    }
 
-usersRouter.get("/admin", async (req, res, next) => {
-  
-  const users = await getAllUsers()
-  const products = await getAllProducts()
-
-  res.send(users, products)
-});
 
 //api/users/cart
 usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
-    // const { id } = req.body;
-    console.log("ID", req.body)
-    const cart = await getAllItemsByCartId(req)
-  
-    if(cart){
-    console.log(cart,"cart stuff from routes")
+
+  // const { cartId } = req.body;
+  try {
+  const cart = await getCart()
+  console.log(cart,"cart stuff from routes")
+  if(cart){
+    console.log(cart,"cart stuff exists")
+    const cartItems = await getCartItems()
+    console.log(cartItems,"cartItems")
+
     res.send(
-      cart
+      cartItems, cart
     );
   }
     if(!cart){
@@ -50,18 +49,24 @@ usersRouter.get("/cart", async (req, res, next) => {
       message: 'No Cart Items'
   });
   }
-  next()
+  } catch (error) {
+    next(error)
+  }
 });
 
 usersRouter.get("/cart/add", async (req, res, next) => {
-  console.log("Get Request was made to /cart/add")
+  try {
+    console.log("Get Request was made to /cart/add")
   const { productId, cartId } = req.body;
     const cart = await createCart_Item({ productId, cartId })
     console.log("cartID", cartId)
   res.send(
     cart
   );
-  next()
+  } catch (error) {
+    next(error)
+  }
+  
 });
 
 //api/users/me
