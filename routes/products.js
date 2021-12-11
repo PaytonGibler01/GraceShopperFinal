@@ -13,17 +13,23 @@ const {getAllReviews} = require("../db/reviews")
 
 productsRouter.get("/", async (req, res, next) => {
   console.log("Use Request was made to /products");
-  const products = await getAllProducts();
+  try {
+    const products = await getAllProducts();
   res.send(products);
-  next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 productsRouter.get("/reviews", async (req, res, next) => {
   console.log("A request was made to products/reviews")
-  const reviews = await getAllReviews();
+  try {
+    const reviews = await getAllReviews();
   console.log(reviews, "route reviews")
   res.send(reviews)
-  next()
+  } catch (error) {
+    next(error)
+  }
 })
 
 productsRouter.get("/:productId", async (req, res, next) => {

@@ -47,7 +47,7 @@ export async function getUsers() {
       throw error;
     }
   }
-  export async function getCart() {
+  export async function getCartRoute() {
     try {
       const { data } = await axios.get(`/api/users/cart`, {
         headers: {
