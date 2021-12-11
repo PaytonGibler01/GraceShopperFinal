@@ -122,21 +122,11 @@ usersRouter.post('/login', async (req, res, next)=>{
             message: 'Your username or password is incorrect'
           });
         }
-      } catch(error) {
-        console.log(error);
+      }} catch (error) {
+        console.error(error);
         next(error);
       }
     });
-
-            /*else if (user && user.password == password && isAdmin) {
-          const token = jwt.sign(
-            { id: user.id, username: user.username }, JWT_SECRET, 
-            {
-              expiresIn: "1h",
-            }
-          );
-          console.log("this is token",token)
-          res.send({user, token, message: "Welcome back, Administrator!"});
 
   
 
