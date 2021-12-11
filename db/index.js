@@ -231,7 +231,7 @@ async function createInitialCategories() {
 async function createInitialCart() {
   try {
     console.log("Creating cart");
-    const cart = await createCart({ userId: 1 });
+    const cart = await createCart(1);
     console.log(cart, "Cart Log");
     await createCart_Item({ productId: 1, cartId: 1 });
     await getAllItemsByCartId({ cartId: 1 });

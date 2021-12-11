@@ -4,6 +4,7 @@ import { getUser } from "../auth";
 import { Reviews, SingleProducts } from ".";
 import { AddProductToCart } from "../api/users";
 import { deleteThisProduct } from "../api/products";
+import "./Products.css"
 
 const SingleProductsPage = ({
   products,
@@ -19,7 +20,9 @@ const SingleProductsPage = ({
 
   const { productId } = useParams();
   const compProduct = products.find((product) => {
-    if (username === product.sellerName) setIsSeller(true);
+    if (username.username === product.sellerName) {setIsSeller(true);}
+    else {setIsSeller(false);}
+    console.log(isSeller, "11111111111111111111111111111111111111111111111111111111111")
     return product.id == productId;
   });
   const compReview = allReviews.find((review) => review.productId == productId);
@@ -41,6 +44,7 @@ const SingleProductsPage = ({
 
       {isSeller ? (
         <button
+        className="sellerDelete-product"
           type="submit"
           onClick={() => {
             event.preventDefault();
@@ -56,6 +60,7 @@ const SingleProductsPage = ({
         </button>
       ) : (
         <button
+        className="addProduct-cart"
           type="submit"
           onClick={() => {
 
@@ -65,7 +70,7 @@ const SingleProductsPage = ({
           Add to Cart
         </button>
       )}
-      <Reviews review={compReview} />
+      <Reviews review={compReview} className="reviews"/>
     </div>
   );
 };
