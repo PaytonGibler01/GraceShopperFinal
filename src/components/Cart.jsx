@@ -14,10 +14,11 @@ const Cart = ({cartItems, setCartItems}) => {
          ):(null)}
 
           {cartItems.length ? cartItems.map((item)=>{
+           
             return (
             <> 
-              <h2>item.id</h2>
-              <h2>items.product.id</h2>
+              <h2>{item.id}</h2>
+            
             </> 
                     )
           }):(null)}
