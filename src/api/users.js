@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { storeToken, getToken, storeUser, storeCart } from "../auth";
+import { storeToken, getToken, storeUser } from "../auth";
 
 export async function getUsers() {
     try {

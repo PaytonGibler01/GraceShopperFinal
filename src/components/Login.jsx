@@ -5,7 +5,7 @@ import { loginUser, createUserCart } from "../api/users";
 import { useHistory } from "react-router-dom";
 import {
   storeToken, getToken,
-  storeUser, getUser, storeCart,
+  storeUser, getUser
 }  from "../auth"
 import "./RegLog.css"
 

@@ -23,7 +23,7 @@ usersRouter.use("/", (req, res, next) => {
     } catch (error) {
       next(error) 
     }
-
+  })
 
 //api/users/cart
 usersRouter.get("/cart", async (req, res, next) => {
