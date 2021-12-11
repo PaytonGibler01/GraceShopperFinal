@@ -23,10 +23,3 @@ apiRouter.use((error, req, res, next) => {
 });
 
 module.exports = apiRouter;
-
-//  product_reviews;
-//  reviews;
-//  product_tags;
-//  tags;
-//  products;
-//  users;

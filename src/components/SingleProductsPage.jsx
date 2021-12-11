@@ -27,9 +27,7 @@ const SingleProductsPage = ({
   });
   const compReview = allReviews.find((review) => review.productId == productId);
   console.log(compProduct, "Comp Product Log");
-  // import { userId } from "./"
   let userId = 1;
-  // ^ THIS IS A HACK
 
   if (!compProduct) {
     return (

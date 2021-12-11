@@ -24,38 +24,17 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
           }}>Starvana</Navbar.Brand>
           
   
-          {/* <Nav.Link 
-            type="submit"
-            onClick={()=>{
-              history.push("/products")
-            }}
-            >Products</Nav.Link> */}
-
           <Navbar.Brand type="submit"
             onClick={()=>{
             history.push("/products")
             }}
             >Products</Navbar.Brand>
   
-          {/* <Nav.Link
-            type="submit"
-            onClick={()=>{
-              history.push("/my-cart")
-            }}
-            >My Cart</Nav.Link> */}
-
           <Navbar.Brand type="submit"
             onClick={()=>{
             history.push("/my-cart")
             }}
             >My Cart</Navbar.Brand>
-  
-          {/* <Nav.Link
-            type="submit"
-            onClick={()=>{
-              history.push("/profile")
-            }}
-            >Profile</Nav.Link> */}
 
           <Navbar.Brand type="submit"
             onClick={()=>{

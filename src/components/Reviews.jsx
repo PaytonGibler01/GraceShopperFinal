@@ -16,4 +16,3 @@ const Reviews = ({ review }) => {
 };
 
 export default Reviews;
-// export default SingleProducts;

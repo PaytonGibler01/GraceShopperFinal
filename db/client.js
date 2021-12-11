@@ -1,7 +1,6 @@
 require('dotenv').config(); 
 const { Client } = require("pg");
 
-// const DB_NAME = "grace-shopper-db";
 const DB_URL =
   process.env.DATABASE_URL 
 console.log(DB_URL, "DB URL")

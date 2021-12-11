@@ -112,7 +112,6 @@ usersRouter.post('/login', async (req, res, next)=>{
                 cart
               )
           } else if(cart){
-            console.log(cart,"cart stuff from routes")
             res.send(
               cart
             );
