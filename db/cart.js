@@ -95,10 +95,56 @@ async function getCartByUserId(userId) {
         `,
       [userId]
     );
+    return rows
   } catch (error) {
     throw error;
   }
 }
+
+async function getCartItemsById(cartId) {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * 
+      FROM cart_items
+      WHERE "cartId" = $1
+        
+        `,
+      [cartId]
+    );
+    return rows
+  } catch (error) {
+    throw error;
+  }
+}
+async function getCartItems() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * 
+      FROM cart_items
+        `
+    );
+    return rows
+  } catch (error) {
+    throw error;
+  }
+}
+async function getCart() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * 
+      FROM carts
+        `
+    );
+    return rows
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 
 module.exports = {
   createCart,
@@ -107,4 +153,6 @@ module.exports = {
   addItemToCart,
   removeItemFromCart,
   getCartByUserId,
+  getCartItems,
+  getCart
 };

@@ -19,11 +19,4 @@ export function getUser(){
     return myUser;
 }
 
-export function storeCart(cart){
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
 
-export function getCart(){
-    const myCart = JSON.parse(localStorage.getItem('cart'));
-    return myCart;
-}
