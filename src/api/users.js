@@ -50,12 +50,17 @@ export async function getUsers() {
   export async function getCartRoute() {
 
     try {
-      const { data } = await axios.get(`/api/users/cart`, {
+      const { data }  = await axios.get(`/api/users/cart`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      return data;
+      console.log(data,"at api getCart data")
+      // console.log(cartItems,"at api getCart data")
+      const arr = []
+      arr.push(data)
+      console.log(arr,"at api getCart arr")
+      return arr;
     } catch (error) {
       throw error;
     }
