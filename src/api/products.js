@@ -13,7 +13,18 @@ export async function getProducts() {
     throw error;
   }
 }
-
+export async function getProductByIdRoute(productId) {
+  try {
+    const { data } = await axios.get(`http://localhost:5000/api/products/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
 export async function getReviews() {
   try {
     const { data } = await axios.get(

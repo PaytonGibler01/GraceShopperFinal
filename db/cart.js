@@ -117,6 +117,22 @@ async function getCartItemsById(cartId) {
     throw error;
   }
 }
+async function getCartByUserId(userId) {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * 
+      FROM carts
+      WHERE "userId" = $1
+        
+        `,
+      [userId]
+    );
+    return rows
+  } catch (error) {
+    throw error;
+  }
+}
 async function getCartItems() {
   try {
     const { rows } = await client.query(
@@ -154,5 +170,6 @@ module.exports = {
   removeItemFromCart,
   getCartByUserId,
   getCartItems,
-  getCart
+  getCart,
+  getCartItemsById,
 };

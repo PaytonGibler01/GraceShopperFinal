@@ -23,9 +23,9 @@ export async function getUsers() {
       });
       storeToken(data.token);
       storeUser(data.user.username);
-      storeCart(data.cart);
 
-      console.log("DATA", data.cart)
+
+      // console.log("DATA", data.cart)
       return data;
     } catch (error) {
       throw error;

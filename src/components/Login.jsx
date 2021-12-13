@@ -29,7 +29,7 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
             storeToken(loggedInUser.token);
             setIsLoggedIn(true);
             storeUser(loggedInUser.user);
-            storeCart(loggedInUser.cart);
+            
 
             setUserName("");
             setPassword("");
