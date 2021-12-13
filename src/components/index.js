@@ -13,3 +13,4 @@ export {default as Cart } from './Cart';
 export {default as Reviews} from './Reviews'
 export {default as NewProductForm} from './NewProductForm';
 export {default as Admin} from './Admin';
+export {default as FooterPage} from './Footer.jsx'

@@ -18,36 +18,36 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
 
         <Nav className="me-auto">
 
-        <Navbar.Brand type="submit"
+        <Nav.Link type="submit"
           onClick={()=>{
             history.push("/home")
-          }}>Starvana</Navbar.Brand>
+          }}>Starvana</Nav.Link>
           
   
-          <Navbar.Brand type="submit"
+          <Nav.Link type="submit"
             onClick={()=>{
             history.push("/products")
             }}
-            >Products</Navbar.Brand>
+            >Products</Nav.Link>
   
-          <Navbar.Brand type="submit"
+          <Nav.Link type="submit"
             onClick={()=>{
             history.push("/my-cart")
             }}
-            >My Cart</Navbar.Brand>
+            >My Cart</Nav.Link>
 
-          <Navbar.Brand type="submit"
+          <Nav.Link type="submit"
             onClick={()=>{
             history.push("/profile")
             }}
-            >Profile</Navbar.Brand>
+            >Profile</Nav.Link>
 
           { isLoggedIn && isAdmin ? (
-            <Navbar.Brand type="submit"
+            <Nav.Link type="submit"
               onClick={()=>{
               history.push("/admin")
               }}
-              >Admin</Navbar.Brand>):(null)}
+              >Admin</Nav.Link>):(null)}
               
         </Nav>
 
@@ -55,7 +55,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
         <Nav className="me-auto">
           
            { isLoggedIn ? (
-              <Nav.Link href="login" onClick = {()=>{
+              <Nav.Link className="logout" href="login" onClick = {()=>{
                 history.push("/login")
                   localStorage.clear()
                  setIsLoggedIn(false)
@@ -65,8 +65,8 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
             
            { ! isLoggedIn ? (
               <>
-              <Nav.Link href="login">Login</Nav.Link>
-              <Nav.Link href="register">Register</Nav.Link>
+              <Nav.Link className="logout" href="login">Login</Nav.Link>
+              <Nav.Link className="logout" href="register">Register</Nav.Link>
               </>
            ):(null)}
   

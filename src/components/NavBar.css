@@ -1,3 +1,12 @@
 .navbar {
     background-color: navy;
+    bottom: 20px;
+}
+.nav-link{
+    margin: 2px;
+    padding: 7px;
+}
+
+.navbar-nav {
+    width: 200;
 }

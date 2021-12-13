@@ -123,7 +123,7 @@ async function createInitialProducts() {
       price: 1500000000,
       image:
         "https://i.pinimg.com/originals/68/e1/27/68e127ac2eaa8f3e837607817a804ba1.jpg",
-      sellerName: "Imperial Navy",
+      sellerName: "albert",
       tag: "Preowned",
     });
     await createProduct({

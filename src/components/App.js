@@ -21,6 +21,7 @@ import {
   Home,
   Cart,
   Admin,
+  FooterPage,
 } from "./";
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -65,7 +66,7 @@ const App = () => {
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin}/>
-
+      <FooterPage />
       <Switch>
         <Route exact path="/">
           <Home />

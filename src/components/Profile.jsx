@@ -1,25 +1,27 @@
 import React from "react";
 import { SingleProducts } from ".";
 import { Link } from "react-router-dom";
-import {getUser} from "../auth/index"
-// import "./Products.css"
+import { getUser } from "../auth/index";
+import "./Products.css"
 
-const Profile = ({ products,allUsers }) => {
-  const user = getUser()
-  console.log(user, "profile user")
+const Profile = ({ products }) => {
+  const user = getUser();
   return (
     <div className="products-main-container">
-      {products.length
+      <h2>Your ships up for sale:</h2>
+      {products
         ? products.map((product) => {
-            return product.id ? (
-              <Link
-                to={`/products/${product.id}`}
-                key={product.id}
-                className="link-tag"
-              >
-                <SingleProducts product={product} />
-              </Link>
-            ) : null;
+            if (product.sellerName === user.username) {
+              return (
+                <Link
+                  to={`/products/${product.id}`}
+                  key={product.id}
+                  className="link-tag"
+                >
+                  <SingleProducts product={product} />
+                </Link>
+              );
+            }
           })
         : null}
     </div>
