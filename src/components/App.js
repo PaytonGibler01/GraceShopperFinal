@@ -46,7 +46,7 @@ const App = () => {
   const fetchAllCartItems = async () => {
     const data = await getCartRoute();
     setCartItems(data);
-    console.log(cartItems, "useEffect getCart");
+    console.log(data, "useEffect getCart");
   };
   const fetchAllUsers = async () => {
     const data = await getUsers();

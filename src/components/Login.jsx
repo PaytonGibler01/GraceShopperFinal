@@ -5,7 +5,7 @@ import { loginUser, createUserCart } from "../api/users";
 import { useHistory } from "react-router-dom";
 import {
   storeToken, getToken,
-  storeUser, getUser, storeCart,
+  storeUser, getUser
 }  from "../auth"
 import "./RegLog.css"
 
@@ -29,7 +29,7 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
             storeToken(loggedInUser.token);
             setIsLoggedIn(true);
             storeUser(loggedInUser.user);
-            storeCart(loggedInUser.cart);
+            
 
             setUserName("");
             setPassword("");

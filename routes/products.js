@@ -44,20 +44,24 @@ productsRouter.get("/:productId", async (req, res, next) => {
 });
 
 productsRouter.delete("/:productId", async (req, res, next) => {
-  console.log("A request was made to delete a product")
-  const productId = req.params.productId;
-  
-  await deleteProduct(productId)
+  try {
+      console.log("A request was made to delete a product")
+      const productId = req.params.productId;
+      await deleteProduct(productId)
+  } catch (error) {
+    next(error)
+  }
+    await deleteProduct(productId)
 })
 
-productsRouter.get("/tags", async (req, res, next) => {
-  console.log("Request was made to /products/tags");
+// productsRouter.get("/tags", async (req, res, next) => {
+//   console.log("Request was made to /products/tags");
 
-  const productsTags = await getAllProductTags();
-  res.send({
-    productsTags,
-  });
-  next();
-});
+//   const productsTags = await getAllProductTags();
+//   res.send({
+//     productsTags,
+//   });
+//   next();
+// });
 
 module.exports = productsRouter;

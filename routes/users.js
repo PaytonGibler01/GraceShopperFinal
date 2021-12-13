@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
 const { getAllProducts } = require('../db/products')
-const {createCart, getAllItemsByCartId , createCart_Item,getCartItems } = require('../db/cart')
+const {createCart, getAllItemsByCartId , createCart_Item,getCartItems, getCartByUserId } = require('../db/cart')
 const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
 const { getCart } = require('../db/cart');
@@ -23,7 +23,7 @@ usersRouter.use("/", (req, res, next) => {
     } catch (error) {
       next(error) 
     }
-
+  })
 
 //api/users/cart
 usersRouter.get("/cart", async (req, res, next) => {
@@ -35,11 +35,11 @@ usersRouter.get("/cart", async (req, res, next) => {
   console.log(cart,"cart stuff from routes")
   if(cart){
     console.log(cart,"cart stuff exists")
-    const cartItems = await getCartItems()
+    const [cartItems] = await getCartItems()
     console.log(cartItems,"cartItems")
 
     res.send(
-      cartItems, cart
+      cartItems
     );
   }
     if(!cart){
@@ -84,7 +84,7 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
 usersRouter.post('/login', async (req, res, next)=>{
     console.log("Request was made to /login")
     const { username, password } = req.body;
-        
+      let cart
     if (!username || !password) {
         next({
           name: "MissingCredentialsError",
@@ -94,9 +94,15 @@ usersRouter.post('/login', async (req, res, next)=>{
     
       try {
         const user = await getUserByUsername(username);
-        const cart = await createCart(user.id);
+        console.log(user,"!!!!!!!!!!!!!!!!!!!!!!!!")
+        const checkCart = await getCartByUserId(user.id)
+        console.log(checkCart,"????????????????")
+        if(checkCart=== undefined){
+        let cart = await createCart(user.id);
         console.log("CART", cart)
-    
+        } else {
+          let cart = checkCart
+        }
         if (user && user.password == password) {
           
           const token = jwt.sign(
@@ -107,25 +113,25 @@ usersRouter.post('/login', async (req, res, next)=>{
           );
           console.log("this is token",token)
           res.send({user, token, cart, message: "you are logged in!"});
-        }
-          if (cart.userId && isOrdered === false) {
-            const cart = await getAllItemsByCartId(req)
-  
-            if(!cart){
-              const cart = await createCart({ userId, cartId })
-              res.send(
-                cart
-              )
-          } else if(cart){
-            res.send(
-              cart
-            );
-        } else {
-          next({ 
-            name: 'IncorrectCredentialsError', 
-            message: 'Your username or password is incorrect'
-          });
-        }
+        
+          // if (cart.userId && cart.isOrdered === false) {
+          //   const cartItems = await getAllItemsByCartId(req)
+              
+            // if(!cart){
+            //   const cart = await createCart(user.id )
+            //   res.send(
+            //     cart
+            //   )
+        //   } else if(cart){
+        //     res.send(
+        //       cart
+        //     );
+        // } else {
+        //   next({ 
+        //     name: 'IncorrectCredentialsError', 
+        //     message: 'Your username or password is incorrect'
+        //   });
+        // }
       }} catch (error) {
         console.error(error);
         next(error);

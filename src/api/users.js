@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { storeToken, getToken, storeUser, storeCart } from "../auth";
+import { storeToken, getToken, storeUser } from "../auth";
 
 export async function getUsers() {
     try {
@@ -23,9 +23,9 @@ export async function getUsers() {
       });
       storeToken(data.token);
       storeUser(data.user.username);
-      storeCart(data.cart);
 
-      console.log("DATA", data.cart)
+
+      // console.log("DATA", data.cart)
       return data;
     } catch (error) {
       throw error;
