@@ -1,7 +1,9 @@
 import React from "react";
 import { SingleProducts } from ".";
 import { Link } from "react-router-dom";
+
 import { getUser } from "../auth/index";
+
 import "./Products.css"
 
 const Profile = ({ products }) => {
