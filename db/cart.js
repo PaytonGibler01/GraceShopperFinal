@@ -75,15 +75,16 @@ async function removeItemFromCart(productId) {
   try {
     await client.query(
       `
-        DELETE FROM carts 
-        WHERE "productId"=$1
+        DELETE FROM cart_items
+        WHERE "productId"=$1;
         `,
-      [id]
+      [productId]
     );
   } catch (error) {
     throw error;
   }
 }
+
 async function getCartByUserId(userId) {
   try {
     const { rows } = await client.query(

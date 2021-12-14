@@ -54,14 +54,6 @@ productsRouter.delete("/:productId", async (req, res, next) => {
     await deleteProduct(productId)
 })
 
-// productsRouter.get("/tags", async (req, res, next) => {
-//   console.log("Request was made to /products/tags");
 
-//   const productsTags = await getAllProductTags();
-//   res.send({
-//     productsTags,
-//   });
-//   next();
-// });
 
 module.exports = productsRouter;

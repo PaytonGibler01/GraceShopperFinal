@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { getCart } from "../api/users";
 import { getProductByIdRoute } from "../api/products";
+import { deleteFromCart } from "../api/users";
+import { useHistory } from "react-router-dom";
+
+
+
 const Cart = ({ cartItems, setCartItems }) => {
   const [items, setItems] = useState([]);
-  //made cartItems an array because cartItems.map "isn't a function"
+  const history = useHistory()
   
 
   async function fetchCartItems() {
@@ -34,44 +39,30 @@ const Cart = ({ cartItems, setCartItems }) => {
                 <div key={`cartItemsId:${item.id}`}>
                   <h1> {item.name} </h1>
                   <p> {item.description}</p>
+                  <button
+        className="cartDeleteProduct"
+          type="submit"
+          href="my-cart"
+          onClick={() => {
+            try {
+              deleteFromCart(item.id);
+              history.push("/my-cart")
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        >
+          Delete
+        </button>
                 </div>
               );
             })
           : null}
-        {/* {cartItems.length
-          ? cartItems.map(async (item) => {
-              {
-                /* returns cartItems correctly as true   */}
-        {/* console.log(cartItems, "cartItems inside cartItems.map"); // ===  [{…}] : cartItems:{id: 1, productId: 1, cartId: 1}
-              //          ^^^      cartItems is returning true but getting react child error
-              //                   page crash when u click on Cart, gives react child
-              //                   error but makes no sense because the cartItems was mapped
-              //                   and returned correctly for a small second
-              console.log(item, "item inside of cartItems");
-              //          ^^^^   is returning correctly as individual products
-              const product = await getProductByIdRoute(item.productId);
-              console.log(product, "result of getProductByIdRoute");
-              return ( */}
-        {/* <> */}
-        {/* need to render the product name && creator */}
-        {/* <h2>{item.cartItems.productId}</h2> */}
-       
-        {/* </> */}
-        {/* ); */}
-        {/* }) */}
-        {/* : null} */}
 
-        {/* 
-          { ! arr.length ? (
-            <>
-            <h1>Nothing in Cart!</h1>
-            </>
-         ):(null)} */}
       </header>
     </>
   );
-  // <>
-  // <h1>preventing error for cart page</h1
+
 };
 
 export default Cart;
