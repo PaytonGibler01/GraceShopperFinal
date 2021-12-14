@@ -19,7 +19,6 @@ const  Register = ({ setIsLoggedIn,setCurrentUser }) => {
         event.preventDefault();
         try {
            const { token } = await registerUser(userName, password, email);
-          console.log(token, userName)
           storeToken(token);
           setIsLoggedIn(true);
           setUserName("");

@@ -16,17 +16,13 @@ const SingleProductsPage = ({
 
   const username = getUser();
 
-  console.log("USERNAME", username)
-
   const { productId } = useParams();
   const compProduct = products.find((product) => {
     if (username.username === product.sellerName) {setIsSeller(true);}
     else {setIsSeller(false);}
-    console.log(isSeller, "11111111111111111111111111111111111111111111111111111111111")
     return product.id == productId;
   });
   const compReview = allReviews.find((review) => review.productId == productId);
-  console.log(compProduct, "Comp Product Log");
   let userId = 1;
 
   if (!compProduct) {

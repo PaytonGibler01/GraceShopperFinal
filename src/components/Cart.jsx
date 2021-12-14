@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { getCart } from "../api/users";
 import { getProductByIdRoute } from "../api/products";
 import { deleteFromCart } from "../api/users";
 import { useHistory } from "react-router-dom";
 
 
 
-const Cart = ({ cartItems, setCartItems }) => {
+const Cart = ({ cartItems }) => {
   const [items, setItems] = useState([]);
   const history = useHistory()
   
@@ -21,7 +19,6 @@ const Cart = ({ cartItems, setCartItems }) => {
         return product;
       })
     );
-    console.log(allCartItems,"allCartItems")
     setItems(allCartItems);
   }
 

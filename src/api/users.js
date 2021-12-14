@@ -24,8 +24,6 @@ export async function getUsers() {
       storeToken(data.token);
       storeUser(data.user.username);
 
-
-      // console.log("DATA", data.cart)
       return data;
     } catch (error) {
       throw error;
@@ -55,11 +53,7 @@ export async function getUsers() {
           "Content-Type": "application/json",
         },
       });
-      //  console.log(data,"at api getCart data")
-      // console.log(cartItems,"at api getCart data")
-      // const arr = []
-      // arr.push(data)
-      // console.log(arr,"at api getCart arr")
+
       return data;
     } catch (error) {
       throw error;
@@ -79,20 +73,6 @@ export async function getUsers() {
     }
   }
 
-  // export async function deleteFromCart( id ) {
-  //   try {
-  //     const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
-
-  //       headers: {
-  //                 "Content-Type": "application/json",
-        
-  //               }
-  //     });
-  //     return data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 
   export async function deleteFromCart(id) {
     const myToken = getToken();
@@ -106,7 +86,6 @@ export async function getUsers() {
         },
       });
 
-      console.log("DATA", data)
       return data;
     } catch (error) {
       throw error;

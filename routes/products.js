@@ -22,7 +22,6 @@ productsRouter.get("/reviews", async (req, res, next) => {
   console.log("A request was made to products/reviews")
   try {
     const reviews = await getAllReviews();
-  // console.log(reviews, "route reviews")
   res.send(reviews)
   } catch (error) {
     next(error)

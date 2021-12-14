@@ -29,17 +29,10 @@ usersRouter.use("/", (req, res, next) => {
 usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
 
-  // const { cartId } = req.body;
   try {
   const cart = await getCart()
-  console.log(cart,"getCart result /cart route")
   if (cart){
-    console.log(cart,"cart stuff exists")
     const cartItems = await getCartItems()
-    console.log(cartItems,"what we get back from getCartItems")
-    //    ^^^^^^  this sends cartItems to help another component, but causes the cart component functions to not work,
-    // which explains why I stopped seeing productId once we fixed another components issue
-    console.log(cartItems,"what we actually send to api function for cart")
 
     res.send(
    cartItems
@@ -61,8 +54,6 @@ usersRouter.post("/cart/add", async (req, res, next) => {
   try {
     console.log("Get Request was made to /cart/add")
   const { productId, cartId } = req.body;
-    console.log("CARTID", cartId)
-    console.log("ProductID", productId)
     const cart = await createCart_Item({ productId, cartId })
   res.send(
     cart
@@ -77,29 +68,17 @@ usersRouter.delete("/cart/:productId", async (req, res, next) => {
   try {
     console.log("Get Request was made to /cart/delete")
   const productId = req.params.productId;
-  console.log("productId", productId)
     await removeItemFromCart( productId )
   } catch (error) {
     next(error)
   }
   
 });
-// productsRouter.delete("/:productId", async (req, res, next) => {
-//   try {
-//       console.log("A request was made to delete a product")
-//       const productId = req.params.productId;
-//       await deleteProduct(productId)
-//   } catch (error) {
-//     next(error)
-//   }
-//     await deleteProduct(productId)
-// })
 
 
 //api/users/me
 usersRouter.get("/me", requireUser, async (req, res, next) => {
   try {
-    console.log(req.user," REQ>USER")
     res.send(req.user);
   } catch (error) {
     next(error);
@@ -122,12 +101,9 @@ usersRouter.post('/login', async (req, res, next)=>{
     
       try {
         const user = await getUserByUsername(username);
-        console.log(user,"!!!!!!!!!!!!!!!!!!!!!!!!")
         const checkCart = await getCartByUserId(user.id)
-        console.log(checkCart,"????????????????")
         if(checkCart=== undefined){
         let cart = await createCart(user.id);
-        console.log("CART", cart)
         } else {
           let cart = checkCart
         }
@@ -139,27 +115,8 @@ usersRouter.post('/login', async (req, res, next)=>{
               expiresIn: "1h",
             }
           );
-          console.log("this is token",token)
           res.send({user, token, cart, message: "you are logged in!"});
         
-          // if (cart.userId && cart.isOrdered === false) {
-          //   const cartItems = await getAllItemsByCartId(req)
-              
-            // if(!cart){
-            //   const cart = await createCart(user.id )
-            //   res.send(
-            //     cart
-            //   )
-        //   } else if(cart){
-        //     res.send(
-        //       cart
-        //     );
-        // } else {
-        //   next({ 
-        //     name: 'IncorrectCredentialsError', 
-        //     message: 'Your username or password is incorrect'
-        //   });
-        // }
       }} catch (error) {
         console.error(error);
         next(error);
@@ -171,10 +128,8 @@ usersRouter.post('/login', async (req, res, next)=>{
 //api/users/register
 usersRouter.post('/register', async (req, res, next) => {
   const { username, password, userEmail, isAdmin,isSeller } = req.body;
-  console.log(username, password, userEmail,isAdmin,isSeller,"req.body")
   try {
     const queriedUser = await getUserByUsername(username);
-console.log(queriedUser,"queriedUser")
     if (queriedUser) {
       res.status(401)
       
@@ -197,7 +152,6 @@ console.log(queriedUser,"queriedUser")
         isAdmin,
         isSeller
       })
-      console.log(user,"user")
       if(!user){
         next({
           name: 'UserCreationError',
@@ -210,7 +164,6 @@ console.log(queriedUser,"queriedUser")
         }, JWT_SECRET, {
           expiresIn: '1w'
         });
-        console.log(token,"Token")
         res.send({ 
           user,
           message: "you're signed up!",
