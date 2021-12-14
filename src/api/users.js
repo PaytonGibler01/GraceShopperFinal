@@ -78,3 +78,38 @@ export async function getUsers() {
       throw error;
     }
   }
+
+  // export async function deleteFromCart( id ) {
+  //   try {
+  //     const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
+
+  //       headers: {
+  //                 "Content-Type": "application/json",
+        
+  //               }
+  //     });
+  //     return data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+  export async function deleteFromCart(id) {
+    const myToken = getToken();
+  
+    try {
+      const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myToken}`,
+        },
+      });
+
+      console.log("DATA", data)
+      return data;
+    } catch (error) {
+      throw error;
+    } 
+  }
+  

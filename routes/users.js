@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router();
 const { getAllUsers, getUserByUsername,createUser } = require('../db/users') 
 const { getAllProducts } = require('../db/products')
-const {createCart, getAllItemsByCartId , createCart_Item,getCartItems, getCartByUserId } = require('../db/cart')
+const {createCart, getAllItemsByCartId , createCart_Item,getCartItems, getCartByUserId, removeItemFromCart } = require('../db/cart')
 const {requireUser} = require("../src/api/utils")
 const jwt = require("jsonwebtoken");
 const { getCart } = require('../db/cart');
@@ -57,12 +57,13 @@ usersRouter.get("/cart", async (req, res, next) => {
   }
 });
 
-usersRouter.get("/cart/add", async (req, res, next) => {
+usersRouter.post("/cart/add", async (req, res, next) => {
   try {
     console.log("Get Request was made to /cart/add")
   const { productId, cartId } = req.body;
+    console.log("CARTID", cartId)
+    console.log("ProductID", productId)
     const cart = await createCart_Item({ productId, cartId })
-    console.log("cartID", cartId)
   res.send(
     cart
   );
@@ -71,6 +72,29 @@ usersRouter.get("/cart/add", async (req, res, next) => {
   }
   
 });
+
+usersRouter.delete("/cart/:productId", async (req, res, next) => {
+  try {
+    console.log("Get Request was made to /cart/delete")
+  const productId = req.params.productId;
+  console.log("productId", productId)
+    await removeItemFromCart( productId )
+  } catch (error) {
+    next(error)
+  }
+  
+});
+// productsRouter.delete("/:productId", async (req, res, next) => {
+//   try {
+//       console.log("A request was made to delete a product")
+//       const productId = req.params.productId;
+//       await deleteProduct(productId)
+//   } catch (error) {
+//     next(error)
+//   }
+//     await deleteProduct(productId)
+// })
+
 
 //api/users/me
 usersRouter.get("/me", requireUser, async (req, res, next) => {
@@ -81,6 +105,7 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
     next(error);
   }
 });
+
 
 
 //api/users/login

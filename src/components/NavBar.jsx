@@ -30,7 +30,7 @@ const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
             }}
             >Products</Nav.Link>
   
-          <Nav.Link type="submit"
+          <Nav.Link type="submit" href="my-cart"
             onClick={()=>{
             history.push("/my-cart")
             }}
