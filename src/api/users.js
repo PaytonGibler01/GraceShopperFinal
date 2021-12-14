@@ -15,7 +15,7 @@ export async function getUsers() {
   }
   export async function loginUser(userName, password) {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/login`, {
+      const { data } = await axios.post(`blooming-caverns-77947.herokuapp.com/api/users/login`, {
        
           username: userName,
           password: password,
@@ -33,7 +33,7 @@ export async function getUsers() {
   }
   export async function registerUser(userName, password, email) {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/register`, {
+      const { data } = await axios.post(`blooming-caverns-77947.herokuapp.com/api/users/register`, {
        
           username: userName,
           password: password,
@@ -68,7 +68,7 @@ export async function getUsers() {
 
   export async function AddProductToCart( productId, cartId ) {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/cart/add`, {
+      const { data } = await axios.post(`blooming-caverns-77947.herokuapp.com/users/cart/add`, {
        
         productId: productId,
         cartId : cartId ,
@@ -79,26 +79,12 @@ export async function getUsers() {
     }
   }
 
-  // export async function deleteFromCart( id ) {
-  //   try {
-  //     const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
-
-  //       headers: {
-  //                 "Content-Type": "application/json",
-        
-  //               }
-  //     });
-  //     return data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 
   export async function deleteFromCart(id) {
     const myToken = getToken();
   
     try {
-      const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
+      const { data } = await axios.delete(`blooming-caverns-77947.herokuapp.com/api/users/cart/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -3,7 +3,7 @@ import { storeToken, getToken, storeUser } from "../auth";
 
 export async function getProducts() {
   try {
-    const { data } = await axios.get(`http://localhost:5000/api/products`, {
+    const { data } = await axios.get(`http://blooming-caverns-77947.herokuapp.com/api/products`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -16,7 +16,7 @@ export async function getProducts() {
 export async function getProductByIdRoute(productId) {
   console.log(productId,"productId at api product")
   try {
-    const { data:[product] } = await axios.get(`http://localhost:5000/api/products/${productId}`, {
+    const { data:[product] } = await axios.get(`blooming-caverns-77947.herokuapp.com${productId}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,7 +30,7 @@ export async function getProductByIdRoute(productId) {
 export async function getReviews() {
   try {
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/reviews`,
+      `blooming-caverns-77947.herokuapp.com/api/products/reviews`,
       {
         headers: { "Content-Type": "application/json" },
       }
@@ -45,7 +45,7 @@ export async function deleteThisProduct(id) {
   const myToken = getToken();
 
   try {
-    const { data } = await axios.delete(`http://localhost:5000/api/products/${id}`, {
+    const { data } = await axios.delete(`blooming-caverns-77947.herokuapp.com/api/products/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
