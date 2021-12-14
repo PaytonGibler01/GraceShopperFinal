@@ -18,7 +18,7 @@ const {
   getAllUsers,
 } = require("./users");
 
-const { createCart, createCart_Item, getAllItemsByCartId } = require("./cart");
+const { createCart, createCart_Item, getAllItemsByCartId, getCartItems} = require("./cart");
 const { createReview, addReviewsToProduct } = require("./reviews");
 const client = require("./client");
 
@@ -215,8 +215,11 @@ async function createInitialCart() {
     const cart = await createCart(1);
     console.log(cart, "Cart Log");
     await createCart_Item({ productId: 1, cartId: 1 });
+    await createCart_Item({ productId: 2, cartId: 1 });
     await getAllItemsByCartId({ cartId: 1 });
+    await getCartItems()
     console.log("Finished creating cart!");
+
   } catch (error) {
     console.error(error);
   }
@@ -228,4 +231,5 @@ module.exports = {
   createInitialReviews,
   createInitialCategories,
   createInitialCart,
+ 
 };

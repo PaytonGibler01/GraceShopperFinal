@@ -35,14 +35,14 @@ usersRouter.get("/cart", async (req, res, next) => {
   console.log(cart,"getCart result /cart route")
   if (cart){
     console.log(cart,"cart stuff exists")
-    const [cartItems] = await getCartItems()
-    console.log([cartItems],"what we get back from getCartItems")
+    const cartItems = await getCartItems()
+    console.log(cartItems,"what we get back from getCartItems")
     //    ^^^^^^  this sends cartItems to help another component, but causes the cart component functions to not work,
     // which explains why I stopped seeing productId once we fixed another components issue
-    console.log({cartItems},"what we actually send to api function for cart")
+    console.log(cartItems,"what we actually send to api function for cart")
 
     res.send(
-    {cartItems}
+   cartItems
     );
   }
     if(!cart){

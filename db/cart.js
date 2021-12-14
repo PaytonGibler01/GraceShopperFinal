@@ -141,7 +141,9 @@ async function getCartItems() {
       FROM cart_items
         `
     );
+    console.log(rows,"db rows getCartItems")
     return rows
+   
   } catch (error) {
     throw error;
   }

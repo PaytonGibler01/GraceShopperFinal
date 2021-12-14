@@ -55,12 +55,12 @@ export async function getUsers() {
           "Content-Type": "application/json",
         },
       });
-      console.log(data,"at api getCart data")
+      //  console.log(data,"at api getCart data")
       // console.log(cartItems,"at api getCart data")
-      const arr = []
-      arr.push(data)
-      console.log(arr,"at api getCart arr")
-      return arr;
+      // const arr = []
+      // arr.push(data)
+      // console.log(arr,"at api getCart arr")
+      return data;
     } catch (error) {
       throw error;
     }
