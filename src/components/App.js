@@ -35,24 +35,24 @@ const App = () => {
 
   const fetchAllReviews = async () => {
     const data = await getReviews();
-    console.log(data, "fetchAllReviews");
+    // console.log(data, "fetchAllReviews");
     setAllReviews(data);
   };
 
   const fetchAllProducts = async () => {
     const data = await getProducts();
     setProducts(data);
-    console.log(products, "useEffect getAllProducts");
+    // console.log(products, "useEffect getAllProducts");
   };
   const fetchAllCartItems = async () => {
     const data = await getCartRoute();
     setCartItems(data);
-    console.log(data, "useEffect getCart");
+    // console.log(data, "useEffect getCart");
   };
   const fetchAllUsers = async () => {
     const data = await getUsers();
     setAllUsers(data);
-    console.log(allUsers, "useEffect allUser");
+    // console.log(allUsers, "useEffect allUser");
   };
   useEffect(() => {
     fetchAllCartItems();

@@ -14,13 +14,15 @@ export async function getProducts() {
   }
 }
 export async function getProductByIdRoute(productId) {
+  console.log(productId,"productId at api product")
   try {
-    const { data } = await axios.get(`http://localhost:5000/api/products/${productId}`, {
+    const { data:[product] } = await axios.get(`http://localhost:5000/api/products/${productId}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return data;
+    console.log(product,"data at api products")
+    return product;
   } catch (error) {
     throw error;
   }
