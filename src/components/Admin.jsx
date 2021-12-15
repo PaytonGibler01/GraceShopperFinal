@@ -13,7 +13,7 @@ const Admin = ({allUsers, products}) => {
               <div>
                 <Link
                   to={`/products/${product.id}`}
-                  key={product.id}
+                  key={`admin:${product.id}`}
                   className="link-tag"
                 >
                   <h4 className="Product">{product.name} </h4>
@@ -23,7 +23,7 @@ const Admin = ({allUsers, products}) => {
                   onClick={(event) => {
                     event.preventDefault();
                     try {
-                      deleteThisProduct(productId);
+                      deleteThisProduct(product.id);
                       history.push("/products")
                     } catch (error) {
                       console.error(error);

@@ -25,8 +25,9 @@ const SingleProductsPage = ({
     console.log(isSeller, "11111111111111111111111111111111111111111111111111111111111")
     return product.id == productId;
   });
+  console.log(allReviews, "77777777")
   const compReview = allReviews.find((review) => review.productId == productId);
-  console.log(compProduct, "Comp Product Log");
+
   let userId = 1;
 
   if (!compProduct) {
