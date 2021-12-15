@@ -1,6 +1,6 @@
 import axios from "axios";
 import { storeToken, getToken, storeUser } from "../auth";
-const BASE = 'http://blooming-caverns-77947.herokuapp.com/api'
+const BASE = 'https://blooming-caverns-77947.herokuapp.com/api'
 
 
 export async function getProducts() {
