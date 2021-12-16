@@ -26,6 +26,23 @@ usersRouter.use("/", (req, res, next) => {
   })
 
 //api/users/cart
+usersRouter.post("/cart/add", async (req, res, next) => {
+  try {
+    console.log("Get Request was made to /cart/add")
+  const { productId, cartId } = req.body;
+    console.log("CARTID", cartId)
+    console.log("ProductID", productId)
+    const cart = await createCart_Item({ productId, cartId })
+  res.send(
+    cart
+  );
+  } catch (error) {
+    next(error)
+  }
+  
+});
+
+
 usersRouter.get("/cart", async (req, res, next) => {
   console.log("Get Request was made to /cart")
 
@@ -57,21 +74,6 @@ usersRouter.get("/cart", async (req, res, next) => {
   }
 });
 
-usersRouter.post("/cart/add", async (req, res, next) => {
-  try {
-    console.log("Get Request was made to /cart/add")
-  const { productId, cartId } = req.body;
-    console.log("CARTID", cartId)
-    console.log("ProductID", productId)
-    const cart = await createCart_Item({ productId, cartId })
-  res.send(
-    cart
-  );
-  } catch (error) {
-    next(error)
-  }
-  
-});
 
 usersRouter.delete("/cart/:productId", async (req, res, next) => {
   try {

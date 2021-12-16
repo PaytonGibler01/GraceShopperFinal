@@ -10,6 +10,8 @@ export async function getProducts() {
         "Content-Type": "application/json",
       },
     });
+
+    console.log("DATA", data)
     return data;
   } catch (error) {
     throw error;

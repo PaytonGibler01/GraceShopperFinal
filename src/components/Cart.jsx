@@ -28,6 +28,8 @@ const Cart = ({ cartItems, setCartItems }) => {
   useEffect(() => {
     fetchCartItems();
   }, [cartItems]);
+
+
   return (
     <>
       <header>

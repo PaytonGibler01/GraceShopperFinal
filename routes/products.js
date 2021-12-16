@@ -8,21 +8,12 @@ const {
 const {getAllReviews} = require("../db/reviews")
 
 
-productsRouter.get("/", async (req, res, next) => {
-  console.log("Use Request was made to /products");
-  try {
-    const products = await getAllProducts();
-  res.send(products);
-  } catch (error) {
-    next(error);
-  }
-});
 
 productsRouter.get("/reviews", async (req, res, next) => {
   console.log("A request was made to products/reviews")
   try {
     const reviews = await getAllReviews();
-  // console.log(reviews, "route reviews")
+
   res.send(reviews)
   } catch (error) {
     next(error)
@@ -54,6 +45,17 @@ productsRouter.delete("/:productId", async (req, res, next) => {
     await deleteProduct(productId)
 })
 
+
+productsRouter.get("/", async (req, res, next) => {
+  console.log("Use Request was made to /products");
+  try {
+    const products = await getAllProducts();
+    console.log("products", products)
+  res.send(products);
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 module.exports = productsRouter;

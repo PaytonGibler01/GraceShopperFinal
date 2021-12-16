@@ -7,8 +7,8 @@ import {Navbar, Nav, Container} from 'react-bootstrap'
 import "./NavBar.css"
 
 const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
-    const myUser = getUser()
-    if (myUser){setIsLoggedIn(true)}
+    // const myUser = getUser()
+    // if (myUser){setIsLoggedIn(true)}
     const history = useHistory()
     return (
       <>

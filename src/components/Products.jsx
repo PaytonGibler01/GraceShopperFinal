@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./Products.css"
 
 const Products = ({ products }) => {
+  console.log("PRODUCTS", products)
   return (
     <div className="products-main-container">
       {products.length

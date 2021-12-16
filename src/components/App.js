@@ -7,7 +7,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-
+import { getUser } from "../auth";
 import { getProducts, getReviews } from "../api/products";
 import { getCartRoute, getUsers } from "../api/users";
 import {
@@ -42,7 +42,7 @@ const App = () => {
   const fetchAllProducts = async () => {
     const data = await getProducts();
     setProducts(data);
-    // console.log(products, "useEffect getAllProducts");
+    console.log(products, "useEffect getAllProducts");
   };
   const fetchAllCartItems = async () => {
     const data = await getCartRoute();
@@ -54,11 +54,19 @@ const App = () => {
     setAllUsers(data);
     // console.log(allUsers, "useEffect allUser");
   };
+
+  const ifLoggedIn = () => {
+    const myUser = getUser()
+    if (myUser){setIsLoggedIn(true)}
+  };
+
+
   useEffect(() => {
     fetchAllCartItems();
     fetchAllProducts();
     fetchAllReviews();
     fetchAllUsers();
+    ifLoggedIn();
   }, [isAdmin]);
 
   return (
