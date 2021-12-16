@@ -8,11 +8,12 @@ import "./NavBar.css"
 
 const NavBar = ({isLoggedIn, setIsLoggedIn, isAdmin}) =>{
     const myUser = getUser()
+    if (myUser){setIsLoggedIn(true)}
     const history = useHistory()
     return (
       <>
 
-<br />
+    <br />
       <Navbar className="navbar" bg="primary" variant="dark">
         <Container>
 
