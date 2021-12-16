@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { storeToken, getToken, storeUser } from "../auth";
+const BASE = 'https://blooming-caverns-77947.herokuapp.com/api'
 
 export async function getUsers() {
     try {
@@ -15,7 +16,7 @@ export async function getUsers() {
   }
   export async function loginUser(userName, password) {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/login`, {
+      const { data } = await axios.post(`${BASE}/users/login`, {
        
           username: userName,
           password: password,
@@ -33,7 +34,7 @@ export async function getUsers() {
   }
   export async function registerUser(userName, password, email) {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/register`, {
+      const { data } = await axios.post(`${BASE}/users/register`, {
        
           username: userName,
           password: password,
@@ -50,16 +51,11 @@ export async function getUsers() {
   export async function getCartRoute() {
 
     try {
-      const { data }  = await axios.get(`/api/users/cart`, {
+      const { data }  = await axios.get(`${BASE}/users/cart`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      //  console.log(data,"at api getCart data")
-      // console.log(cartItems,"at api getCart data")
-      // const arr = []
-      // arr.push(data)
-      // console.log(arr,"at api getCart arr")
       return data;
     } catch (error) {
       throw error;
@@ -68,7 +64,7 @@ export async function getUsers() {
 
   export async function AddProductToCart( productId, cartId ) {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/cart/add`, {
+      const { data } = await axios.post(`${BASE}/users/cart/add`, {
        
         productId: productId,
         cartId : cartId ,
@@ -79,26 +75,12 @@ export async function getUsers() {
     }
   }
 
-  // export async function deleteFromCart( id ) {
-  //   try {
-  //     const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
-
-  //       headers: {
-  //                 "Content-Type": "application/json",
-        
-  //               }
-  //     });
-  //     return data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 
   export async function deleteFromCart(id) {
     const myToken = getToken();
   
     try {
-      const { data } = await axios.delete(`http://localhost:5000/api/users/cart/${id}`, {
+      const { data } = await axios.delete(`${BASE}/users/cart/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
